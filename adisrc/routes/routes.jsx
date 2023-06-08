@@ -15,9 +15,6 @@
 // })}
 
 import Sitemap from "../components/Sitemap";
-import Enquire from '../components/subPages/contact/Enquire';
-import LatestNews from '../components/subPages/LatestNews';
-import Contact from '../pages/ContactPage';
 
 import { AboutUs } from "../components/subPages/about/AboutUs";
 import { OurMethod } from "../components/subPages/about/OurMethod";
@@ -25,7 +22,6 @@ import { OurTeam } from "../components/subPages/about/OurTeam";
 import { Testimonials } from "../components/subPages/about/Testimonials";
 import { Events } from "../components/subPages/about/Events";
 import { Career } from "../components/subPages/about/Career";
-import { Associations } from "../components/subPages/about/Associations";
 
 import { EnclosureDesign } from '../components/subPages/services/EnclosureDesign';
 import { Monitoring } from '../components/subPages/services/Monitoring';
@@ -37,8 +33,9 @@ import { Testing } from '../components/subPages/services/Testing';
 import { Investigation } from '../components/subPages/services/Investigation';
 import { Compliance } from '../components/subPages/services/Compliance';
 
+
 export const pageRoutes = [
-  { path: "about", element: <AboutUs />, name: "About" },
+  { path: "about", element: <h1>About</h1>, name: "About" },
   { path: "services", element: <h1>Services</h1>, name: "Services" },
   { path: "learn", element: <h1>Learn</h1>, name: "Learn" },
   {
@@ -71,9 +68,9 @@ export const homeRoutes = [
     element: <Sitemap routes={pageRoutes} centerText={'Oculus'} />,
     name: "Sitemap",
   },
-  { path: "latest-news", element: <LatestNews />, name: "Latest News" },
-  { path: "contact", element: <Contact />, name: "Contact" },
-  { path: "enquire", element: <Enquire />, name: "Enquire Here" },
+  { path: "latest-news", element: <h1>Latest News</h1>, name: "Latest News" },
+  { path: "contact", element: <h1>Contact</h1>, name: "Contatct" },
+  { path: "enquire", element: <h1>Enquire Here</h1>, name: "Enquire Here" },
 ];
 
 export const aboutRoutes = [
@@ -89,7 +86,7 @@ export const aboutRoutes = [
   { path: "about/career", element: <Career />, name: "Career" },
   {
     path: "about/associations",
-    element: <Associations />,
+    element: <h1>Associations</h1>,
     name: "Associations",
   },
 ];
@@ -125,15 +122,4 @@ export const servicesRoutes = [
 export const servicesRoutesRender = [
   { path: "sitemap-about", element: <Sitemap routes={servicesRoutes} centerText={'Oculus Services'} />, name: 'About Sitemap' },
   ...servicesRoutes,
-];
-
-export const learnRoutes = [
-  {
-    path: "sitemap",
-    element: <Sitemap routes={pageRoutes} />,
-    name: "Sitemap",
-  },
-  { path: "tools-resources", element: <h1>ToolsResources</h1>, name: "Tools & Resources" },
-  { path: "podcasts", element:<h1>Podcasts</h1>, name: "Podcasts" },
-  { path: "blog-bs", element: <h1>BlogBS</h1>, name: "Blog & BS" },
 ];

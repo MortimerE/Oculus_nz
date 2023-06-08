@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Grid,
+  Dialog,
+  DialogContent,
+  DialogTitle,
   Typography,
   TextField,
   MenuItem,
@@ -8,16 +11,20 @@ import {
   Checkbox,
   Button,
 } from "@mui/material";
+import { useLocation } from 'react-router-dom';
 
-const Register = () => {
+const Register = ({ onClose, selectedSeminars: defaultSeminars }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [role, setRole] = useState("");
-  const [selectedSeminars, setSelectedSeminars] = useState([]);
+  //const [selectedSeminars, setSelectedSeminars] = useState([]);
   const [questions, setQuestions] = useState("");
   const [howDidYouHear, setHowDidYouHear] = useState("");
   const [receiveNews, setReceiveNews] = useState(false);
+
+  const location = useLocation();
+  const defaultSeminar = location.state?.seminar || [];
 
   const handleSeminarsChange = (event) => {
     setSelectedSeminars(event.target.value);
@@ -26,25 +33,37 @@ const Register = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle form submission logic here
+    onClose();
   };
 
   const handleHowDidYouHearChange = (event) => {
     setHowDidYouHear(event.target.value);
   };
+
+  const [selectedSeminars, setSelectedSeminars] = useState(defaultSeminar);
+
+  useEffect(() => {
+    setSelectedSeminars(defaultSeminar);
+  }, [defaultSeminar]);
   
 
   return (
+    <Dialog open onClose={onClose}>
+      <DialogContent>
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Typography variant="h4" align="center">
+        <DialogTitle>
+          Register Here
+        </DialogTitle>
+        <Typography variant="h4" align="center" color="0000000">
           Register Here
         </Typography>
-        <hr />
         <Typography variant="body1">
           Keen to join us for all our seminars in 2023? Register below! Thursdays,
           3:30pm - 4:30pm, online. Don't worry if you can't make it, we will send
           out a recording afterwards. (Online events only)
         </Typography>
+        <hr />
       </Grid>
       <Grid item xs={12} md={6}>
         <TextField
@@ -146,6 +165,8 @@ const Register = () => {
         </Button>
       </Grid>
     </Grid>
+    </DialogContent>
+    </Dialog>
   );
         }
         export default Register;

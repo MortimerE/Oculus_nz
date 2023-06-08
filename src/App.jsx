@@ -25,9 +25,9 @@ const App = () => {
           <Box>
             <NavBar />
           </Box>
-          <Box flexGrow={1}>
+          <div style={{display:"flex", flexDirection: 'column', width: '100%', alignItems: 'center'}} flexgrow={1}>
             <BaseRoutes />
-          </Box>
+          </div>
           <Box>
             <Footer />
           </Box>

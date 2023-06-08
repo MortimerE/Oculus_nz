@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { Link as ScrollLink } from 'react-scroll';
 import { styled } from '@mui/material/styles';
 import { Popper, AppBar, Toolbar, Typography, IconButton, Box, MenuItem, Menu, ListItemIcon } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -185,7 +186,11 @@ const NavBar = () => {
            <MenuItem onClick={handleClose} component={Link} to="/learn/newsletter">Newsletter</MenuItem>
            </Dropdown>
 
-           <Dropdown label="Contact" link="/contact">
+           <Dropdown label="Contact">
+              <ScrollLink to="contact" spy={true} smooth={true} duration={500}>
+                <MenuItem onClick={handleClose}>
+                  Contact Us
+              </MenuItem></ScrollLink>
            <MenuItem onClick={handleClose} component={Link} to="/contact/linkedin">LinkedIn</MenuItem>
            </Dropdown>
         </DropdownContainer>
