@@ -1,6 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
+import { Button } from '@mui/material';
 
 const GridItem = styled(Box)(({ theme }) => ({
   gridColumn: "span 1",
@@ -21,9 +22,37 @@ const ActiveGridItem = styled(GridItem)({
   gridRow: "span 2",
 });
 
-export const Sitemap = (props) => {
-  const { routes } = props;
+export const Sitemap = ({ initialRoutes }) => {
   const [activeIndex, setActiveIndex] = React.useState(-1);
+  const [routesStack, setRoutesStack] = React.useState([initialRoutes]);
+
+  const handleTileClick = (index) => {
+    setActiveIndex(index);
+    if (index === -1) {
+      return;
+    }
+    
+    // Here, you need to have a mapping of route names to their corresponding route array
+    const newRoutes = {
+      "About": aboutRoutes,
+      "Services": servicesRoutes,
+      "Learn": learnRoutes,
+      // ...add other mappings here
+    }[routesStack[routesStack.length - 1][index].name];
+    
+    if (newRoutes) {
+      setRoutesStack([...routesStack, newRoutes]);
+    }
+  };
+  
+  const handleBackClick = () => {
+    if (routesStack.length > 1) {
+      setRoutesStack(routesStack.slice(0, -1));
+    }
+    setActiveIndex(-1);
+  };
+  
+  const routes = routesStack[routesStack.length - 1];
 
   React.useEffect(() => {
     setActiveIndex(-1);
@@ -84,6 +113,9 @@ export const Sitemap = (props) => {
           </GridItem>
         )
       ))}
+      <Button variant="contained" color="primary" onClick={handleBackClick} style={{ alignSelf: 'flex-end', marginTop: '1rem' }}>
+        Go Back
+      </Button>
     </Box>
   );
 };

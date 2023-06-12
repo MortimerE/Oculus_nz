@@ -5,6 +5,8 @@ import BaseRoutes from "./navigation/BaseRoutes";
 import { BrowserRouter as Router } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import { ScrollContext } from './contexts/ScrollContext';
+import React from 'react';
 
 const theme = createTheme({
   palette: {
@@ -18,8 +20,10 @@ const theme = createTheme({
 });
 
 const App = () => {
+  const [scrollTo, setScrollTo] = React.useState("");
   return (
     <ThemeProvider theme={theme}>
+      <ScrollContext.Provider value={{ scrollTo, setScrollTo }}>
       <Router>
         <Box display="flex" flexDirection="column" minHeight="100vh">
           <Box>
@@ -33,6 +37,7 @@ const App = () => {
           </Box>
         </Box>
       </Router>
+      </ScrollContext.Provider>
     </ThemeProvider>
   );
 };

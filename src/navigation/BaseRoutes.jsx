@@ -12,9 +12,9 @@ import Enquire from '../components/subPages/contact/Enquire';
 import LoginPage from '../components/subPages/account/login';
 import Manage from '../components/subPages/account/Manage';
 import AccountCreation from '../components/subPages/account/CreateAccount';
-import RequestsPage from '../components/subPages/learn/Requests';
-import Register from '../components/subPages/learn/Register';
-import NewsletterSignUpPage from '../components/subPages/learn/Newsletter';
+import RequestsPage from '../components/subPages/contact/Requests';
+import Register from '../components/subPages/contact/Register';
+import NewsletterSignUpPage from '../components/subPages/contact/NewsletterSignUp';
 
 // import { homeRoutes, aboutRoutes } from "../routes/routes";
 
@@ -26,7 +26,7 @@ export const BaseRoutes = () => {
       <Route path="/services" element={<ServicesPage />} />
       <Route path="/portfolio" element={<PortfolioPage />} />
       <Route path="/learn" element={<LearnPage />} />
-      <Route path="/learn/newsletter" element={<NewsletterSignUpPage />} />
+      <Route path="/learn/newsletter-sign-up" element={<NewsletterSignUpPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<AccountCreation />} />
       <Route path="/contact" element={<Contact />} />

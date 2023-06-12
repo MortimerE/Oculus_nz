@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Typography, Button, Grid, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
-import Register from './learn/Register.jsx';
+import Register from './contact/Register.jsx';
 
 // Styled Components
 const Title = styled(Typography)`

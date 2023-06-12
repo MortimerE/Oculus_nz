@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { ScrollContext } from '../../contexts/ScrollContext';
 import { Link as ScrollLink } from 'react-scroll';
 import { styled } from '@mui/material/styles';
 import { Popper, AppBar, Toolbar, Typography, IconButton, Box, MenuItem, Menu, ListItemIcon } from '@mui/material';
@@ -21,7 +22,8 @@ const StyledAppBar = styled(AppBar)`
 
 const StyledToolbar = styled(Toolbar)`
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;  // Aligns children horizontally
+  justify-content: space-around; // Distributes children evenly with space around them
 `;
 
 const StyledMenu = styled(Menu)`
@@ -46,47 +48,55 @@ const NavBar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const { setScrollTo } = React.useContext(ScrollContext);
+
+  const handleScroll = (scrollTarget) => {
+    setScrollTo(scrollTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const Dropdown = ({ label, children }) => {
-    const [open, setOpen] = useState(false);
-    const anchorRef = useRef(null);
+  const DropdownContainer = styled(Box)`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 4vw;
+    cursor: pointer;
+  `;
 
-    const handleMouseEnter = () => {
-      setOpen(true);
-    };
 
-    const handleMouseLeave = () => {
-      setOpen(false);
-    };
+  const DropdownItems = styled(Box)`
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    color: black;
+  `;
 
+  const Dropdown = ({ label, link, children }) => {
     return (
-      <Box onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-        <Typography ref={anchorRef} style={{ color: 'white', cursor: 'pointer' }}>
-          <Link to={`/${label.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>{label}</Link>
+      <DropdownContainer
+        onMouseEnter={() => {
+          document.getElementById(label).style.display = 'block';
+        }}
+        onMouseLeave={() => {
+          document.getElementById(label).style.display = 'none';
+        }}
+      >
+        <Typography style={{ color: 'white' }}>
+          <Link to={link} style={{ textDecoration: 'none', color: 'inherit' }}>{label}</Link>
         </Typography>
-        <Popper open={open} anchorEl={anchorRef.current} role={undefined} placement="top-start">
-          <Box onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <StyledMenu
-              open={open}
-              onClose={handleMouseLeave}
-              MenuListProps={{
-                'aria-labelledby': 'basic-button',
-              }}
-            >
-              {children}
-            </StyledMenu>
-          </Box>
-        </Popper>
-      </Box>
+        <DropdownItems id={label}>
+          {children}
+        </DropdownItems>
+      </DropdownContainer>
     );
   };
+
+
 
   const Logo = styled('img')`
   max-height: 10vh;
@@ -97,10 +107,6 @@ const NavBar = () => {
   padding: 5px;
 `;
 
-  const DropdownContainer = styled(Box)`
-    display: flex;
-    gap: 1rem;
-    `;
 
     const [searchAnchorEl, setSearchAnchorEl] = useState(null);
     const [userAnchorEl, setUserAnchorEl] = useState(null);
@@ -130,33 +136,58 @@ const NavBar = () => {
           </Link>
           <DropdownContainer>
             <Dropdown label="About" link="/about">
-              <MenuItem onClick={handleClose} component={Link} to="/about/about-us">
-                About Us
-              </MenuItem>
-              <MenuItem onClick={handleClose} component={Link} to="/about/our-team">
-                Our Team
-              </MenuItem>
-              <MenuItem onClick={handleClose} component={Link} to="/about/our-method">Our Method</MenuItem>
-              <MenuItem onClick={handleClose} component={Link} to="/about/portfolio">Portfolio</MenuItem>
-              <MenuItem onClick={handleClose} component={Link} to="/about/testimonials">Testimonials</MenuItem>
-              <MenuItem onClick={handleClose} component={Link} to="/about/events">Events</MenuItem>
-              <MenuItem onClick={handleClose} component={Link} to="/about/career">Career</MenuItem>
-              <MenuItem onClick={handleClose} component={Link} to="/about/associations">Associations</MenuItem>
-            </Dropdown>
+            <Link to="/about" onClick={() => handleScroll('about-us')}>
+              <MenuItem>About Us</MenuItem>
+            </Link>
+            <Link to="/about" onClick={() => handleScroll('our-team')}>
+              <MenuItem>Our Team</MenuItem>
+            </Link>
+            <Link to="/about" onClick={() => handleScroll('our-method')}>
+              <MenuItem>Our Method</MenuItem>
+            </Link>
+            <Link to="/about" onClick={() => handleScroll('testimonials')}>
+              <MenuItem>Testimonials</MenuItem>
+            </Link>
+            <Link to="/about" onClick={() => handleScroll('events')}>
+              <MenuItem>Events</MenuItem>
+            </Link>
+            <Link to="/about" onClick={() => handleScroll('career')}>
+              <MenuItem>Career</MenuItem>
+            </Link>
+            <Link to="/about" onClick={() => handleScroll('associations')}>
+              <MenuItem>Associations</MenuItem>
+            </Link>
+          </Dropdown>
 
-            <Dropdown label="Services" link="/services">
-            <MenuItem onClick={handleClose} component={Link} to="/services/building-enclosure">Building Enclosure</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/services/design">Design</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/services/construction">Construction</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/services/monitoring-ps4">Monitoring & PS4</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/services/passive-house">Passive House</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/services/component-design">Component Design</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/services/ps1">PS1</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/services/modeling">Modeling</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/services/testing">Testing</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/services/investigation-retrofit">Investigation & Retrofit</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/services/product-compliance-engineering">Product Compliance & Engineering</MenuItem>
-            </Dropdown>
+          <Dropdown label="Services" link="/services">
+            <Link to="/services" onClick={() => handleScroll('enclosure-design')}>
+              <MenuItem>Enclosure Design</MenuItem>
+            </Link>
+            <Link to="/services" onClick={() => handleScroll('construction-monitoring')}>
+              <MenuItem>Construction Monitoring</MenuItem>
+            </Link>
+            <Link to="/services" onClick={() => handleScroll('passive-house')}>
+              <MenuItem>Passive Design</MenuItem>
+            </Link>
+            <Link to="/services" onClick={() => handleScroll('passive-house2')}>
+              <MenuItem>Passive Certification</MenuItem>
+            </Link>
+            <Link to="/services" onClick={() => handleScroll('component-design')}>
+              <MenuItem>Component Design</MenuItem>
+            </Link>
+            <Link to="/services" onClick={() => handleScroll('modelling')}>
+              <MenuItem>Modelling</MenuItem>
+            </Link>
+            <Link to="/services" onClick={() => handleScroll('testing')}>
+              <MenuItem>Testing</MenuItem>
+            </Link>
+            <Link to="/services" onClick={() => handleScroll('investigation')}>
+              <MenuItem>Investigation & Retrofit</MenuItem>
+            </Link>
+            <Link to="/services" onClick={() => handleScroll('compliance')}>
+              <MenuItem>Product Compliance & Engineering</MenuItem>
+            </Link>
+          </Dropdown>
 
             <Dropdown label="Portfolio" link="/portfolio">
             <MenuItem onClick={handleClose} component={Link} to="/portfolio/banff-avenue">Banff Avenue</MenuItem>
@@ -177,20 +208,36 @@ const NavBar = () => {
            </Dropdown>
 
            <Dropdown label="Learn" link="/learn">
-           <MenuItem onClick={handleClose} component={Link} to="/learn/tools-resources">Tools & Resources</MenuItem>
-           <MenuItem onClick={handleClose} component={Link} to="/learn/nzbc-h1">NZBC H1</MenuItem>
-           <MenuItem onClick={handleClose} component={Link} to="/learn/changes">Changes</MenuItem>
-           <MenuItem onClick={handleClose} component={Link} to="/learn/podcasts">Podcasts</MenuItem>
-           <MenuItem onClick={handleClose} component={Link} to="/learn/bs-bs-seminars">BS+BS Seminars</MenuItem>
-           <MenuItem onClick={handleClose} component={Link} to="/learn/blog-bs">Blog + BS</MenuItem>
-           <MenuItem onClick={handleClose} component={Link} to="/learn/newsletter">Newsletter</MenuItem>
-           </Dropdown>
+            <Link to="/learn" onClick={() => handleScroll('tools-resources')}>
+              <MenuItem>Tools & Resources</MenuItem>
+            </Link>
+            <Link to="/learn" onClick={() => handleScroll('nzbc-changes')}>
+              <MenuItem>NZBC H1</MenuItem>
+            </Link>
+            <Link to="/learn" onClick={() => handleScroll('science-seminars')}>
+              <MenuItem>BS+BS Seminars</MenuItem>
+            </Link>
+            <Link to="/learn" onClick={() => handleScroll('podcasts')}>
+              <MenuItem>20 Degrees</MenuItem>
+            </Link>
+            <Link to="/learn" onClick={() => handleScroll('podcasts2')}>
+              <MenuItem>Gab Learns</MenuItem>
+            </Link>
+            <Link to="/learn" onClick={() => handleScroll('blog-bs')}>
+              <MenuItem>Blog + BS</MenuItem>
+            </Link>
+            <Link to="/learn" onClick={() => handleScroll('blog-articles')}>
+              <MenuItem>Articles</MenuItem>
+            </Link>
+            <Link to="/learn" onClick={() => handleScroll('newsletter')}>
+              <MenuItem>Newsletter</MenuItem>
+            </Link>
+          </Dropdown>
 
-           <Dropdown label="Contact">
-              <ScrollLink to="contact" spy={true} smooth={true} duration={500}>
-                <MenuItem onClick={handleClose}>
-                  Contact Us
-              </MenuItem></ScrollLink>
+          <Dropdown label="Contact">
+            <ScrollLink to="contact" spy={true} smooth={true} duration={500}>
+              <MenuItem>Contact Us</MenuItem>
+            </ScrollLink>
            <MenuItem onClick={handleClose} component={Link} to="/contact/linkedin">LinkedIn</MenuItem>
            </Dropdown>
         </DropdownContainer>

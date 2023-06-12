@@ -1,37 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { ToolsAndResourcesItem } from '../components/subPages/toolsAndResources/ToolsAndResourcesItem';
-import { ToolsAndResourcesOverview } from '../components/subPages/toolsAndResources/ToolsAndResourcesOverview';
-import Sitemap from './Sitemap';
-import axios from 'axios';
+import React from 'react';
+import { Box, Typography, Button, Grid } from '@mui/material';
+import { styled } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
 
-export const ToolsAndResourcesPage = () => {
-  const [toolsAndResourcesItems, setToolsAndResourcesItems] = useState([]);
+const Underline = styled('hr')({
+  borderColor: '#000000',
+  borderWidth: '1px',
+});
+
+const GridItem = styled(Box)(({ theme }) => ({
+  background: "#FFFFFF",
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100%',
+  padding: theme.spacing(1),
+  boxSizing: 'border-box',
+  borderRadius: '8px',
+  cursor: 'pointer',
+}));
+
+const toolsAndResourcesItems = [
+  "NZBC H1 CHANGES SUMMARY",
+  "BADER VENTURA CASE STUDY",
+  "HOMESTAR V5",
+  "THE PARKA WRAP",
+  "HOW TO DESIGN DRY DURABLE...",
+  "SUMMER PLANNING GUIDE",
+  "BUILD WITH WARM ROOFS",
+  "VENTILATION SYSTEMS",
+  "HEALTHY HOMES GUIDE",
+  "FIRE COMPLIANCE OF CLADDING SYSTEMS",
+  "RETROFITTINF WALL INSULATION",
+  "HEALTHY HOME - SUMMER KIT",
+  "HEALTHY HOME - WINTER KIT",
+  "HEALTHY HOME GUIDE",
+  "H1 Pathway"
+];
+
+export const ToolsResources = () => {
   const navigate = useNavigate();
 
-  // Fetch data from Strapi CMS
-  // You would replace 'YOUR_STRAPI_API_ENDPOINT' with the actual endpoint for your tools and resources items
-  useEffect(() => {
-    axios.get('YOUR_STRAPI_API_ENDPOINT') 
-      .then(response => {
-        setToolsAndResourcesItems(response.data);
-      })
-      .catch(error => {
-        console.log('Error fetching tools and resources items:', error);
-      });
-  }, []);
-
-  const handleClick = (itemId) => {
-    navigate(`/tools-and-resources/${itemId}`);
+  const handleItemClick = (itemName) => {
+    const formattedName = itemName.toLowerCase().replaceAll(' ', '');
+    navigate(`/learn/${formattedName}`);
   };
 
   return (
-    <Routes>
-      <Route path="/" element={<ToolsAndResourcesOverview toolsAndResourcesItems={toolsAndResourcesItems} />} />
-      <Route path=":itemId" element={<ToolsAndResourcesItem />} />
-      <Route path="sitemap" element={<Sitemap routes={toolsAndResourcesItems.map(item => ({ path: item.id, name: item.title }))} />} />
-    </Routes>
+    <Box sx={{ display: 'flex', flexDirection: 'row', height: '100vh', padding: '32px' }}>
+      <Box sx={{ flex: '1', paddingRight: '16px' }}>
+        <Typography variant="h3" gutterBottom>Tools & Resources</Typography>
+        <Underline />
+        <Typography variant="body1" gutterBottom>These resources have been created by Oculus to provide advice and guidance. All resource articles follow international best practice, and are backed by science.</Typography>
+        <Typography variant="body1" fontWeight="bold">Is there any specific topic you’d like to learn about / require help with? Drop them below</Typography>
+        <Button variant="contained">I Would Like to Learn About...</Button>
+      </Box>
+
+      <Box sx={{ flex: '1', paddingLeft: '16px', overflowY: 'auto' }}>
+        <Grid container spacing={2}>
+          {toolsAndResourcesItems.map((item, index) => (
+            <Grid item xs={4} key={index}>
+              <GridItem onClick={() => handleItemClick(item)}>{item}</GridItem>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </Box>
   );
 };
 
-export default ToolsAndResourcesPage;
+export default ToolsResources;

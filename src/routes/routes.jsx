@@ -37,6 +37,15 @@ import { Testing } from '../components/subPages/services/Testing';
 import { Investigation } from '../components/subPages/services/Investigation';
 import { Compliance } from '../components/subPages/services/Compliance';
 
+import { ToolsResources } from '../components/subPages/learn/ToolsResources';
+import { H1Changes } from '../components/subPages/learn/H1Changes';
+import { ScienceSeminars } from '../components/subPages/learn/ScienceSeminars';
+import { Podcast } from '../components/subPages/learn/Podcasts';
+import { Podcast2 } from '../components/subPages/learn/Podcasts';
+import { BlogBS } from '../components/subPages/learn/BlogBS';
+import { BlogArticles } from '../components/subPages/learn/BlogArticles';
+import { Newsletter } from '../components/subPages/learn/Newsletter';
+
 export const pageRoutes = [
   { path: "about", element: <AboutUs />, name: "About" },
   { path: "services", element: <h1>Services</h1>, name: "Services" },
@@ -58,7 +67,7 @@ export const pageRoutes = [
     element: <h1>Passive House</h1>,
     name: "Passive House",
   },
-  { path: "podcasts", element: <h1>Podcasts</h1>, name: "Podcasts" },
+  { path: "podcasts", element: <Podcast />, name: "Podcasts" },
   {
     path: "bader-ventura",
     element: <h1>Bader Ventura Case Study</h1>,
@@ -68,7 +77,7 @@ export const pageRoutes = [
 export const homeRoutes = [
   {
     path: "sitemap",
-    element: <Sitemap routes={pageRoutes} centerText={'Oculus'} />,
+    element: <Sitemap initialRoutes={pageRoutes} centerText={'Oculus'} />,
     name: "Sitemap",
   },
   { path: "latest-news", element: <LatestNews />, name: "Latest News" },
@@ -77,30 +86,30 @@ export const homeRoutes = [
 ];
 
 export const aboutRoutes = [
-  { path: "about/about-us", element: <AboutUs />, name: "About Us" },
-  { path: "about/our-team", element: <OurTeam />, name: "Our Team" },
-  { path: "about/our-method", element: <OurMethod />, name: "Our Method" },
+  { path: "about-us", element: <AboutUs />, name: "About Us" },
+  { path: "our-team", element: <OurTeam />, name: "Our Team" },
+  { path: "our-method", element: <OurMethod />, name: "Our Method" },
   {
-    path: "about/testimonials",
+    path: "testimonials",
     element: <Testimonials />,
     name: "Testimonials",
   },
-  { path: "about/events", element: <Events />, name: "Events" },
-  { path: "about/career", element: <Career />, name: "Career" },
+  { path: "events", element: <Events />, name: "Events" },
+  { path: "career", element: <Career />, name: "Career" },
   {
-    path: "about/associations",
+    path: "associations",
     element: <Associations />,
     name: "Associations",
   },
 ];
 
 export const aboutRoutesRender = [
-  { path: "/about/sitemap", element: <Sitemap routes={aboutRoutes} centerText={'About Oculus'} />, name: 'About Sitemap' },
+  { path: "/about/sitemap", element: <Sitemap initialRoutes={aboutRoutes} centerText={'About Oculus'} />, name: 'About Sitemap' },
   ...aboutRoutes,
 ];
 export const servicesRoutes = [
   { path: "enclosure-design", element: <EnclosureDesign />, name: "Building Enclosure Design" },
-  { path: "monitoring", element: <Monitoring />, name: "Construction Monitoring & PS4" },
+  { path: "construction-monitoring", element: <Monitoring />, name: "Construction Monitoring & PS4" },
   { path: "passive-house", element: <PassiveHouse />, name: "Passive House" },
   { path: "passive-house2", element: <PassiveHouse2/>, name: "Passive House2" },
   {
@@ -123,17 +132,22 @@ export const servicesRoutes = [
 ];
 
 export const servicesRoutesRender = [
-  { path: "sitemap-about", element: <Sitemap routes={servicesRoutes} centerText={'Oculus Services'} />, name: 'About Sitemap' },
+  { path: "sitemap-about", element: <Sitemap initialRoutes={servicesRoutes} centerText={'Oculus Services'} />, name: 'About Sitemap' },
   ...servicesRoutes,
 ];
 
 export const learnRoutes = [
-  {
-    path: "sitemap",
-    element: <Sitemap routes={pageRoutes} />,
-    name: "Sitemap",
-  },
-  { path: "tools-resources", element: <h1>ToolsResources</h1>, name: "Tools & Resources" },
-  { path: "podcasts", element:<h1>Podcasts</h1>, name: "Podcasts" },
-  { path: "blog-bs", element: <h1>BlogBS</h1>, name: "Blog & BS" },
+  { path: "tools-resources", element: <ToolsResources />, name: "Tools & Resources" },
+  { path: "nzbc-changes", element: <H1Changes />, name: "NZBC H1 Changes" },
+  { path: "science-seminars", element:<ScienceSeminars />, name: "Building Science + BS Seminars" },
+  { path: "podcasts", element:<Podcast />, name: "Podcasts" },
+  { path: "podcasts2", element:<Podcast2 />, name: "Podcasts2" },
+  { path: "blog-bs", element: <BlogBS />, name: "Blog & BS" },
+  { path: "blog-articles", element: <BlogArticles />, name: "Blog Articles" },
+  { path: "newsletter", element: <Newsletter />, name: "Newsletter" },
+];
+
+export const learnRoutesRender = [
+  { path: "sitemap-learn", element: <Sitemap initialRoutes={learnRoutes} centerText={'Oculus Learn'} />, name: 'Learn Sitemap' },
+  ...learnRoutes,
 ];
