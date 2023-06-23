@@ -1,5 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
+import { styled } from '@mui/system';
+import NewsLetterSignUpPage from '../contact/NewsletterSignUp';
+
+const Overlay = styled(Box)(({ theme }) => ({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  background: 'rgba(0,0,0,0.5)', // Opaque
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: 1000, // High z-index to ensure it's on top of all other elements
+}));
 
 export const Newsletter = () => {
   const InstagramFeedPlaceholder = () => (
@@ -9,6 +24,8 @@ export const Newsletter = () => {
       </Typography>
     </Box>
   );
+
+  const [overlayVisible, setOverlayVisible] = useState(false);
 
   const newsletterUrl = '#'; // Replace with the URL to your newsletter sign up page
 
@@ -28,9 +45,12 @@ export const Newsletter = () => {
         <Typography variant="body1" component="div">
           Interested in updates from us? Sign up below.
         </Typography>
-        <Button variant="contained" href={newsletterUrl} target="_blank" rel="noreferrer">
-          SIGN ME UP
-        </Button>
+        <Button variant="contained" onClick={() => setOverlayVisible(true)}>SIGN ME UP</Button>
+        {overlayVisible && (
+          <Overlay>
+            <NewsLetterSignUpPage onClose={() => setOverlayVisible(false)} />
+          </Overlay>
+        )}
       </Box>
     </Box>
   );

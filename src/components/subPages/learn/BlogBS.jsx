@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
+import Requests from '../contact/Requests';
+import { Link } from 'react-scroll';
+import { ScrollContext } from '../../../contexts/ScrollContext';
 
 const UnderlinedTitle = styled(Typography)(({ theme }) => ({
   textDecoration: 'underline',
@@ -35,8 +38,27 @@ const yearOptions = [
   "2023",
 ];
 
+const Overlay = styled(Box)(({ theme }) => ({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  background: 'rgba(0,0,0,0.5)', // Opaque
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: 1000, // High z-index to ensure it's on top of all other elements
+}));
+
 export const BlogBS = () => {
   const navigate = useNavigate();
+  const { setScrollTo } = React.useContext(ScrollContext);
+
+  const handleScroll = (scrollTarget) => {
+    setScrollTo(scrollTarget);
+  };
+  const [overlayVisible, setOverlayVisible] = useState(false);
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', height: '100vh', padding: '32px' }}>
       <Box sx={{ flex: '1', paddingRight: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -50,8 +72,14 @@ export const BlogBS = () => {
           <Typography variant="body1" sx={{ fontWeight: 'bold' }} gutterBottom>
             Are you looking for some thoughts and rants about a specific topic? Drop it below.
           </Typography>
-          <Button variant="contained" sx={{ marginBottom: '16px' }}>I WOULD LIKE TO LEARN ABOUT...</Button>
-          <Box><Button variant="contained" onClick={() => navigate('/blog')}>OPEN BLOG</Button></Box>
+
+          <Button variant="contained" onClick={() => setOverlayVisible(true)}>I Would Like to Learn About...</Button>
+          {overlayVisible && (
+            <Overlay>
+              <Requests onClose={() => setOverlayVisible(false)} />
+            </Overlay>
+          )}
+          <Box><Link to='blog-articles' onClick={() => handleScroll('blog-articles')}><Button variant="contained">OPEN BLOG</Button></Link></Box>
         </Box>
       </Box>
 

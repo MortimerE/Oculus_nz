@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Button, Grid, IconButton } from '@mui/material';
 import { styled } from '@mui/system';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
+import { Link } from 'react-scroll';
 import { Radio} from '@mui/icons-material';  // Replace with podcast icons or images
+import { ScrollContext } from '../../../contexts/ScrollContext';
 
 const Underline = styled('hr')({
   borderColor: '#000000',
@@ -70,6 +72,11 @@ export const Podcast = () => {
 
 export const Podcast2 = () => {
     const navigate = useNavigate();
+    const { setScrollTo } = React.useContext(ScrollContext);
+
+    const handleScroll = (scrollTarget) => {
+      setScrollTo(scrollTarget);
+    };
   
     return (
       <Box sx={{ display: 'flex', flexDirection: 'row', height: '100vh', padding: '32px' }}>
@@ -83,7 +90,9 @@ export const Podcast2 = () => {
           <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
             Read our Gab Learns blog articles here
           </Typography>
-          <Button variant="contained" onClick={() => navigate('/learn/blogarticles')}>BLOG ARTICLES</Button>
+          <Link to="blog-articles" onClick={() => handleScroll('blog-articles')}>
+          <Button variant="contained">BLOG ARTICLES</Button>
+          </Link>
         </Box>
   
         <Box sx={{ flex: '1', paddingLeft: '16px' }}>

@@ -1,23 +1,37 @@
-import React from 'react';
-import Typography from '@mui/material/Typography';
+import React, { useState } from 'react';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
+import { styled } from '@mui/system';
+import { Box, Typography, Button } from '@mui/material';
 import DiscoveryCallOverlay from './DiscoveryCall';
 
 
 const buildingTypes = ['Type A', 'Type B', 'Type C'];
 const projectStages = ['Stage A', 'Stage B', 'Stage C'];
 
+const Overlay = styled(Box)(({ theme }) => ({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  background: 'rgba(0,0,0,0.5)', // Opaque
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: 1000, // High z-index to ensure it's on top of all other elements
+}));
+
 const Enquire = () => {
 
   const [overlayVisible, setOverlayVisible] = React.useState(false);
+  const [isRequestCollected, setIsRequestCollected] = useState(false);
 
   const [projectLocation, setProjectLocation] = React.useState('');
   const [buildingType, setBuildingType] = React.useState('');
@@ -31,10 +45,9 @@ const Enquire = () => {
     setBuildingType(event.target.value);
   };
 
-  const handleIsBookingCallChange = (event) => {
-    const bookCall = event.target.value === "yes";
-    setIsBookingCall(bookCall);
-    setOverlayVisible(bookCall);
+  const handleBookingButtonClick = () => {
+    setIsBookingCall(true);
+    setOverlayVisible(true);
   };
   
   const handleAttachmentChange = (event) => {
@@ -187,26 +200,17 @@ const Enquire = () => {
             <Typography variant="body1">
               Would you like to book a discovery call so we can discuss your enquiry?
             </Typography>
-            <RadioGroup
-              row
-              name="bookCall"
-              onChange={(event) => handleIsBookingCallChange(event)}
-            >
-              <FormControlLabel
-                value="yes"
-                control={<Radio color="primary" />}
-                label="Yes"
-              />
-              <FormControlLabel
-                value="no"
-                control={<Radio color="primary" />}
-                label="No"
-              />
-            </RadioGroup>
+            <Button variant="contained" onClick={handleBookingButtonClick}>BOOK A CALL</Button>
+            {isRequestCollected && <Typography variant="body2" color="success.main">Your booking request will be submitted with the enquiry form.</Typography>}
+            {overlayVisible && (
+              <Overlay>
+                <DiscoveryCallOverlay onClose={() => setOverlayVisible(false)} isRequestCollected={setIsRequestCollected}/>
+              </Overlay>
+            )}
           </Grid>
 
           <Grid item xs={12}>
-            <Button variant="contained" color="primary" type="submit">
+            <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
               Submit
             </Button>
           </Grid>
@@ -224,9 +228,6 @@ const Enquire = () => {
           </Grid>
 
         </Grid>
-        {overlayVisible && (
-          <DiscoveryCallOverlay onClose={() => setOverlayVisible(false)} />
-        )}
       </form>
     </div>
   );

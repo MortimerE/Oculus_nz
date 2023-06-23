@@ -40,7 +40,7 @@ const Contact = () => {
               <Typography variant="h4" gutterBottom>
                 Do you want to work with us?
               </Typography>
-              <Link to='enquire'onClick={() => handleScroll('enquire')}>
+              <Link to='enquire' onClick={() => handleScroll('enquire')}>
                 <Button variant="contained" color="primary">
                   Enquire Here
                 </Button>

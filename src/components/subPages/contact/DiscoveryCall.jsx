@@ -2,8 +2,15 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
-const DiscoveryCallOverlay = ({ onClose }) => {
+const DiscoveryCallOverlay = ({ onClose, isRequestCollected }) => {
+  const handleSubmit = () => {
+    // Implement newsletter sign-up logic here
+    onClose();
+    isRequestCollected(true);
+  };
   // Google Calendar API integration will go here
 
   return (
@@ -12,9 +19,13 @@ const DiscoveryCallOverlay = ({ onClose }) => {
         position: 'fixed',
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0,0,0,0.7)',
+        background: '#fff',
+        maxWidth: '80vw',
+        width: '80%',
+        borderRadius: '15px',
+        margin: 'auto',
+        boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+        position: 'relative',
         zIndex: 9999,
         display: 'flex',
         alignItems: 'center',
@@ -28,6 +39,11 @@ const DiscoveryCallOverlay = ({ onClose }) => {
           borderRadius: '8px',
         }}
       >
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <IconButton onClick={onClose} sx={{ position: 'absolute', top: 2, right: 2 }}>
+          <CloseIcon />
+        </IconButton>
+      </Box>
         <Typography variant="h4" sx={{ mb: 2 }}>
           BOOK A 10 MINUTE DISCOVERY CALL
         </Typography>
@@ -36,7 +52,7 @@ const DiscoveryCallOverlay = ({ onClose }) => {
         </Typography>
         {/* Google Calendar date and time selection components will go here */}
         <Box sx={{ textAlign: 'right' }}>
-          <Button variant="contained" color="primary" onClick={onClose}>
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
             Book Now
           </Button>
         </Box>
