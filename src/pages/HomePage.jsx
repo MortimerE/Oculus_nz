@@ -6,6 +6,7 @@ import ImageCarousel from '../components/embeds/ImageCarousel';
 import { Element } from 'react-scroll';
 import { scroller } from 'react-scroll';
 import { ScrollContext } from '../contexts/ScrollContext';
+import { Link } from 'react-router-dom';
 
 
 export const HomePage = () => {
@@ -84,7 +85,7 @@ export const HomePage = () => {
           <p
             style={{ fontSize: "1.8rem", marginBottom: '64px' }}
             >{`${"Making high performance buildings simple by keeping the inside in and the outside out".toUpperCase()}`}</p>
-          <Button style={{ background: "#ec008c", color: "#FFFFFF" }}>
+          <Button component={Link} to="/about" style={{ background: "#ec008c", color: "#FFFFFF" }}>
             Learn More
           </Button>
         </div>

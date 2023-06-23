@@ -1,10 +1,17 @@
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import React from "react";
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { ScrollContext } from '../../../contexts/ScrollContext';
 
 export const ComponentDesign = () => {
   const navigate = useNavigate();
+  const { setScrollTo } = React.useContext(ScrollContext);
+
+  const handleScroll = (scrollTarget) => {
+    setScrollTo(scrollTarget);
+  };
 
   return (
     <div
@@ -38,6 +45,7 @@ export const ComponentDesign = () => {
           or any other bits and bobs that connect to the outside of the
           building.
         </p>
+        <Link to="/" onClick={() => handleScroll('enquire')}>
         <Button
           variant="contained"
           style={{
@@ -51,6 +59,7 @@ export const ComponentDesign = () => {
         >
           ENQUIRE HERE
         </Button>
+        </Link>
       </div>
       <div
         style={{

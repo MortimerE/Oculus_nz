@@ -8,14 +8,33 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
-const RequestsPage = () => {
+const RequestsPage = ({ onClose }) => {
   const handleSubmit = () => {
     // Implement request submission logic here
+    onClose();
   };
 
   return (
-    <Box sx={{ p: 4 }}>
+    <Box
+      sx={{
+        p: 4,
+        background: '#fff',
+        maxWidth: '80vw',
+        width: '80%',
+        borderRadius: '15px',
+        margin: 'auto',
+        boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+        position: 'relative',
+      }}
+    >
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <IconButton onClick={onClose} sx={{ position: 'absolute', top: 2, right: 2 }}>
+          <CloseIcon />
+        </IconButton>
+      </Box>
       <Typography variant="h4" sx={{ mb: 2 }}>
         I would like to learn about...
       </Typography>

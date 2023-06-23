@@ -1,10 +1,17 @@
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import React from "react";
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { ScrollContext } from '../../../contexts/ScrollContext';
 
 export const Modelling = () => {
   const navigate = useNavigate();
+  const { setScrollTo } = React.useContext(ScrollContext);
+
+  const handleScroll = (scrollTarget) => {
+    setScrollTo(scrollTarget);
+  };
 
   return (
     <div
@@ -44,7 +51,7 @@ export const Modelling = () => {
           or simply to optimise your building enclosure and increase efficiency
           to reduce operational carbon and HVAC costs.
         </p>
-
+        <Link to="/" onClick={() => handleScroll('enquire')}>
         <Button
           variant="contained"
           style={{
@@ -58,6 +65,7 @@ export const Modelling = () => {
         >
           ENQUIRE HERE
         </Button>
+        </Link>
       </div>
       <div
         style={{

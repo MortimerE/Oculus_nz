@@ -1,11 +1,18 @@
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import React from "react";
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { ScrollContext } from '../../../contexts/ScrollContext';
+
 
 export const Compliance = () => {
   const navigate = useNavigate();
+  const { setScrollTo } = React.useContext(ScrollContext);
 
+  const handleScroll = (scrollTarget) => {
+    setScrollTo(scrollTarget);
+  };
   return (
     <div
       style={{
@@ -42,7 +49,7 @@ export const Compliance = () => {
           relies data sheets and domestic or international test reports to
           outline its compliance with the relevant building code clauses.
         </p>
-
+        <Link to="/" onClick={() => handleScroll('enquire')}>
         <Button
           variant="contained"
           style={{
@@ -56,6 +63,7 @@ export const Compliance = () => {
         >
           ENQUIRE HERE
         </Button>
+        </Link>
       </div>
       <div
         style={{

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Button, Grid } from '@mui/material';
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
+import Requests from '../contact/Requests';
+
 
 const Underline = styled('hr')({
   borderColor: '#000000',
@@ -19,6 +21,8 @@ const GridItem = styled(Box)(({ theme }) => ({
   borderRadius: '8px',
   cursor: 'pointer',
 }));
+
+
 
 const toolsAndResourcesItems = [
   "NZBC H1 CHANGES SUMMARY",
@@ -38,8 +42,23 @@ const toolsAndResourcesItems = [
   "H1 Pathway"
 ];
 
+const Overlay = styled(Box)(({ theme }) => ({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  background: 'rgba(0,0,0,0.5)', // Opaque
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: 1000, // High z-index to ensure it's on top of all other elements
+}));
+
 export const ToolsResources = () => {
   const navigate = useNavigate();
+
+  const [overlayVisible, setOverlayVisible] = useState(false);
 
   const handleItemClick = (itemName) => {
     const formattedName = itemName.toLowerCase().replaceAll(' ', '');
@@ -53,7 +72,12 @@ export const ToolsResources = () => {
         <Underline />
         <Typography variant="body1" gutterBottom>These resources have been created by Oculus to provide advice and guidance. All resource articles follow international best practice, and are backed by science.</Typography>
         <Typography variant="body1" fontWeight="bold">Is there any specific topic you’d like to learn about / require help with? Drop them below</Typography>
-        <Button variant="contained">I Would Like to Learn About...</Button>
+        <Button variant="contained" onClick={() => setOverlayVisible(true)}>I Would Like to Learn About...</Button>
+        {overlayVisible && (
+          <Overlay>
+            <Requests onClose={() => setOverlayVisible(false)} />
+          </Overlay>
+        )}
       </Box>
 
       <Box sx={{ flex: '1', paddingLeft: '16px', overflowY: 'auto' }}>

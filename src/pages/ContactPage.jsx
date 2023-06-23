@@ -4,13 +4,15 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { Link } from 'react-scroll';
+import { ScrollContext } from '../contexts/ScrollContext';
 
 const Contact = () => {
   const [activeComponent, setActiveComponent] = useState('contact');
   const [imageUrl, setImageUrl] = useState('./vite.svg'); // state to hold the image URL
+  const { setScrollTo } = React.useContext(ScrollContext);
 
-  const handleEnquireClick = () => {
-    // to be implemented...
+  const handleScroll = (scrollTarget) => {
+    setScrollTo(scrollTarget);
   };
 
   return (
@@ -38,12 +40,7 @@ const Contact = () => {
               <Typography variant="h4" gutterBottom>
                 Do you want to work with us?
               </Typography>
-              <Link
-                to="enquire" // this should be the exact name you used in Element component in HomePage
-                spy={true}
-                smooth={true}
-                duration={500} // Time in milliseconds for the scroll event
-              >
+              <Link to='enquire'onClick={() => handleScroll('enquire')}>
                 <Button variant="contained" color="primary">
                   Enquire Here
                 </Button>

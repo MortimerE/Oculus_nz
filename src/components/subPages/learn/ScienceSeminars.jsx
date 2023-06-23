@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Button, Grid } from '@mui/material';
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
+import Register from '../contact/Register';
 
 const Underline = styled('hr')({
   borderColor: '#000000',
@@ -39,6 +40,19 @@ const UpcomingSeminars = [
   { date: "30/11/2023", title: "How to keep your house cool" }
 ];
 
+const Overlay = styled(Box)(({ theme }) => ({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  background: 'rgba(0,0,0,0.5)', // Opaque
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: 1000, // High z-index to ensure it's on top of all other elements
+}));
+
 export const ScienceSeminars = () => {
   const navigate = useNavigate();
 
@@ -46,6 +60,8 @@ export const ScienceSeminars = () => {
     const formattedName = itemName.toLowerCase().replaceAll(' ', '');
     navigate(`/learn/scienceseminars/${formattedName}`);
   };
+
+  const [overlayVisible, setOverlayVisible] = useState(false);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row-reverse', height: '100vh', padding: '32px' }}>
@@ -61,7 +77,12 @@ export const ScienceSeminars = () => {
             </Box>
           ))}
         </Box>
-        <Button variant="contained" onClick={() => navigate("/register")}>REGISTER HERE</Button>
+        <Button variant="contained" onClick={() => setOverlayVisible(true)}>REGISTER HERE</Button>
+        {overlayVisible && (
+          <Overlay>
+            <Register onClose={() => setOverlayVisible(false)} />
+          </Overlay>
+        )}
       </Box>
 
       <Box sx={{ flex: '1', paddingRight: '16px', overflowY: 'auto' }}>

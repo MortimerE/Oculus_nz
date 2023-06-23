@@ -1,11 +1,17 @@
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import React from "react";
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { ScrollContext } from '../../../contexts/ScrollContext';
 
 export const EnclosureDesign = () => {
   const navigate = useNavigate();
+  const { setScrollTo } = React.useContext(ScrollContext);
 
+  const handleScroll = (scrollTarget) => {
+    setScrollTo(scrollTarget);
+  };
   return (
     <div
       style={{
@@ -43,19 +49,21 @@ export const EnclosureDesign = () => {
           ultimately a much more holistic building envelope solution.
         </p>
         <p>There are three different ways we can get involved on a project.</p>
-        <Button
-          variant="contained"
-          style={{
-            background: "#ec008c",
-            color: "white",
-            height: "48px",
-            fontSize: ".8em",
-            width: "200px",
-            marginTop: 'auto'
-          }}
-        >
-          ENQUIRE HERE
-        </Button>
+        <Link to="/" onClick={() => handleScroll('enquire')}>
+                <Button
+                  variant="contained"
+                  style={{
+                    background: "#ec008c",
+                    color: "white",
+                    height: "48px",
+                    fontSize: ".8em",
+                    width: "200px",
+                    marginTop: 'auto'
+                  }}
+                >
+                  ENQUIRE HERE
+                </Button>
+              </Link>
       </div>
 
       <div

@@ -10,7 +10,9 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
+  IconButton
 } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 import { useLocation } from 'react-router-dom';
 
 const Register = ({ onClose, selectedSeminars: defaultSeminars }) => {
@@ -49,12 +51,23 @@ const Register = ({ onClose, selectedSeminars: defaultSeminars }) => {
 
   return (
     <Dialog open onClose={onClose}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid gray', padding: '10px' }}>
+    <Typography variant="h6" component="div">
+      Register Here
+    </Typography>
+    <IconButton onClick={onClose}>
+      <CloseIcon />
+    </IconButton>
+  </Box>
       <DialogContent>
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <DialogTitle>
           Register Here
         </DialogTitle>
+        <IconButton onClick={onClose} sx={{ position: 'absolute', top: 2, right: 2 }}>
+          <CloseIcon />
+        </IconButton>
         <Typography variant="h4" align="center" color="0000000">
           Register Here
         </Typography>
@@ -160,7 +173,7 @@ const Register = ({ onClose, selectedSeminars: defaultSeminars }) => {
       </Grid>
 
       <Grid item xs={12}>
-        <Button variant="contained" color="primary" type="submit">
+        <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
           Submit
         </Button>
       </Grid>

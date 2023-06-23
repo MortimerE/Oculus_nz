@@ -1,11 +1,17 @@
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import React from "react";
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { ScrollContext } from '../../../contexts/ScrollContext';
 
 export const PassiveHouse = () => {
   const navigate = useNavigate();
+  const { setScrollTo } = React.useContext(ScrollContext);
 
+  const handleScroll = (scrollTarget) => {
+    setScrollTo(scrollTarget);
+  };
   return (
     <div
       style={{
@@ -45,6 +51,7 @@ export const PassiveHouse = () => {
           passive with your house?
         </p>
         <h3>HEALTH, COMFORT, ECONOMY AND ENERGY EFFICIENCY</h3>
+        <Link to="/" onClick={() => handleScroll('enquire')}>
         <Button
           variant="contained"
           style={{
@@ -58,6 +65,7 @@ export const PassiveHouse = () => {
         >
           ENQUIRE HERE
         </Button>
+        </Link>
       </div>
 
       <div

@@ -235,9 +235,9 @@ const NavBar = () => {
           </Dropdown>
 
           <Dropdown label="Contact">
-            <ScrollLink to="contact" spy={true} smooth={true} duration={500}>
+          <Link to="/" onClick={() => handleScroll('contact')}>
               <MenuItem>Contact Us</MenuItem>
-            </ScrollLink>
+            </Link>
            <MenuItem onClick={handleClose} component={Link} to="/contact/linkedin">LinkedIn</MenuItem>
            </Dropdown>
         </DropdownContainer>

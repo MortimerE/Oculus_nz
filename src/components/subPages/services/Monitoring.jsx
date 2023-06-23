@@ -1,11 +1,12 @@
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import React from "react";
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-scroll';
 
 export const Monitoring = () => {
   const navigate = useNavigate();
-
+  
   return (
     <div
       style={{
@@ -45,6 +46,7 @@ export const Monitoring = () => {
           questions or details based on hidden site conditions and/or beyond
           what’s shown on the drawings.
         </p>
+        <Link to="/" onClick={() => handleScroll('enquire')}>
         <Button
           variant="contained"
           style={{
@@ -58,6 +60,7 @@ export const Monitoring = () => {
         >
           ENQUIRE HERE
         </Button>
+        </Link>
       </div>
       <div
         style={{
