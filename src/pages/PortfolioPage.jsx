@@ -1,12 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { PortfolioItem } from '../components/subPages/portfolio/PortfolioItem';
 import { PortfolioOverview } from '../components/subPages/portfolio/PortfolioOverview';
 import { Sitemap } from '../components/Sitemap';
+import AppContext from '../contexts/AppContext';
 //import axios from 'axios';
 
 export const PortfolioPage = () => {
-  const [portfolioItems, setPortfolioItems] = useState([
+  const { state } = useContext(AppContext);
+  const { portfolio } = state;
+  const [portfolioItems, setPortfolioItems] = useState([]);
+  useEffect(() => {
+    if (portfolio) {
+      setPortfolioItems(portfolio || []);
+    }
+  }, [portfolio]);
+  /*const [portfolioItems, setPortfolioItems] = useState([
     {
       id: '1',
       image: 'https://placeimg.com/640/480/arch',
@@ -29,7 +38,6 @@ export const PortfolioPage = () => {
   ]);
 
   //const [portfolioItems, setPortfolioItems] = useState([]);
-/*
   useEffect(() => {
     axios.get('YOUR_STRAPI_API_ENDPOINT')
       .then(response => {

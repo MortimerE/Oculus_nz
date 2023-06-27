@@ -1,13 +1,15 @@
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
-import { ScrollContext } from '../../../contexts/ScrollContext';
+import AppContext from '../../../contexts/AppContext';
 
 export const Modelling = () => {
   const navigate = useNavigate();
-  const { setScrollTo } = React.useContext(ScrollContext);
+  const {state, api} = useContext(AppContext);
+  const { scrollTo } = state;
+const { setScrollTo } = api;
 
   const handleScroll = (scrollTarget) => {
     setScrollTo(scrollTarget);

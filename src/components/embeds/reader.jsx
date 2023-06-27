@@ -1,46 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { Button, Box, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { useAuth } from '../auth';  // assuming you have an authentication context
+//import { useAuth } from '../auth';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
-const useStyles = makeStyles((theme) => ({
-  viewerContainer: {
-    backgroundColor: 'black',
-    color: 'white',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: '100vh',
-  },
-  buttonsContainer: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
-const PdfViewer = ({ file }) => {
-  const classes = useStyles();
+const Reader = ({ file }) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
-  const { isAuthenticated } = useAuth();  // assuming you have an authentication context
+  //const { isAuthenticated } = useAuth();
+  const viewerRef = useRef();
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
 
-  if (!isAuthenticated) {
+  const downloadPdf = () => {
+    window.open(file, '_blank');
+  }
+
+  const sharePdf = () => {
+    navigator.clipboard.writeText(window.location.href);
+    alert("Link copied to clipboard!");
+  }
+
+  const toggleFullscreen = () => {
+    if (viewerRef.current) {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        viewerRef.current.requestFullscreen();
+      }
+    }
+  }
+
+  /*if (!isAuthenticated) {
     return (
-      <Box className={classes.viewerContainer}>
+      <Box sx={{ backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
         <Typography variant="h5">Please log in to view this content.</Typography>
       </Box>
     );
-  }
+  }*/
 
   return (
-    <Box className={classes.viewerContainer}>
+    <Box ref={viewerRef} sx={{ backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
       <Document
         file={file}
         onLoadSuccess={onDocumentLoadSuccess}
@@ -48,16 +51,28 @@ const PdfViewer = ({ file }) => {
         <Page pageNumber={pageNumber} />
       </Document>
       <Typography variant="subtitle1">Page {pageNumber} of {numPages}</Typography>
-      <Box className={classes.buttonsContainer}>
+      <Box sx={{ marginTop: 2 }}>
         <Button variant="contained" disabled={pageNumber <= 1} onClick={() => setPageNumber(pageNumber - 1)}>
           Prev Page
         </Button>
         <Button variant="contained" disabled={pageNumber >= numPages} onClick={() => setPageNumber(pageNumber + 1)}>
           Next Page
         </Button>
+        <Button variant="contained" onClick={downloadPdf}>
+          Download PDF
+        </Button>
+        <Button variant="contained" onClick={toggleFullscreen}>
+          Toggle Full Screen
+        </Button>
+        <Button variant="contained" onClick={sharePdf}>
+          Share Link
+        </Button>
       </Box>
     </Box>
   );
 };
 
-export default PdfViewer;
+export default Reader;
+
+
+

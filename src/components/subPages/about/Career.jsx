@@ -1,10 +1,21 @@
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import AppContext from "../../../contexts/AppContext";
 
 export const Career = () => {
   const navigate = useNavigate();
+  const { state, api } = useContext(AppContext);
+  const { careerData } = state;
+
+  const {
+    description,
+    founded,
+    team,
+    locale,
+    image,
+  } = careerData || {};
 
   return (
     <div

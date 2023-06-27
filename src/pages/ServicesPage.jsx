@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from 'react';
 import { servicesRoutesRender } from "../routes/routes";
-import { ScrollContext } from '../contexts/ScrollContext';
+import AppContext from '../contexts/AppContext';
 import { scroller } from 'react-scroll';
 
 export const ServicesPage = () => {
-  const { scrollTo, setScrollTo } = React.useContext(ScrollContext);
+  const {state, api} = useContext(AppContext);
+  const { scrollTo } = state;
+const { setScrollTo } = api;
 
   React.useEffect(() => {
     // Temporarily disable scroll snap

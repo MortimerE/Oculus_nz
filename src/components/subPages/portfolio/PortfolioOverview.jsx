@@ -1,55 +1,39 @@
-import React, { useState, useEffect } from 'react';
-//import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AppContext from '../../../contexts/AppContext';
 
 export const PortfolioOverview = () => {
-  // Dummy data
-  const dummyData = [
-    {
-      id: 1,
-      title: "Project 1",
-      subtitle: "This is project 1",
-      image: "https://via.placeholder.com/150"
-    },
-    {
-      id: 2,
-      title: "Project 2",
-      subtitle: "This is project 2",
-      image: "https://via.placeholder.com/150"
-    },
-    // Add as many objects as you like
-  ];
+  const { state } = useContext(AppContext);
+  const { portfolio } = state;
+  const [portfolioItems, setPortfolioItems] = useState([]);
 
-  const [portfolioItems, setPortfolioItems] = useState(dummyData);
-  //const [portfolioItems, setPortfolioItems] = useState([]);
-  const navigate = useNavigate();
-/*
   useEffect(() => {
-    // Fetch data from Strapi CMS
-    axios.get('YOUR_STRAPI_API_ENDPOINT') 
-      .then(response => {
-        setPortfolioItems(response.data);
-      })
-      .catch(error => {
-        console.log('Error fetching portfolio items:', error);
-      });
-  }, []);
-*/
+    if (portfolio) {
+      setPortfolioItems(portfolio || []);
+    }
+  }, [portfolio]);
+
+  const navigate = useNavigate();
+
   const handleClick = (itemId) => {
     navigate(`/portfolio/${itemId}`);
   };
   
-  return (
+  return portfolioItems ? (
     <div>
       {portfolioItems.map(item => (
-        <div key={item.id} onClick={() => handleClick(item.id)}>
-          <img src={item.image} alt={item.title} /> // You need to replace 'image', 'title' and 'subtitle' with actual keys from your API data
+        <div key={item.id} onClick={() => handleClick(item.title)}>
+          <img src={item.thumbnail} alt={item.title} />
           <p>{item.title}</p>
-          <p>{item.subtitle}</p>
+          <p>{item.buildingType}</p>
+          <p>{item.location}</p>
         </div>
       ))}
     </div>
-  );
+  ) : (
+    <p>Loading...</p> // Replace with your own loading component
+  );  
 };
 
 export default PortfolioOverview;
+

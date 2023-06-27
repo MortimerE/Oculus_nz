@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 import { styled } from '@mui/system';
+import AppContext from '../../../contexts/AppContext';
 
 const Underline = styled('hr')({
   borderColor: '#000000',
@@ -8,8 +9,11 @@ const Underline = styled('hr')({
 });
 
 export const Associations = () => {
-  // Here's a list of placeholder images. You can replace this with your own list fetched from an API.
-  const images = Array(9).fill('https://via.placeholder.com/150');
+  const { state, api } = useContext(AppContext);
+  const { aboutUsData } = state;
+
+  const { associations = ["./vite.svg"] } = aboutUsData;
+  const images = associations;
 
   return (
     <Box

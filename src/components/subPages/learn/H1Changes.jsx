@@ -1,9 +1,9 @@
 import { Box, Typography, Button, Grid } from '@mui/material';
 import { styled } from '@mui/system';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
-import { ScrollContext } from '../../../contexts/ScrollContext';
+import AppContext from '../../../contexts/AppContext';
 
 
 const Underline = styled('hr')({
@@ -43,7 +43,9 @@ export const H1Changes = () => {
     navigate(`/learn/h1changes/${formattedName}`);
   };
 
-  const { setScrollTo } = React.useContext(ScrollContext);
+  const {state, api} = useContext(AppContext);
+  const { scrollTo } = state;
+const { setScrollTo } = api;
 
   const handleScroll = (scrollTarget) => {
     setScrollTo(scrollTarget);

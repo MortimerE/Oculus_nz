@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import NewsLetterSignUpPage from '../contact/NewsletterSignUp';

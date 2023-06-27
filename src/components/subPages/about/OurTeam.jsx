@@ -77,37 +77,39 @@ export const OurTeam = () => {
           justifyContent: "space-between",
         }}
       >
-        {teamMembers.map((member) => {
-          return (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                maxWidth: "200px",
-                width: "180px",
-                minHeight: "300px",
-                gap: "8px",
-              }}
-            >
-              <div
-                style={{
-                  width: "100%",
-                  height: "180px",
-                  background: "gray",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  display: "flex",
-                }}
-              >
-                picture goes here
-              </div>
-              <div style={{ width: "100%" }}>{member.name}</div>
-              <div style={{ width: "100%" }}>{member.position}</div>
-              <div style={{ width: "100%" }}>{member.email}</div>
-            </div>
-          );
-        })}
+        {teamMembers.map((member, index) => {
+  return (
+    <div
+      key={index}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        maxWidth: "200px",
+        width: "180px",
+        minHeight: "300px",
+        gap: "8px",
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          height: "180px",
+          background: "gray",
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+        }}
+      >
+        picture goes here
+      </div>
+      <div style={{ width: "100%" }}>{member.name}</div>
+      <div style={{ width: "100%" }}>{member.position}</div>
+      <div style={{ width: "100%" }}>{member.email}</div>
+    </div>
+  );
+})}
+
       </div>
     </div>
   );

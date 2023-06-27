@@ -1,44 +1,51 @@
-import React from 'react';
-import { Box, Typography, Button } from '@mui/material';
-import { styled } from '@mui/system';
-import { Link as ScrollLink } from 'react-scroll';
-import { Grid } from '@mui/material';
+import React, { useContext } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { Box, Button, Typography } from '@mui/material';
+import AppContext from '../../../contexts/AppContext';
+import Reader from '../../embeds/reader'; // replace this with the correct path
 
-const Underline = styled('hr')({
-  borderColor: '#000000',
-  borderWidth: '1px',
-});
+const PortfolioItemDetails = ({ item }) => {
+  const { state, api } = useContext(AppContext);
+  const { setScrollTo } = state;
 
-const PortfolioItemDetails = ({ title, description }) => {
-  return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '32px', height: '100vh' }}>
-      <Box sx={{ width: '40%', paddingRight: '32px' }}>
-        <Typography variant="h3" gutterBottom>{title}</Typography>
-        <Underline />
-        <Typography variant="body1" gutterBottom>{description}</Typography>
+  const handleScroll = (scrollTarget) => {
+    setScrollTo(scrollTarget);
+  };
 
-        <Typography variant="body1" fontWeight="bold">Got a similar project & you'd like to engage us?</Typography>
-        <ScrollLink to="contact" spy={true} smooth={true}>
-          <Button variant="contained">ENQUIRE HERE</Button>
-        </ScrollLink>
+  const recommendedArticles = ["Article 1", "Article 2", "Article 3"]; // replace with your actual recommended articles
+  const endpoint = import.meta.env.VITE_STRAPIURL;
+  const pdf = endpoint+item.pdf.data.attributes.url;
 
-        <Typography variant="h6" gutterBottom>You might also like</Typography>
-        <Underline />
-        {/* Add similar articles here */}
-
+  console.log(pdf);
+    return (
+    <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+      <Box sx={{ flex: '1 1 auto', pr: 2 }}>
+        <Typography variant="h4" component="h2" gutterBottom>
+          {item.title}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          {item.description}
+        </Typography>
+        <RouterLink to="/" onClick={() => handleScroll('enquire')}>
+          <Button variant="contained" color="primary">
+            Enquire Here
+          </Button>
+        </RouterLink>
+        <Box mt={4}>
+          <Typography variant="h6">Recommended Articles</Typography>
+          {recommendedArticles.map((article, i) => (
+            <Typography key={i} variant="body2">
+              {article}
+            </Typography>
+          ))}
+        </Box>
       </Box>
-
-      <Box sx={{ width: '60%', display: 'flex', justifyContent: 'space-between' }}>
-        <Box sx={{ width: '45%' }}>
-          {/* Add image column here */}
-        </Box>
-
-        <Box sx={{ width: '45%' }}>
-          {/* Add PDF reader here */}
-        </Box>
+      <Box sx={{ flex: '1 1 auto', pl: 2 }}>
+        <Reader file={pdf} /> {/* PDF viewer component with file passed as prop */}
       </Box>
     </Box>
   );
 };
 
 export default PortfolioItemDetails;
+

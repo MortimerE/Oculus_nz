@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Box, Typography, Button, Grid, IconButton } from '@mui/material';
 import { styled } from '@mui/system';
 import {useNavigate } from 'react-router-dom';
 import { Link } from 'react-scroll';
 import { Radio} from '@mui/icons-material';  // Replace with podcast icons or images
-import { ScrollContext } from '../../../contexts/ScrollContext';
+import AppContext from '../../../contexts/AppContext';
 
 const Underline = styled('hr')({
   borderColor: '#000000',
@@ -72,7 +72,9 @@ export const Podcast = () => {
 
 export const Podcast2 = () => {
     const navigate = useNavigate();
-    const { setScrollTo } = React.useContext(ScrollContext);
+    const {state, api} = useContext(AppContext);
+    const { scrollTo } = state;
+const { setScrollTo } = api;
 
     const handleScroll = (scrollTarget) => {
       setScrollTo(scrollTarget);

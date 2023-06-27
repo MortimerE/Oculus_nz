@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { Link } from 'react-scroll';
-import { ScrollContext } from '../contexts/ScrollContext';
+import AppContext from '../contexts/AppContext';
 
 const Contact = () => {
   const [activeComponent, setActiveComponent] = useState('contact');
   const [imageUrl, setImageUrl] = useState('./vite.svg'); // state to hold the image URL
-  const { setScrollTo } = React.useContext(ScrollContext);
+  const {state, api} = useContext(AppContext);
+  const {setScrollTo} = state;
 
   const handleScroll = (scrollTarget) => {
     setScrollTo(scrollTarget);

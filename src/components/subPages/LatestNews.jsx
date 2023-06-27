@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Typography, Button, Grid, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Register from './contact/Register.jsx';
+import AppContext from '../../contexts/AppContext';
 
 // Styled Components
 const Title = styled(Typography)`
@@ -10,7 +11,16 @@ const Title = styled(Typography)`
 `;
 
 const LatestNews = () => {
-  // State for featured article
+  const {state, api} = useContext(AppContext);
+  const { latestNewsData } = state;
+
+  const {
+    featuredArticle,
+    newestArticle,
+    nextSeminar,
+  } = latestNewsData;
+
+  /* State for featured article
   const [featuredArticle, setFeaturedArticle] = useState({
     title: 'BADER VENTURA: FIRST SOCIAL HOUSING PASSIVE HOUSE IN NZ APPROACHING COMPLETION',
     link: '/featured-article' // Update this with the actual route or URL when available
@@ -27,7 +37,7 @@ const LatestNews = () => {
     title: 'NEXT BUILDING SCIENCE + BULLSH*T SEMINAR: EXTERNAL INSULATION 02.03.2022',
     link: '/next-seminar', // Update this with the actual route or URL when available
     seminar: 'External Insulation' // This should be the exact seminar name in your registration form dropdown
-  });
+  });*/
 
   const [showRegister, setShowRegister] = useState(false);
 

@@ -1,10 +1,21 @@
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import React from "react";
+import React, { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import AppContext from '../../../contexts/AppContext';
 
 export const AboutUs = () => {
   const navigate = useNavigate();
+  const {state, api} = useContext(AppContext);
+  const { aboutUsData } = state;
+
+  const {
+    description,
+    founded,
+    team,
+    locale,
+    teamPhoto,
+  } = aboutUsData;
 
   return (
     <div
@@ -32,6 +43,7 @@ export const AboutUs = () => {
       >
         <h1>ABOUT US</h1>
         <Divider style={{width: '100%', height: '8px'}} />
+        {/*}
         <p>
           Oculus is a group of passionate enclosure / facade engineers on a
           mission to provide guidance and resources to design buildings with
@@ -41,6 +53,13 @@ export const AboutUs = () => {
           <li>Founded in 2018 by James Powers & Shawn McIsaac</li>
           <li>Team of 25</li>
           <li>Across all of New Zealand</li>
+        </ul>
+      */}
+        <p>{description}</p>
+        <ul style={{ marginLeft: "32px" }}>
+          <li>Founded in {founded}</li>
+          <li>Team of {team}</li>
+          <li>Across {locale}</li>
         </ul>
         <Button
           variant="contained"
@@ -67,7 +86,7 @@ export const AboutUs = () => {
           justifyContent: "center",
         }}
       >
-        Team picture goes here
+        <img src={teamPhoto} alt="Oculus Team" />
       </div>
     </div>
   );

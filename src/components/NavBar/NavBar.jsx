@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ScrollContext } from '../../contexts/ScrollContext';
+import AppContext from '../../contexts/AppContext';
 import { Link as ScrollLink } from 'react-scroll';
 import { styled } from '@mui/material/styles';
 import { Popper, AppBar, Toolbar, Typography, IconButton, Box, MenuItem, Menu, ListItemIcon } from '@mui/material';
@@ -48,7 +48,9 @@ const NavBar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const { setScrollTo } = React.useContext(ScrollContext);
+  const {state, api} = useContext(AppContext);
+  const { scrollTo } = state;
+const { setScrollTo } = api;
 
   const handleScroll = (scrollTarget) => {
     setScrollTo(scrollTarget);
