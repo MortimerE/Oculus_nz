@@ -2,6 +2,7 @@ import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import StyledDivider from "../../reusable/StyledDivider";
 
 export const Career = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export const Career = () => {
           }}
         >
           <h1>CAREER</h1>
-          <Divider style={{ width: "100%", height: "8px" }} />
+          <StyledDivider />
           <p>
             We are the largest and most influential building enclosure
             specialists in New Zealand. We do this by improving the buildings in

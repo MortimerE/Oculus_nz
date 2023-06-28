@@ -2,6 +2,7 @@ import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import StyledDivider from "../../reusable/StyledDivider";
 
 export const OurMethod = () => {
 
@@ -44,7 +45,7 @@ export const OurMethod = () => {
         }}
       >
         <h1>OUR METHOD</h1>
-        <Divider style={{ width: "100%", height: "8px" }} />
+        <StyledDivider />
         <p>
           We concentrate on the building envelope: the roof, the walls, the
           windows, the underground and all the connections in between. We help

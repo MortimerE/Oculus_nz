@@ -96,23 +96,33 @@ export const Sitemap = (props) => {
               key={"main-tile"}
               onClick={() => setActiveIndex(index)}
               sx={{
-                background: "#ec008c",
+                background: centerText === 'LOGO' ? '#FFFFFF' : "#ec008c",
                 position: "relative", // For inner elements positioning
+                padding: 8,
+                // boxSizing: 'border-box'
               }}
             >
-              <p
-                style={{
-                  color: "#FFFFFF",
-                  position: "absolute",
-                  top: "50%",
-                  textAlign: "center",
-                  transform: "translateY(-50%)",
-                  fontWeight: 700,
-                  fontSize: "2rem",
-                }}
-              >
-                {centerText.toUpperCase()}
-              </p>
+              {centerText === "LOGO" ? (
+                <img
+                  src="/Reverse Pink Oculus Logo AG new.png"
+                  objectFit="scale-down"
+                  height="100%"
+                />
+              ) : (
+                <p
+                  style={{
+                    color: "#FFFFFF",
+                    position: "absolute",
+                    top: "50%",
+                    textAlign: "center",
+                    transform: "translateY(-50%)",
+                    fontWeight: 700,
+                    fontSize: "2rem",
+                  }}
+                >
+                  {centerText.toUpperCase()}
+                </p>
+              )}
             </ActiveGridItem>
             <GridItem
               key={index}
@@ -122,19 +132,19 @@ export const Sitemap = (props) => {
                 position: "relative", // For inner elements positioning
               }}
             >
-                <p
-                  style={{
-                    color: "#000000",
-                    position: "absolute",
-                    top: "50%",
-                    textAlign: "center",
-                    transform: "translateY(-50%)",
-                    fontWeight: 700,
-                    fontSize: "1rem",
-                  }}
-                >
-                  {route.name.toUpperCase()}
-                </p>
+              <p
+                style={{
+                  color: "#000000",
+                  position: "absolute",
+                  top: "50%",
+                  textAlign: "center",
+                  transform: "translateY(-50%)",
+                  fontWeight: 700,
+                  fontSize: "1rem",
+                }}
+              >
+                {route.name.toUpperCase()}
+              </p>
             </GridItem>
           </>
         ) : (
@@ -167,7 +177,7 @@ export const Sitemap = (props) => {
         onClick={handleBackClick}
         style={{
           gridRow: 3,
-          gridColumn: 6,
+          gridColumn: `${colCount}`,
           alignSelf: "flex-end",
           background: "grey",
           color: "#FFFFFF",

@@ -142,9 +142,9 @@ const Enquire = () => {
                 }}
                 margin="dense"
               >
-                <MenuItem value="Location A">Location A</MenuItem>
-                <MenuItem value="Location B">Location B</MenuItem>
-                <MenuItem value="Location C">Location C</MenuItem>
+                <MenuItem value="Location A" sx={{color: 'black'}}>Location A</MenuItem>
+                <MenuItem value="Location B" sx={{color: 'black'}}>Location B</MenuItem>
+                <MenuItem value="Location C" sx={{color: 'black'}}>Location C</MenuItem>
               </TextField>
             </Grid>
             <Grid item xs={12}>
@@ -259,7 +259,7 @@ const Enquire = () => {
                 margin="dense"
               >
                 {buildingTypes.map((option) => (
-                  <MenuItem key={option} value={option}>
+                  <MenuItem sx={{color: 'black'}} key={option} value={option}>
                     {option}
                   </MenuItem>
                 ))}
@@ -284,7 +284,7 @@ const Enquire = () => {
                 label="What Stage of Design is Your Project?"
               >
                 {projectStages.map((option) => (
-                  <MenuItem key={option} value={option}>
+                  <MenuItem sx={{color: 'black'}} key={option} value={option}>
                     {option}
                   </MenuItem>
                 ))}

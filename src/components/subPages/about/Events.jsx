@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import StyledDivider from "../../reusable/StyledDivider";
 
 export const Events = () => {
   const navigate = useNavigate();
@@ -42,7 +42,8 @@ export const Events = () => {
     {
       date: "18/05/2023",
       eventName: "02-03pm:",
-      description: "Oculus team 100 metre sprint challenge - we will be out of office after 2pm",
+      description:
+        "Oculus team 100 metre sprint challenge - we will be out of office after 2pm",
     },
   ];
   return (
@@ -53,8 +54,8 @@ export const Events = () => {
         height: "100vh",
         alignItems: "flex-end",
         justifyContent: "center",
-        marginLeft: '64px',
-        marginRight: '64px'
+        marginLeft: "64px",
+        marginRight: "64px",
       }}
     >
       <div
@@ -84,9 +85,7 @@ export const Events = () => {
         }}
       >
         <h1 style={{ alignSelf: "flex-end" }}>WHAT'S ON THIS MONTH?</h1>
-        <Divider
-          style={{ width: "100%", height: "8px", alignSelf: "flex-end" }}
-        />
+        <StyledDivider />
         <h2 style={{ alignSelf: "flex-end" }}>
           {months[date.getMonth()]} {date.getFullYear()}
         </h2>
@@ -96,7 +95,8 @@ export const Events = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "flex-start", gap: '16px'
+                justifyContent: "flex-start",
+                gap: "16px",
               }}
             >
               <p>{event.date}</p>

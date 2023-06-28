@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
+import StyledDivider from '../../reusable/StyledDivider';
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -31,7 +31,7 @@ export const AboutUs = () => {
         }}
       >
         <h1>ABOUT US</h1>
-        <Divider style={{width: '100%', height: '8px'}} />
+        <StyledDivider />
         <p>
           Oculus is a group of passionate enclosure / facade engineers on a
           mission to provide guidance and resources to design buildings with
@@ -51,8 +51,6 @@ export const AboutUs = () => {
             fontSize: ".8em",
             width: "200px",
           }}
-        //   onClick={navigate("/about/our-method")}
-
         >
           Our Method
         </Button>

@@ -2,6 +2,7 @@ import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import StyledDivider from "../../reusable/StyledDivider";
 
 export const OurTeam = () => {
   const navigate = useNavigate();
@@ -61,11 +62,11 @@ export const OurTeam = () => {
           alignItems: "flex-start",
           justifyContent: "flex-end",
           marginBottom: "32px",
-          //   gap: "32px",
+            gap: "32px",
         }}
       >
         <h1>OUR TEAM</h1>
-        <Divider style={{ width: "100%", height: "8px" }} />
+        <StyledDivider />
       </div>
       <div
         style={{

@@ -73,13 +73,13 @@ const NavBar = () => {
     justify-content: space-around;
     gap: 4vw;
     cursor: pointer;
-    zindex: 5;
+    z-index: 5;
   `;
 
   const DropdownItems = styled(Box)`
     display: none;
     position: absolute;
-    z-index: 3;
+    z-index: 5;
     background-color: #f1f1f1;
     border-radius: 4px;
     min-width: 160px;
@@ -115,6 +115,7 @@ const NavBar = () => {
     top: 10px;
     left: 10px;
     padding: 5px;
+    z-index: 7;
   `;
 
   const [searchAnchorEl, setSearchAnchorEl] = useState(null);

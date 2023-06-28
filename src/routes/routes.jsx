@@ -77,7 +77,7 @@ export const pageRoutes = [
 export const homeRoutes = [
   {
     path: "sitemap",
-    element: <Sitemap initialRoutes={pageRoutes} centerText={'Oculus'} />,
+    element: <Sitemap initialRoutes={pageRoutes} centerText={'LOGO'} />,
     name: "Sitemap",
   },
   { path: "latest-news", element: <LatestNews />, name: "Latest News" },

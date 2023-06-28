@@ -26,9 +26,9 @@ const App = () => {
       <ScrollContext.Provider value={{ scrollTo, setScrollTo }}>
       <Router>
         <Box display="flex" flexDirection="column" minHeight="100vh">
-          <Box>
+          {/* <Box> */}
             <NavBar />
-          </Box>
+          {/* </Box> */}
           <div style={{display:"flex", flexDirection: 'column', width: '100%', alignItems: 'center', marginTop: '-12vh'}} flexgrow={1}>
             <BaseRoutes />
           </div>
