@@ -48,7 +48,6 @@ export const AboutUs = () => {
           <li>Team of 25</li>
           <li>Across all of New Zealand</li>
         </ul>
-        */}
         <p>{description}</p>
         <ul style={{ marginLeft: "32px" }}>
           <li>Founded in {founded}</li>

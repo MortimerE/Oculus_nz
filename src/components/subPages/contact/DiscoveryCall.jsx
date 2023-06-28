@@ -25,7 +25,7 @@ const DiscoveryCallOverlay = ({ onClose, isRequestCollected }) => {
         borderRadius: '15px',
         margin: 'auto',
         boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
-        position: 'relative',
+        // position: 'relative',
         zIndex: 9999,
         display: 'flex',
         alignItems: 'center',

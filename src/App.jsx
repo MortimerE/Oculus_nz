@@ -25,10 +25,10 @@ const App = () => {
       <AppContextProvider>
         <Router>
           <Box display="flex" flexDirection="column" minHeight="100vh">
-            <Box>
+            {/* <Box> */}
               <NavBar />
-                </Box>
-                <div style={{display:"flex", flexDirection: 'column', width: '100%', alignItems: 'center'}} flexgrow={1}>
+                {/* </Box> */}
+                <div style={{display:"flex", flexDirection: 'column', width: '100%', alignItems: 'center', marginTop: '-12vh'}} flexgrow={1}>
                   <BaseRoutes />
                 </div>
                 <Box>
