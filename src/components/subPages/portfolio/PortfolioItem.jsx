@@ -20,7 +20,6 @@ export const PortfolioItem = () => {
   useEffect(() => {
     // Find the specific item by its id from the context data
     const item = portfolioItems.find(item => item.title === itemId);
-    console.log(item);
     if (item) {
       setItemData(item);
     }

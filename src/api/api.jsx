@@ -59,37 +59,37 @@ export const getPortfolio = () => {
 };
 
 export const getResources = () => {
-    let url = `http://${endpoint}/api/resources?populate=*`
+    let url = `${endpoint}/api/resources?populate=*`
     return axios.get(url, {
         headers: {
-            'Authorization': `${auth}`,
+            'Authorization': `bearer ${auth}`,
         }
     });
 };
 
 export const getArticles = () => {
-    let url = `http://${endpoint}/api/articles?populate=*`
+    let url = `${endpoint}/api/articles?populate=*`
     return axios.get(url, {
         headers: {
-            'Authorization': `${auth}`,
+            'Authorization': `bearer ${auth}`,
         }
     });
 };
 
 export const getSeminars = () => {
-    let url = `http://${endpoint}/api/seminars?populate=*`
+    let url = `${endpoint}/api/seminars?populate=*`
     return axios.get(url, {
         headers: {
-            'Authorization': `${auth}`,
+            'Authorization': `bearer ${auth}`,
         }
     });
 };
 
 export const getConfig = () => {
-    let url = `http://${endpoint}/api/config`
+    let url = `${endpoint}/api/config`
     return axios.get(url, {
         headers: {
-            'Authorization': ` bearer ${auth}`,
+            'Authorization': `bearer ${auth}`,
         }
     })
 };

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AppContext from '../../contexts/AppContext';
 import { Link as ScrollLink } from 'react-scroll';
@@ -51,6 +51,14 @@ const NavBar = () => {
   const {state, api} = useContext(AppContext);
   const { scrollTo } = state;
 const { setScrollTo } = api;
+
+  const { portfolio } = state;
+  const [portfolioItems, setPortfolioItems] = useState([]);
+  useEffect(() => {
+    if (portfolio) {
+      setPortfolioItems(portfolio || []);
+    }
+  }, [portfolio]);
 
   const handleScroll = (scrollTarget) => {
     setScrollTo(scrollTarget);
@@ -191,7 +199,7 @@ const { setScrollTo } = api;
             </Link>
           </Dropdown>
 
-            <Dropdown label="Portfolio" link="/portfolio">
+            {/*<Dropdown label="Portfolio" link="/portfolio">
             <MenuItem onClick={handleClose} component={Link} to="/portfolio/banff-avenue">Banff Avenue</MenuItem>
             <MenuItem onClick={handleClose} component={Link} to="/portfolio/aroha-street">Aroha Street</MenuItem>
             <MenuItem onClick={handleClose} component={Link} to="/portfolio/galway-street">Galway Street</MenuItem>
@@ -207,7 +215,16 @@ const { setScrollTo } = api;
             <MenuItem onClick={handleClose} component={Link} to="/portfolio/greys-avenue">Greys Avenue</MenuItem>
             <MenuItem onClick={handleClose} component={Link} to="/portfolio/hill-crescent">St Georges</MenuItem>
             <MenuItem onClick={handleClose} component={Link} to="/great-north-road-avondale">Great North Road Avondale</MenuItem>
-           </Dropdown>
+  </Dropdown>*/}
+          <Dropdown label="Portfolio" link="/portfolio">
+            {portfolioItems
+              .filter(item => item.isFeatured)
+              .map(item => (
+                <MenuItem key={item.id} component={Link} to={`/portfolio/${item.title.replace(/ /g, '-').toLowerCase()}`}>
+                  {item.title}
+                </MenuItem>
+              ))}
+          </Dropdown>
 
            <Dropdown label="Learn" link="/learn">
             <Link to="/learn" onClick={() => handleScroll('tools-resources')}>

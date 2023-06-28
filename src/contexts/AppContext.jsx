@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { getPortfolio, getConfig } from "../api/api";
+import { getPortfolio, getSeminars, getResources, getArticles, getConfig } from "../api/api";
 
 const AppContext = createContext();
 
@@ -111,7 +111,6 @@ export const AppContextProvider = ({ children }) => {
       let tempRoutes = [];
       port.forEach((el) => {
         temp.push(el.attributes);
-        console.log(el.attributes);
         tempRoutes.push({
           routeName: el.attributes.name,
           data: el.attributes,
@@ -131,6 +130,7 @@ export const AppContextProvider = ({ children }) => {
       let temp = [];
       let tempRoutes = [];
       reso.forEach((el) => {
+        console.log(el.attributes);
         temp.push(el.attributes);
         tempRoutes.push({
           routeName: el.attributes.name,

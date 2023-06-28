@@ -19,11 +19,13 @@ export const PortfolioOverview = () => {
     navigate(`/portfolio/${itemId}`);
   };
   
+  const endpoint = import.meta.env.VITE_STRAPIURL;
+
   return portfolioItems ? (
     <div>
       {portfolioItems.map(item => (
         <div key={item.id} onClick={() => handleClick(item.title)}>
-          <img src={item.thumbnail} alt={item.title} />
+          <img src={endpoint + item.thumbnail.data.attributes.url} alt={item.title} style={{maxWidth: '200px', height: 'auto'}}/>
           <p>{item.title}</p>
           <p>{item.buildingType}</p>
           <p>{item.location}</p>
