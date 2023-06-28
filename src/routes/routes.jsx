@@ -148,6 +148,6 @@ export const learnRoutes = [
 ];
 
 export const learnRoutesRender = [
-  { path: "sitemap-learn", element: <Sitemap initialRoutes={learnRoutes} centerText={'Oculus Learn'} />, name: 'Learn Sitemap' },
+  { path: "sitemap-learn", element: <Sitemap initialRoutes={learnRoutes} centerText={'Building Science is not a guessing game - learn with us'} />, name: 'Learn Sitemap' },
   ...learnRoutes,
 ];

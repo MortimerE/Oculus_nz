@@ -6,8 +6,13 @@
   sans-serif;
 
 }
-/*
+
+body {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
 a {
   text-decoration: none;
-  color: '#FFFFFFF';
-}*/
+  color: 'inherit';
+}

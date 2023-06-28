@@ -28,7 +28,7 @@ export const Modelling = () => {
       <div
         style={{
           width: "30%",
-          height: "60%",
+          height: "80%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",
@@ -70,7 +70,7 @@ export const Modelling = () => {
       <div
         style={{
           width: "30%",
-          height: "45%",
+          height: "63%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",
@@ -94,7 +94,7 @@ export const Modelling = () => {
       <div
         style={{
           width: "30%",
-          height: "45%",
+          height: "63%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",

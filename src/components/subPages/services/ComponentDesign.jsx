@@ -28,7 +28,7 @@ export const ComponentDesign = () => {
       <div
         style={{
           width: "40%",
-          height: "55%",
+          height: "70%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",
@@ -64,7 +64,7 @@ export const ComponentDesign = () => {
       <div
         style={{
           width: "35%",
-          height: "55%",
+          height: "80%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",

@@ -50,7 +50,7 @@ export const H1Changes = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'row-reverse', height: '100vh', padding: '32px' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'row-reverse', alignItems: 'center', height: '100vh', padding: '32px' }}>
       <Box sx={{ flex: '1', paddingLeft: '16px' }}>
         <Typography variant="h3" gutterBottom>NZBC H1 CHANGES 2022/23</Typography>
         <Underline />

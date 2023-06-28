@@ -1,19 +1,19 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Link } from "@mui/material";
 import { styled } from "@mui/system";
-import { Button } from '@mui/material';
+import { Button } from "@mui/material";
 
 const GridItem = styled(Box)(({ theme }) => ({
   gridColumn: "span 1",
   gridRow: "span 1",
-  aspectRatio: '1 / 1',
+  aspectRatio: "1 / 1",
   //padding: theme.spacing(2),
   padding: theme.spacing(0.5), // Reduce padding size
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  borderRadius: "16px",
+  borderRadius: "4px",
   transition: "all 0.3s ease",
 }));
 
@@ -22,36 +22,41 @@ const ActiveGridItem = styled(GridItem)({
   gridRow: "span 2",
 });
 
-export const Sitemap = ({ initialRoutes }) => {
+export const Sitemap = (props) => {
+  const { initialRoutes, centerText } = props;
   const [activeIndex, setActiveIndex] = React.useState(-1);
   const [routesStack, setRoutesStack] = React.useState([initialRoutes]);
+
+  const tileCount = initialRoutes.length + 4;
+  const rowCount = tileCount <= 14 ? 2 : 3;
+  const colCount = Math.ceil(tileCount / rowCount);
 
   const handleTileClick = (index) => {
     setActiveIndex(index);
     if (index === -1) {
       return;
     }
-    
+
     // Here, you need to have a mapping of route names to their corresponding route array
     const newRoutes = {
-      "About": aboutRoutes,
-      "Services": servicesRoutes,
-      "Learn": learnRoutes,
+      About: aboutRoutes,
+      Services: servicesRoutes,
+      Learn: learnRoutes,
       // ...add other mappings here
     }[routesStack[routesStack.length - 1][index].name];
-    
+
     if (newRoutes) {
       setRoutesStack([...routesStack, newRoutes]);
     }
   };
-  
+
   const handleBackClick = () => {
     if (routesStack.length > 1) {
       setRoutesStack(routesStack.slice(0, -1));
     }
     setActiveIndex(-1);
   };
-  
+
   const routes = routesStack[routesStack.length - 1];
 
   React.useEffect(() => {
@@ -65,15 +70,15 @@ export const Sitemap = ({ initialRoutes }) => {
         width: "100%",
         background: "#000000",
         display: "grid",
-        gridTemplateColumns: "repeat(6, 1fr)",
+        gridTemplateColumns: `repeat(${colCount}, 1fr)`,
         gridAutoRows: "1fr",
         padding: "64px",
-        paddingTop: "1",
+        paddingTop: "24vh",
         gap: "10px", // Add gap between cells
         boxSizing: "border-box",
       }}
     >
-      <GridItem
+      {/* <GridItem
         onClick={() => setActiveIndex(-1)}
         sx={{
           background: activeIndex === -1 ? "#ec008c" : "#FFFFFF",
@@ -83,43 +88,97 @@ export const Sitemap = ({ initialRoutes }) => {
         <p style={{ color: "#000000", position: "absolute", top: "50%", transform: "translateY(-50%)" }}>
           Oculus
         </p>
-      </GridItem>
-      {routes.map((route, index) => (
-        index === activeIndex ? (
-          <ActiveGridItem
-            key={index}
-            onClick={() => setActiveIndex(index)}
-            sx={{
-              background: "#ec008c",
-              position: "relative" // For inner elements positioning
-            }}
-          >
-            <p style={{ color: "#000000", position: "absolute", top: "50%", transform: "translateY(-50%)" }}>
-              {route.name}
-            </p>
-          </ActiveGridItem>
+      </GridItem> */}
+      {routes.map((route, index) =>
+        index === 2 ? (
+          <>
+            <ActiveGridItem
+              key={"main-tile"}
+              onClick={() => setActiveIndex(index)}
+              sx={{
+                background: "#ec008c",
+                position: "relative", // For inner elements positioning
+              }}
+            >
+              <p
+                style={{
+                  color: "#FFFFFF",
+                  position: "absolute",
+                  top: "50%",
+                  textAlign: "center",
+                  transform: "translateY(-50%)",
+                  fontWeight: 700,
+                  fontSize: "2rem",
+                }}
+              >
+                {centerText.toUpperCase()}
+              </p>
+            </ActiveGridItem>
+            <GridItem
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              sx={{
+                background: "#FFFFFF",
+                position: "relative", // For inner elements positioning
+              }}
+            >
+                <p
+                  style={{
+                    color: "#000000",
+                    position: "absolute",
+                    top: "50%",
+                    textAlign: "center",
+                    transform: "translateY(-50%)",
+                    fontWeight: 700,
+                    fontSize: "1rem",
+                  }}
+                >
+                  {route.name.toUpperCase()}
+                </p>
+            </GridItem>
+          </>
         ) : (
           <GridItem
             key={index}
             onClick={() => setActiveIndex(index)}
             sx={{
               background: "#FFFFFF",
-              position: "relative" // For inner elements positioning
+              position: "relative", // For inner elements positioning
             }}
           >
-            <p style={{ color: "#000000", position: "absolute", top: "50%", transform: "translateY(-50%)" }}>
-              {route.name}
+            <p
+              style={{
+                color: "#000000",
+                position: "absolute",
+                top: "50%",
+                textAlign: "center",
+                transform: "translateY(-50%)",
+                fontWeight: 700,
+                fontSize: "1rem",
+              }}
+            >
+              {route.name.toUpperCase()}
             </p>
           </GridItem>
         )
-      ))}
-      <Button variant="contained" color="primary" onClick={handleBackClick} style={{ alignSelf: 'flex-end', marginTop: '1rem' }}>
+      )}
+      <Button
+        variant="contained"
+        onClick={handleBackClick}
+        style={{
+          gridRow: 3,
+          gridColumn: 6,
+          alignSelf: "flex-end",
+          background: "grey",
+          color: "#FFFFFF",
+          marginTop: "1rem",
+        }}
+      >
         Go Back
       </Button>
     </Box>
   );
 };
-
 
 export default Sitemap;
 

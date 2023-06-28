@@ -36,7 +36,7 @@ export const HomePage = () => {
       // Reset the scroll target so it doesn't affect other pages
       setScrollTo("");
     }
-  }, [scrollTo, setScrollTo]);
+  }, [scrollTo]);
 
   const images = ['./vite.svg', 'image2.jpg', 'image3.jpg'];  // replace these with the URLs or paths to your actual images
   
@@ -63,13 +63,19 @@ export const HomePage = () => {
           height: "100vh",
           width: "100%",
           flexDirection: "row",
-          alignItems: "flex-start",
-          justifyContent: "center",
+          alignItems: "center",
+          justifyContent: "flex-start",
           scrollSnapAlign: "start",
           padding: "0 64px 160px 64px",
+          boxSizing: 'border-box',
+          // backgroundImage: 'url(home-bg1.png), url(home-bg2.png), url(home-bg3.png)',
+          // backgroundSize: '100% auto',
+          // backgroundRepeat: 'no-repeat',
+          // backgroundOrigin: 'border-box',
+          // backgroundPosition: 'center center'
         }}
         >
-        <ImageCarousel images={images} />
+        {/* <ImageCarousel images={images} /> */}
         <div
           style={{
             height: "100%",
@@ -83,7 +89,7 @@ export const HomePage = () => {
           }}
           >
           <p
-            style={{ fontSize: "1.8rem", marginBottom: '64px' }}
+            style={{ fontSize: "1.8rem", marginTop: '64px', marginBottom: '64px' }}
             >{`${"Making high performance buildings simple by keeping the inside in and the outside out".toUpperCase()}`}</p>
           <Button component={Link} to="/about" style={{ background: "#ec008c", color: "#FFFFFF" }}>
             Learn More

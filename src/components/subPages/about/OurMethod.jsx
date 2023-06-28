@@ -14,30 +14,32 @@ export const OurMethod = () => {
         alignItems: "flex-end",
         justifyContent: "center",
         marginLeft: '64px',
-        marginRight: '64px'
+        marginRight: '64px',
+        boxSizing: 'border-box',
+        gap: '32px'
       }}
     >
       <div
         style={{
           width: "60%",
           height: "60%",
-          flexGrow: 1,
+          // flexGrow: 1,
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "flex-start",
         }}
       >
-        Arrow Diagram goes here
+        <img style={{objectFit: 'fill', height: '100%'}} src={'./enclosure-diagram-x.png'}/>
       </div>
       <div
         style={{
           width: "40%",
-          height: "60%",
+          height: "1000%",
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
-          justifyContent: "flex-start",
+          justifyContent: "flex-end",
           gap: "32px",
         }}
       >
@@ -68,9 +70,8 @@ export const OurMethod = () => {
             fontSize: ".8em",
             width: "200px",
           }}
-        //   onClick={navigate("/services")}
         >
-          Our Services
+          Our Method
         </Button>
       </div>
     </div>

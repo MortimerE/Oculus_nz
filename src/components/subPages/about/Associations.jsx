@@ -9,7 +9,7 @@ const Underline = styled('hr')({
 
 export const Associations = () => {
   // Here's a list of placeholder images. You can replace this with your own list fetched from an API.
-  const images = Array(9).fill('https://via.placeholder.com/150');
+  const images = Array(7).fill('https://via.placeholder.com/150');
 
   return (
     <Box
@@ -17,7 +17,7 @@ export const Associations = () => {
         display: 'flex',
         width: '100%',
         height: '100vh',
-        alignItems: 'flex-end',
+        alignItems: 'center',
         justifyContent: 'center',
         marginLeft: '64px',
         marginRight: '64px',
@@ -25,8 +25,8 @@ export const Associations = () => {
     >
       <Box
         sx={{
-          width: '45%',
-          height: '75%',
+          width: '65%',
+          height: '50%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',
@@ -34,11 +34,11 @@ export const Associations = () => {
           gap: '32px',
         }}
       >
-        <Typography variant="h1">Associations</Typography>
+        <Typography variant="h3">Associations</Typography>
         <Underline />
-        <Grid container spacing={3}>
+        <Grid container spacing={2}>
           {images.map((image, index) => (
-            <Grid item xs={4} key={index}>
+            <Grid item xs={3} key={index}>
               <img src={image} alt={`Association ${index + 1}`} style={{ width: '100%' }} />
             </Grid>
           ))}

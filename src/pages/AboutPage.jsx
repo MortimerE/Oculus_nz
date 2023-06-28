@@ -65,7 +65,7 @@ export const AboutPage = () => {
               scrollSnapAlign: "start",
               padding: route.path.includes("sitemap")
                 ? ""
-                : "64px 64px 160px 64px",
+                : "0 0 160px 0",
             }}
             key={route.name}
           >

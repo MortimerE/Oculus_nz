@@ -74,12 +74,12 @@ export const Events = () => {
       <div
         style={{
           width: "45%",
-          height: "60%",
+          height: "100%",
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
-          alignItems: "",
-          justifyContent: "flex-start",
+          alignItems: "flex-start",
+          justifyContent: "flex-end",
           gap: "32px",
         }}
       >
@@ -96,7 +96,7 @@ export const Events = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "flex-start", gap: '32px'
+                justifyContent: "flex-start", gap: '16px'
               }}
             >
               <p>{event.date}</p>
@@ -107,20 +107,6 @@ export const Events = () => {
             </div>
           );
         })}
-
-        <Button
-          variant="contained"
-          style={{
-            background: "#ec008c",
-            color: "white",
-            height: "48px",
-            fontSize: ".8em",
-            width: "200px",
-          }}
-          //   onClick={navigate("/about/our-method")}
-        >
-          Our Method
-        </Button>
       </div>
     </div>
   );

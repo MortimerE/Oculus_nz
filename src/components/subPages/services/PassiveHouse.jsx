@@ -27,7 +27,7 @@ export const PassiveHouse = () => {
       <div
         style={{
           width: "45%",
-          height: "60%",
+          height: "85%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",
@@ -71,7 +71,7 @@ export const PassiveHouse = () => {
       <div
         style={{
           width: "45%",
-          height: "45%",
+          height: "80%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",

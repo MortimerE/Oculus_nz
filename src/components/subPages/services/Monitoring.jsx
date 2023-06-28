@@ -22,7 +22,7 @@ export const Monitoring = () => {
       <div
         style={{
           width: "45%",
-          height: "55%",
+          height: "70%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",
@@ -65,7 +65,7 @@ export const Monitoring = () => {
       <div
         style={{
           width: "50%",
-          height: "55%",
+          height: "80%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",

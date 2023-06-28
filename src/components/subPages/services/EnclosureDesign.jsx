@@ -27,7 +27,7 @@ export const EnclosureDesign = () => {
       <div
         style={{
           width: "45%",
-          height: "60%",
+          height: "70%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",
@@ -69,7 +69,7 @@ export const EnclosureDesign = () => {
       <div
         style={{
           width: "45%",
-          height: "60%",
+          height: "80%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",
@@ -78,14 +78,14 @@ export const EnclosureDesign = () => {
           gap: "32px",
         }}
       >
-        <h2>ENCLOSURE DESIGN (PS1)</h2>
+        <h3>ENCLOSURE DESIGN (PS1)</h3>
         <p>
           We accept primary design responsibility for all enclosure elements and
           junctions. We work closely with the architect to guide the design and
           rely on precedent testing, appraisals, design guides and other
           manufacturer’s data for compliance.
         </p>
-        <h2>ENCLOSURE DESIGN PEER REVIEW (PS2)</h2>
+        <h3>ENCLOSURE DESIGN PEER REVIEW (PS2)</h3>
 
         <p>
           We review the building enclosure design from another designer to

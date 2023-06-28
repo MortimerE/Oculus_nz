@@ -64,7 +64,7 @@ export const ServicesPage = () => {
           alignItems: "center",
           justifyContent: "center",
           scrollSnapAlign: "start",
-          padding: route.path.includes('sitemap') ? '' : "0 64px 160px 64px",
+          // padding: route.path.includes('sitemap') ? '' : "0 64px 160px 64px",
         }}
         key={route.name}
       >
