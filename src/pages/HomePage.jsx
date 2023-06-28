@@ -1,16 +1,28 @@
-import React from "react";
-import { homeRoutes, pageRoutes, aboutRoutes } from "../routes/routes";
+import React, { useContext } from "react";
+import { homeRoutes, homeRoutesShowLatest } from "../routes/routes";
 import Sitemap from "../components/Sitemap";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import ImageCarousel from "../components/embeds/ImageCarousel";
 import { Element } from "react-scroll";
 import { scroller } from "react-scroll";
-import { ScrollContext } from "../contexts/ScrollContext";
+import AppContext from "../contexts/AppContext";
 import { Link } from "react-router-dom";
 
 export const HomePage = () => {
-  const { scrollTo, setScrollTo } = React.useContext(ScrollContext);
+  const { state, api } = useContext(AppContext);
+  const { scrollTo } = state;
+  const { setScrollTo } = api;
+  const { homePageData } = state;
+
+  const {
+    missionstatement,
+    showlatest,
+    carousel = ["./vite.svg"], // default value if carousel is undefined
+  } = homePageData || {}; // default value if homePageData is undefined
+
+  let pageroutes = homeRoutes;
+  if (showlatest) {
+    pageroutes = homeRoutesShowLatest;
+  }
 
   React.useEffect(() => {
     // Temporarily disable scroll snap
@@ -37,8 +49,6 @@ export const HomePage = () => {
       setScrollTo("");
     }
   }, [scrollTo]);
-
-  const images = ["./vite.svg", "image2.jpg", "image3.jpg"]; // replace these with the URLs or paths to your actual images
 
   return (
     <div
@@ -84,11 +94,8 @@ export const HomePage = () => {
               "33%": { backgroundImage: "url(home-bg2.png)" },
               "66%": { backgroundImage: "url(home-bg3.png)" },
             },
-            // backgroundOrigin: 'border-box',
-            // backgroundPosition: 'center center'
           }}
         >
-          {/* <ImageCarousel images={images} /> */}
           <div
             style={{
               height: "100%",
@@ -106,7 +113,7 @@ export const HomePage = () => {
                 fontSize: "1.8rem",
                 marginTop: "64px",
                 marginBottom: "64px",
-                color: 'black'
+                color: "black",
               }}
             >{`${"Making high performance buildings simple by keeping the inside in and the outside out".toUpperCase()}`}</p>
             <Button

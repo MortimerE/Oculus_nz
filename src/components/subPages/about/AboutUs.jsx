@@ -1,10 +1,16 @@
 import Button from "@mui/material/Button";
-import StyledDivider from '../../reusable/StyledDivider';
-import React from "react";
+import StyledDivider from "../../reusable/StyledDivider";
+import React, { useContext } from "react";
+
 import { useNavigate } from "react-router-dom";
+import AppContext from "../../../contexts/AppContext";
 
 export const AboutUs = () => {
   const navigate = useNavigate();
+  const { state, api } = useContext(AppContext);
+  const { aboutUsData } = state;
+
+  const { description, founded, team, locale, teamPhoto } = aboutUsData;
 
   return (
     <div
@@ -14,8 +20,8 @@ export const AboutUs = () => {
         height: "100vh",
         alignItems: "flex-end",
         justifyContent: "center",
-        marginLeft: '64px',
-        marginRight: '64px'
+        marginLeft: "64px",
+        marginRight: "64px",
       }}
     >
       <div
@@ -42,6 +48,13 @@ export const AboutUs = () => {
           <li>Team of 25</li>
           <li>Across all of New Zealand</li>
         </ul>
+        */}
+        <p>{description}</p>
+        <ul style={{ marginLeft: "32px" }}>
+          <li>Founded in {founded}</li>
+          <li>Team of {team}</li>
+          <li>Across {locale}</li>
+        </ul>
         <Button
           variant="contained"
           style={{
@@ -65,7 +78,7 @@ export const AboutUs = () => {
           justifyContent: "center",
         }}
       >
-        Team picture goes here
+        <img src={teamPhoto} alt="Oculus Team" />
       </div>
     </div>
   );

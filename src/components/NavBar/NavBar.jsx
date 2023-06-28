@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ScrollContext } from "../../contexts/ScrollContext";
+import AppContext from "../../contexts/AppContext";
 import { Link as ScrollLink } from "react-scroll";
 import { styled } from "@mui/material/styles";
 import {
@@ -57,7 +57,17 @@ const NavBar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const { setScrollTo } = React.useContext(ScrollContext);
+  const { state, api } = useContext(AppContext);
+  const { scrollTo } = state;
+  const { setScrollTo } = api;
+
+  const { portfolio } = state;
+  const [portfolioItems, setPortfolioItems] = useState([]);
+  useEffect(() => {
+    if (portfolio) {
+      setPortfolioItems(portfolio || []);
+    }
+  }, [portfolio]);
 
   const handleScroll = (scrollTarget) => {
     setScrollTo(scrollTarget);
@@ -220,112 +230,37 @@ const NavBar = () => {
               </Link>
             </Dropdown>
 
+            {/*<Dropdown label="Portfolio" link="/portfolio">
+            <MenuItem onClick={handleClose} component={Link} to="/portfolio/banff-avenue">Banff Avenue</MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/portfolio/aroha-street">Aroha Street</MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/portfolio/galway-street">Galway Street</MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/portfolio/great-north-road-waterview">Great North Road Waterview</MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/portfolio/bader-ventura">Bader Ventura</MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/portfolio/neo-apartments">Neo Apartments</MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/portfolio/20-crescent-road">20 Crescent Road</MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/portfolio/kaplan-house">Kaplan House</MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/portfolio/4-viaduct-harbour">4 Viaduct Harbour</MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/portfolio/fortune-road">Fortune Road</MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/portfolio/woodford-grace">Woodford Grace</MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/portfolio/st-georges">St Georges</MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/portfolio/greys-avenue">Greys Avenue</MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/portfolio/hill-crescent">St Georges</MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/great-north-road-avondale">Great North Road Avondale</MenuItem>
+  </Dropdown>*/}
             <Dropdown label="Portfolio" link="/portfolio">
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/portfolio/banff-avenue"
-              >
-                Banff Avenue
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/portfolio/aroha-street"
-              >
-                Aroha Street
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/portfolio/galway-street"
-              >
-                Galway Street
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/portfolio/great-north-road-waterview"
-              >
-                Great North Road Waterview
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/portfolio/bader-ventura"
-              >
-                Bader Ventura
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/portfolio/neo-apartments"
-              >
-                Neo Apartments
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/portfolio/20-crescent-road"
-              >
-                20 Crescent Road
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/portfolio/kaplan-house"
-              >
-                Kaplan House
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/portfolio/4-viaduct-harbour"
-              >
-                4 Viaduct Harbour
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/portfolio/fortune-road"
-              >
-                Fortune Road
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/portfolio/woodford-grace"
-              >
-                Woodford Grace
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/portfolio/st-georges"
-              >
-                St Georges
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/portfolio/greys-avenue"
-              >
-                Greys Avenue
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/portfolio/hill-crescent"
-              >
-                St Georges
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/great-north-road-avondale"
-              >
-                Great North Road Avondale
-              </MenuItem>
+              {portfolioItems
+                .filter((item) => item.isFeatured)
+                .map((item) => (
+                  <MenuItem
+                    key={item.id}
+                    component={Link}
+                    to={`/portfolio/${item.title
+                      .replace(/ /g, "-")
+                      .toLowerCase()}`}
+                  >
+                    {item.title}
+                  </MenuItem>
+                ))}
             </Dropdown>
 
             <Dropdown label="Learn" link="/learn">

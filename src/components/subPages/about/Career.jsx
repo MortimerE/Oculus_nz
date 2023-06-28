@@ -1,11 +1,16 @@
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import StyledDivider from "../../reusable/StyledDivider";
+import AppContext from "../../../contexts/AppContext";
 
 export const Career = () => {
   const navigate = useNavigate();
+  const { state, api } = useContext(AppContext);
+  const { careerData } = state;
+
+  const { description, founded, team, locale, image } = careerData || {};
 
   return (
     <div
@@ -27,7 +32,7 @@ export const Career = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: '32px'
+          gap: "32px",
         }}
       >
         <div
@@ -70,10 +75,10 @@ export const Career = () => {
             flexDirection: "column",
             alignItems: "flex-start",
             justifyContent: "flex-end",
-            gap: '32px',
+            gap: "32px",
           }}
         >
-          <p style={{textAlign: 'left'}}>
+          <p style={{ textAlign: "left" }}>
             <b>Benefits</b>
           </p>
           <ul style={{ marginLeft: "32px" }}>
@@ -105,7 +110,9 @@ export const Career = () => {
           </Button>
         </div>
       </div>
-      <div style={{ width: "100%", height: '10%' }}>Employee testimonials go here</div>
+      <div style={{ width: "100%", height: "10%" }}>
+        Employee testimonials go here
+      </div>
     </div>
   );
 };

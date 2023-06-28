@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { learnRoutesRender, pageRoutes, aboutRoutes } from "../routes/routes";
 import Sitemap from "../components/Sitemap";
 import Button from '@mui/material/Button';
 import { Element } from 'react-scroll';
 import { scroller } from 'react-scroll';
-import { ScrollContext } from '../contexts/ScrollContext';
+import AppContext from '../contexts/AppContext';
 
 
 export const LearnPage = () => {
-  const { scrollTo, setScrollTo } = React.useContext(ScrollContext);
+  const {state, api} = useContext(AppContext);
+  const { scrollTo } = state;
+const { setScrollTo } = api;
 
   React.useEffect(() => {
     // Temporarily disable scroll snap

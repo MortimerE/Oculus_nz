@@ -74,10 +74,21 @@ export const pageRoutes = [
     name: "Bader Ventura Case Study",
   },
 ];
+
 export const homeRoutes = [
   {
     path: "sitemap",
     element: <Sitemap initialRoutes={pageRoutes} centerText={'LOGO'} />,
+    name: "Sitemap",
+  },
+  { path: "contact", element: <Contact />, name: "Contact" },
+  { path: "enquire", element: <Enquire />, name: "Enquire Here" },
+];
+
+export const homeRoutesShowLatest = [
+  {
+    path: "sitemap",
+    element: <Sitemap initialRoutes={pageRoutes} centerText={'Oculus'} />,
     name: "Sitemap",
   },
   { path: "latest-news", element: <LatestNews />, name: "Latest News" },

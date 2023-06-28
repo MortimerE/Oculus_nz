@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Grid } from "@mui/material";
+import React, { useContext, useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { PortfolioItem } from "../components/subPages/portfolio/PortfolioItem";
 import { PortfolioOverview } from "../components/subPages/portfolio/PortfolioOverview";
 import { Sitemap } from "../components/Sitemap";
+import AppContext from "../contexts/AppContext";
 //import axios from 'axios';
 
 export const PortfolioPage = () => {
-  const [portfolioItems, setPortfolioItems] = useState([
+  const { state } = useContext(AppContext);
+  const { portfolio } = state;
+  const [portfolioItems, setPortfolioItems] = useState([]);
+  useEffect(() => {
+    if (portfolio) {
+      setPortfolioItems(portfolio || []);
+    }
+  }, [portfolio]);
+  /*const [portfolioItems, setPortfolioItems] = useState([
     {
       id: "1",
       image: "https://placeimg.com/640/480/arch",
@@ -30,7 +38,6 @@ export const PortfolioPage = () => {
   ]);
 
   //const [portfolioItems, setPortfolioItems] = useState([]);
-  /*
   useEffect(() => {
     axios.get('YOUR_STRAPI_API_ENDPOINT')
       .then(response => {
@@ -54,7 +61,7 @@ export const PortfolioPage = () => {
         alignItems: "center",
         justifyContent: "flex-end",
         padding: "24vh 64px 100px 64px",
-        boxSizing: 'border-box'
+        boxSizing: "border-box",
         // gap: '64px',
         // scrollSnapType: "y mandatory",
       }}
@@ -66,14 +73,14 @@ export const PortfolioPage = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "flex-start",
-          marginBottom: '48px'
+          marginBottom: "48px",
           // scrollSnapAlign: "start",
         }}
       >
         <h1>Portfolio</h1>
       </div>
-      <div style={{ width: "100%", }}>
-        <Grid container spacing={2} columns={{xs: 2, md: 10}}>
+      <div style={{ width: "100%" }}>
+        <Grid container spacing={2} columns={{ xs: 2, md: 10 }}>
           {portfolioItems.map((item, index) => (
             <Grid item xs={1} md={2}>
               <div
@@ -97,7 +104,12 @@ export const PortfolioPage = () => {
                     display: "flex",
                   }}
                 >
-                  <img src={item.image} objectFit='scale-down' width="100%" height="100%"/>
+                  <img
+                    src={item.image}
+                    objectFit="scale-down"
+                    width="100%"
+                    height="100%"
+                  />
                 </div>
                 <div style={{ width: "100%" }}>{item.title}</div>
                 <div style={{ width: "100%" }}>{item.subtitle}</div>

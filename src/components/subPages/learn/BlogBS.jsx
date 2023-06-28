@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
 import Requests from '../contact/Requests';
 import { Link } from 'react-scroll';
-import { ScrollContext } from '../../../contexts/ScrollContext';
+import AppContext from '../../../contexts/AppContext';
 
 const UnderlinedTitle = styled(Typography)(({ theme }) => ({
   textDecoration: 'underline',
@@ -53,7 +53,9 @@ const Overlay = styled(Box)(({ theme }) => ({
 
 export const BlogBS = () => {
   const navigate = useNavigate();
-  const { setScrollTo } = React.useContext(ScrollContext);
+  const {state, api} = useContext(AppContext);
+  const { scrollTo } = state;
+const { setScrollTo } = api;
 
   const handleScroll = (scrollTarget) => {
     setScrollTo(scrollTarget);

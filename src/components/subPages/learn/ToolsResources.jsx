@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { styled } from "@mui/system";
 import { useNavigate } from "react-router-dom";
+import AppContext from "../../../contexts/AppContext";
 import Requests from "../contact/Requests";
 
 const Underline = styled("hr")({
@@ -21,24 +22,6 @@ const GridItem = styled(Box)(({ theme }) => ({
   cursor: "pointer",
 }));
 
-const toolsAndResourcesItems = [
-  "NZBC H1 CHANGES SUMMARY",
-  "BADER VENTURA CASE STUDY",
-  "HOMESTAR V5",
-  "THE PARKA WRAP",
-  "HOW TO DESIGN DRY DURABLE...",
-  "SUMMER PLANNING GUIDE",
-  "BUILD WITH WARM ROOFS",
-  "VENTILATION SYSTEMS",
-  "HEALTHY HOMES GUIDE",
-  "FIRE COMPLIANCE OF CLADDING SYSTEMS",
-  "RETROFITTINF WALL INSULATION",
-  "HEALTHY HOME - SUMMER KIT",
-  "HEALTHY HOME - WINTER KIT",
-  "HEALTHY HOME GUIDE",
-  "H1 Pathway",
-];
-
 const Overlay = styled(Box)(({ theme }) => ({
   position: "fixed",
   top: 0,
@@ -57,20 +40,34 @@ export const ToolsResources = () => {
 
   const [overlayVisible, setOverlayVisible] = useState(false);
 
-  const handleItemClick = (itemName) => {
-    const formattedName = itemName.toLowerCase().replaceAll(" ", "");
-    navigate(`/learn/${formattedName}`);
+  // Get the resources data from the context
+  const { state } = useContext(AppContext);
+  const { resources } = state;
+  const [resourceItems, setResourceItems] = useState([]);
+
+  useEffect(() => {
+    if (resources) {
+      setResourceItems(resources || []);
+    }
+  }, [resources]);
+
+  const handleItemClick = (resource) => {
+    const formattedName = resource.title.toLowerCase().replaceAll(" ", "");
+    navigate(`/learn/tools-resources/${formattedName}`);
   };
 
-  return (
+  // Filter resources where 'isFeatured' is true
+  const featuredResources = resourceItems.filter(
+    (resourceItems) => resourceItems.isFeatured
+  );
+
+  return resourceItems.length > 0 ? (
     <Box
       sx={{
         display: "flex",
         flexDirection: "row",
-        alignItems: "center",
         height: "100vh",
         padding: "32px",
-        gap: '32px',
       }}
     >
       <Box sx={{ flex: "1", paddingRight: "16px" }}>
@@ -111,14 +108,18 @@ export const ToolsResources = () => {
 
       <Box sx={{ flex: "1", paddingLeft: "16px", overflowY: "auto" }}>
         <Grid container spacing={2}>
-          {toolsAndResourcesItems.map((item, index) => (
+          {featuredResources.map((resource, index) => (
             <Grid item xs={4} key={index}>
-              <GridItem onClick={() => handleItemClick(item)}>{item}</GridItem>
+              <GridItem onClick={() => handleItemClick(resource)}>
+                {resource.title}
+              </GridItem>
             </Grid>
           ))}
         </Grid>
       </Box>
     </Box>
+  ) : (
+    <p>Loading...</p> // Or replace with your own loading component
   );
 };
 

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Box, Typography, Button, Grid } from '@mui/material';
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import Register from '../contact/Register';
+import AppContext from '../../../contexts/AppContext';
 
 const Underline = styled('hr')({
   borderColor: '#000000',
@@ -20,14 +21,6 @@ const GridItem = styled(Box)(({ theme }) => ({
   borderRadius: '8px',
   cursor: 'pointer',
 }));
-
-const RecentSeminars = [
-  "OVERHEATING",
-  "WATERPROOFING",
-  "FIRE",
-  "MEMBRANES",
-  "OVERHEATING"
-];
 
 const UpcomingSeminars = [
   { date: "30/03/2023", title: "H1 - Examples of compliant assemblies" },
@@ -56,12 +49,25 @@ const Overlay = styled(Box)(({ theme }) => ({
 export const ScienceSeminars = () => {
   const navigate = useNavigate();
 
-  const handleItemClick = (itemName) => {
-    const formattedName = itemName.toLowerCase().replaceAll(' ', '');
-    navigate(`/learn/scienceseminars/${formattedName}`);
+  const { state } = useContext(AppContext);
+  const { seminars } = state;
+  const [seminarItems, setSeminarItems] = useState([]);
+
+  useEffect(() => {
+    if (seminars) {
+      setSeminarItems(seminars || []);
+    }
+  }, [seminars]);
+
+  const handleItemClick = (item) => {
+    const formattedName = item.title.toLowerCase().replaceAll(' ', '');
+    navigate(`/learn/seminars/${formattedName}`);
   };
 
   const [overlayVisible, setOverlayVisible] = useState(false);
+
+  // Filter seminars where 'isFeatured' is true
+  const featuredSeminars = seminarItems.filter(seminarItems => seminarItems.isFeatured);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row-reverse', height: '100vh', padding: '32px' }}>
@@ -84,20 +90,24 @@ export const ScienceSeminars = () => {
           </Overlay>
         )}
       </Box>
-
+  
       <Box sx={{ flex: '1', paddingRight: '16px', overflowY: 'auto' }}>
         <Typography variant="h5" gutterBottom>RECENT SEMINARS</Typography>
-        <Grid container spacing={2}>
-          {RecentSeminars.map((item, index) => (
-            <Grid item xs={4} key={index}>
-              <GridItem onClick={() => handleItemClick(item)}>{item}</GridItem>
-            </Grid>
-          ))}
-        </Grid>
+        {seminarItems === null ? (
+          <p>Loading...</p> // Replace with your own loading component
+        ) : (
+          <Grid container spacing={2}>
+            {seminarItems.map((item, index) => (
+              <Grid item xs={4} key={index}>
+                <GridItem onClick={() => handleItemClick(item)}>{item.title}</GridItem>
+              </Grid>
+            ))}
+          </Grid>
+        )}
         <Button variant="contained" onClick={() => navigate("/seminars")}>REWATCH SEMINARS HERE</Button>
       </Box>
     </Box>
   );
-};
+            }  
 
 export default ScienceSeminars;
