@@ -30,7 +30,7 @@ const { setScrollTo } = api;
       <div
         style={{
           width: "30%",
-          height: "60%",
+          height: "80%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",
@@ -39,7 +39,7 @@ const { setScrollTo } = api;
           gap: "32px",
         }}
       >
-        <h1>PRODUCT COMPLIANCE & ENGINEERING</h1>
+        <h2>PRODUCT COMPLIANCE & ENGINEERING</h2>
         <Divider style={{ width: "100%", height: "8px" }} />
         <h2>COMPLIANCE PATHWAY</h2>
         <p>

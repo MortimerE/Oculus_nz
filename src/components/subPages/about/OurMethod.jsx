@@ -35,7 +35,7 @@ export const OurMethod = () => {
       <div
         style={{
           width: "40%",
-          height: "1000%",
+          height: "100%",
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",

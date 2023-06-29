@@ -39,21 +39,9 @@ const { setScrollTo } = api;
   }, [scrollTo, setScrollTo]);
 
   return (
-    <div
-      id="scroll-container"
-      style={{
-        width: "100%",
-        height: "100vh",
-        // position: 'relative',
-        overflowY: "scroll",
-        // display: "flex",
-        // flexDirection: "column",
-        // alignItems: "center",
-        scrollSnapType: "y mandatory",
-      }}
-      >
-    <div style={{display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'center'}}>
-      {/* <Sitemap routes={pageRoutes} /> */}
+    
+      <>
+
       {learnRoutesRender.map((route, index) => (
         <Element name={route.path} key={index}>
           <div
@@ -72,8 +60,7 @@ const { setScrollTo } = api;
           </div>
         </Element>
       ))}
-    </div>
-    </div>
+      </>
     
   );
 };

@@ -31,7 +31,7 @@ const { setScrollTo } = api;
       <div
         style={{
           width: "40%",
-          height: "65%",
+          height: "90%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",
@@ -78,7 +78,7 @@ const { setScrollTo } = api;
       <div
         style={{
           width: "35%",
-          height: "65%",
+          height: "90%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",

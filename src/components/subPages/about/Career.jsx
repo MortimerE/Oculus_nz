@@ -4,6 +4,8 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import StyledDivider from "../../reusable/StyledDivider";
 import AppContext from "../../../contexts/AppContext";
+import PinkButton from "../../reusable/PinkButton";
+import PageView from "../../reusable/PageView";
 
 export const Career = () => {
   const navigate = useNavigate();
@@ -12,8 +14,52 @@ export const Career = () => {
 
   const { description, founded, team, locale, image } = careerData || {};
 
+  const pageConfig = {
+    headerPos: "left",
+    title: "Career",
+    columns: [
+      <>
+        <p>
+          We are the largest and most influential building enclosure specialists
+          in New Zealand. We do this by improving the buildings in New Zealand,
+          so that people can have warm and dry homes, workplaces and schools.
+        </p>
+        <p>
+          <b>
+            Our Values of Individuality, Stewardship, Resourcefulness and
+            Transparency
+          </b>{" "}
+          drive everything we do here at Oculus and speak to who we are. We are
+          passionate; working together and striving to always develop and grow -
+          both as a business, as individuals and in our contributions within our
+          industry - whilst looking after ourselves and each other.
+        </p>
+      </>,
+      <>
+        <p style={{ textAlign: "left" }}>
+          <b>Benefits</b>
+        </p>
+        <ul style={{ marginLeft: "32px", marginTop: '-24px' }}>
+          <li>Competetive salary/benefits</li>
+          <li>Flexible working opportunities</li>
+          <li>
+            Annual training allowance to support you in your personal
+            development
+          </li>
+        </ul>
+        <p style={{ marginBottom: "-24px" }}>
+          <b>Want to be part of the team?</b>
+        </p>
+        <p style={{ marginBottom: '-16px'}}>
+          <b>Contact Lesley on lesley@oculusltd.co.nz</b>
+        </p>
+        <PinkButton onClick={() => {}} text={"Contact Lesley"} />
+      </>,
+    ],
+  };
   return (
-    <div
+    <PageView pageConfig={pageConfig} />
+    /* <div
       style={{
         display: "flex",
         width: "100%",
@@ -35,7 +81,7 @@ export const Career = () => {
           gap: "32px",
         }}
       >
-        <div
+ <div
           style={{
             width: "45%",
             height: "75%",
@@ -112,8 +158,8 @@ export const Career = () => {
       </div>
       <div style={{ width: "100%", height: "10%" }}>
         Employee testimonials go here
-      </div>
-    </div>
+      </div> 
+          </div> */
   );
 };
 
