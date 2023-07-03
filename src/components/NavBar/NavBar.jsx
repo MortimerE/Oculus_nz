@@ -26,14 +26,14 @@ import InputLabel from "@mui/material/InputLabel";
 const StyledAppBar = styled(AppBar)`
   background-color: #000000;
   height: 12vh;
-  zindex: 5;
+  zIndex: 5;
 `;
 
 const StyledToolbar = styled(Toolbar)`
   display: flex;
   flex-direction: row; // Aligns children horizontally
   justify-content: space-around; // Distributes children evenly with space around them
-  zindex: 5;
+  zIndex: 5;
 `;
 
 const StyledMenu = styled(Menu)`
@@ -49,6 +49,19 @@ const StyledMenu = styled(Menu)`
   }
 `;
 
+const handleSearch = (query) => {
+  let results = [];
+  ['portfolio', 'articles', 'seminars', 'tools'].forEach(category => {
+      state[category].forEach(item => {
+          if (item.title.toLowerCase().includes(query.toLowerCase())) {
+              results.push({category, ...item});
+          }
+      });
+  });
+  setSearchResults(results);
+  console.log(results);
+};
+
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -57,12 +70,16 @@ const NavBar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const [searchResults, setSearchResults] = useState([]);
+
+
   const { state, api } = useContext(AppContext);
   const { scrollTo } = state;
   const { setScrollTo } = api;
 
   const { portfolio } = state;
   const [portfolioItems, setPortfolioItems] = useState([]);
+
   useEffect(() => {
     if (portfolio) {
       setPortfolioItems(portfolio || []);
@@ -133,6 +150,7 @@ const NavBar = () => {
 
   const handleSearchClick = (event) => {
     setSearchAnchorEl(event.currentTarget);
+    console.log("searching");
   };
 
   const handleUserClick = (event) => {
@@ -248,20 +266,14 @@ const NavBar = () => {
             <MenuItem onClick={handleClose} component={Link} to="/great-north-road-avondale">Great North Road Avondale</MenuItem>
   </Dropdown>*/}
             <Dropdown label="Portfolio" link="/portfolio">
-              {portfolioItems
-                .filter((item) => item.isFeatured)
-                .map((item) => (
-                  <MenuItem
-                    key={item.id}
-                    component={Link}
-                    to={`/portfolio/${item.title
-                      .replace(/ /g, "-")
-                      .toLowerCase()}`}
-                  >
-                    {item.title}
-                  </MenuItem>
-                ))}
-            </Dropdown>
+            {portfolioItems
+              .filter(item => item.isFeatured)
+              .map(item => (
+                <MenuItem key={item.id} component={Link} to={`/portfolio/${item.title.replace(/ /g, '-').toLowerCase()}`}>
+                  {item.title}
+                </MenuItem>
+              ))}
+          </Dropdown>
 
             <Dropdown label="Learn" link="/learn">
               <Link to="/learn" onClick={() => handleScroll("tools-resources")}>
@@ -305,7 +317,7 @@ const NavBar = () => {
                 LinkedIn
               </MenuItem>
             </Dropdown>
-          </DropdownContainer>
+          
           <IconButton
             edge="end"
             color="inherit"
@@ -327,6 +339,7 @@ const NavBar = () => {
               <PersonIcon />
             </IconButton>
           </Box>
+          </DropdownContainer>
         </StyledToolbar>
         <Popover
           open={Boolean(searchAnchorEl)}
@@ -344,15 +357,15 @@ const NavBar = () => {
           <TextField
             autoFocus
             placeholder="Search for an article..."
-            onChange={handleSearchClose}
+            onChange={(e) => handleSearch(e.target.value)}
             InputProps={{
-              startAdornment: (
-                <InputLabel shrink={false} sx={{ color: "grey" }}>
-                  Search for an article...
-                </InputLabel>
-              ),
+                startAdornment: (
+                    <InputLabel shrink={false} sx={{ color: "grey" }}>
+                        Search for an article...
+                    </InputLabel>
+                ),
             }}
-          />
+        />
         </Popover>
 
         <Popover

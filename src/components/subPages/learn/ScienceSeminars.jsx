@@ -16,10 +16,12 @@ const GridItem = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   height: '100%',
+  aspectRatio: '1/1',
   padding: theme.spacing(1),
   boxSizing: 'border-box',
   borderRadius: '8px',
   cursor: 'pointer',
+  color: '#000000',
 }));
 
 const UpcomingSeminars = [

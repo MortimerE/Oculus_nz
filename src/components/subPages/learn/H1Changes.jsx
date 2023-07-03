@@ -15,11 +15,13 @@ const GridItem = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  aspectRatio: '1/1',
   height: '100%',
   padding: theme.spacing(1),
   boxSizing: 'border-box',
   borderRadius: '8px',
   cursor: 'pointer',
+  color: '#000000',
 }));
 
 export const H1Changes = () => {

@@ -16,6 +16,7 @@ export const PortfolioOverview = () => {
   const navigate = useNavigate();
 
   const handleClick = (itemId) => {
+    console.log(itemId);
     navigate(`/portfolio/${itemId}`);
   };
   

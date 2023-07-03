@@ -67,7 +67,18 @@ export const PortfolioPage = () => {
         // scrollSnapType: "y mandatory",
       }}
     >
-      <div
+      <Routes>
+  <Route path="sitemap" element={<Sitemap routes={portfolioItems.map(item => ({ path: item.id, name: item.title }))} />} />
+  <Route path="/" element={<PortfolioOverview />} />
+  <Route path=":itemId" element={<PortfolioItem />} />
+</Routes>
+    </div>
+  );
+};
+
+{
+  /* 
+<div
         style={{
           display: "flex",
           width: "100%",
@@ -118,16 +129,6 @@ export const PortfolioPage = () => {
             </Grid>
           ))}
         </Grid>
-      </div>
-    </div>
-  );
-};
-
-{
-  /* <Routes>
-  <Route path="sitemap" element={<Sitemap routes={portfolioItems.map(item => ({ path: item.id, name: item.title }))} />} />
-  <Route path="/" element={<PortfolioOverview />} />
-  <Route path=":itemId" element={<PortfolioItem />} />
-</Routes> */
+      </div> */
 }
 export default PortfolioPage;

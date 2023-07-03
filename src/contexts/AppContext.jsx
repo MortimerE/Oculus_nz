@@ -130,7 +130,7 @@ export const AppContextProvider = ({ children }) => {
       let temp = [];
       let tempRoutes = [];
       reso.forEach((el) => {
-        console.log(el.attributes);
+        //console.log(el.attributes);
         temp.push(el.attributes);
         tempRoutes.push({
           routeName: el.attributes.name,

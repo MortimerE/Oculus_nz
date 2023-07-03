@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Box, Button, Typography, Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Button, Typography } from '@mui/material';
 import AppContext from '../../../contexts/AppContext';
-import Reader from '../../embeds/reader'; // replace this with the correct path
+import ArticleReader from '../../embeds/ArticleReader'; // replace this with the correct path
 import { styled } from '@mui/system';
 
 const Underline = styled('hr')({
@@ -10,17 +11,55 @@ const Underline = styled('hr')({
   borderWidth: '1px',
 });
 
+const GridItem = styled(Box)(({ theme }) => ({
+  background: "#f5f5f5",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100%",
+  aspectRatio: "1/1",
+  padding: theme.spacing(1),
+  boxSizing: "border-box",
+  borderRadius: "8px",
+  cursor: "pointer",
+  color: "#000000",
+}));
+
 const BlogArticleItemDetails = ({ item }) => {
   const { state, api } = useContext(AppContext);
-  const { setScrollTo } = state;
+  const { setScrollTo, articles } = state;
+  const navigate = useNavigate();
+
+  const [recommendedArticles, setRecommendedArticles] = useState([]);
+
+  useEffect(() => {
+    if(item){
+      if(item.recIsRandom){
+        // Filter out all articles in the same category
+        let sameCategoryArticles = articles.filter(article => article.category === item.category && article.title !== item.title);
+        if(sameCategoryArticles.length === 0) {
+          // If no articles in the same category, use all articles
+          sameCategoryArticles = articles.filter(article => article.title !== item.title);
+        }
+        // Randomize and pick up to three
+        sameCategoryArticles.sort(() => Math.random() - 0.5);
+        setRecommendedArticles(sameCategoryArticles.slice(0, 3).map(article => article.title));
+      } else if(item.recommendations) {
+        setRecommendedArticles(item.recommendations.split(", "));
+      }
+    }
+  }, [item, articles]);
 
   const handleScroll = (scrollTarget) => {
     setScrollTo(scrollTarget);
   };
+  
+  const handleItemClick = (article) => {
+    /*const formattedName = article.toLowerCase().replaceAll(" ", "");
+    navigate(`/learn/blog/${formattedName}`);*/
+    navigate(`/learn/blog/${article}`);
+  };
 
-  const recommendedArticles = [item.reccomendation1, item.reccomendation2, item.reccomendation3]; // replace with your actual recommended articles
-  const endpoint = import.meta.env.VITE_STRAPIURL;
-  const pdf = endpoint+item.pdf.data.attributes.url;
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '32px', height: '100vh' }}>
       <Box sx={{ width: '40%', paddingRight: '32px' }}>
@@ -37,22 +76,28 @@ const BlogArticleItemDetails = ({ item }) => {
 
         <Typography variant="h6" gutterBottom>You might also like</Typography>
         <Underline />
-        {recommendedArticles.map((article, i) => (
-            <Typography key={i} variant="body2">
-              {article}
-            </Typography>
+        <Grid container spacing={2}>
+          {recommendedArticles.map((article, i) => (
+            <Grid item xs={4} key={i}>
+              <GridItem onClick={() => handleItemClick(article)}>
+                {article}
+              </GridItem>
+            </Grid>
           ))}
-
+        </Grid>
       </Box>
 
       <Box sx={{ width: '60%', display: 'flex', justifyContent: 'space-between' }}>
-
-      <Box sx={{ flex: '1 1 auto', pl: 2 }}>
-        <Reader file={pdf} /> {/* PDF viewer component with file passed as prop */}
-      </Box>
+        <Box sx={{ flex: '1 1 auto', pl: 2 }}>
+          <ArticleReader data={item.body} /> {/* rich text viewer component with markdown passed as prop */}
+        </Box>
       </Box>
     </Box>
   );
 };
 
 export default BlogArticleItemDetails;
+
+
+
+

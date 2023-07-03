@@ -1,56 +1,81 @@
-
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, Grid, Container } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import Reader from '../../embeds/reader'; // replace this with the correct path
-import AppContext from '../../../contexts/AppContext'; // replace YOUR_CONTEXT
+import Reader from '../../embeds/reader';
+import { styled } from '@mui/system';
+import AppContext from '../../../contexts/AppContext';
+import { useNavigate } from 'react-router-dom';
 
-const seminar = () => {
-  const [seminarData, setseminarData] = useState(null);
-  const { seminarId } = useParams(); // Get the seminar ID from the URL
-  
-  // Context
-  const { state } = useContext(AppContext); // replace YOUR_CONTEXT
-  const { seminars } = state; // Ensure you have a 'seminars' state in your context
-  const [seminarItems, setseminarItems] = useState([]);
-  
+const Underline = styled('hr')({
+  borderColor: '#000000',
+  borderWidth: '1px',
+});
+
+const GridItem = styled(Box)(({ theme }) => ({
+  background: "#f5f5f5",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100%",
+  aspectRatio: "1/1",
+  padding: theme.spacing(1),
+  boxSizing: "border-box",
+  borderRadius: "8px",
+  cursor: "pointer",
+  color: "#000000",
+}));
+
+const Seminar = () => {
+  const { itemId } = useParams();
+  const { state } = useContext(AppContext);
+  const { seminars, setScrollTo } = state;
+  const [seminarData, setSeminarData] = useState(null);
+  const [recommendedSeminars, setRecommendedSeminars] = useState([]);
+  const endpoint = import.meta.env.VITE_STRAPIURL;
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (seminars) {
-      setseminarItems(seminars || []);
+      const seminar = seminars.find(item => item.title.toLowerCase() === itemId);
+      if (seminar) {
+        setSeminarData(seminar);
+      }
     }
-  }, [seminars]);
+  }, [itemId, seminars]);
 
   useEffect(() => {
-    // Find the specific item by its id from the context data
-    const seminar = seminarItems.find(item => item.title === seminarId);
-    if (seminar) {
-      setseminarData(seminar);
+    if(seminarData){
+      if(seminarData.recIsRandom){
+        let sameCategorySeminars = seminars.filter(seminar => seminar.category === seminarData.category && seminar.title !== seminarData.title);
+        if(sameCategorySeminars.length === 0) {
+          sameCategorySeminars = seminars.filter(seminar => seminar.title !== seminarData.title);
+        }
+        sameCategorySeminars.sort(() => Math.random() - 0.5);
+        setRecommendedSeminars(sameCategorySeminars.slice(0, 3).map(seminar => seminar.title));
+      } else if(seminarData.recommendations) {
+        setRecommendedSeminars(seminarData.recommendations.split(", "));
+      }
     }
-  }, [seminarId, seminarItems]); // Rerun this effect when the seminar ID or seminarItems array changes
-
-  if (!seminarData) {
-    return <p>Loading...</p>; // Replace with your own loading component
-  }
-  
-  const { setScrollTo } = state;
+  }, [seminarData, seminars]);
 
   const handleScroll = (scrollTarget) => {
     setScrollTo(scrollTarget);
   };
 
-  const recommendedArticles = [item.reccomendation1, item.reccomendation2, item.reccomendation3]; // replace with your actual recommended articles
-  const endpoint = import.meta.env.VITE_STRAPIURL;
-  const pdf = endpoint + seminarData.slides.data.attributes.url;
+  const handleItemClick = (seminar) => {
+    navigate(`/seminar/${seminar}`);
+  };
 
-  return (
+  return seminarData ? (
     <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
       <Box sx={{ flex: '1 1 auto', pr: 2 }}>
         <Typography variant="h4" component="h2" gutterBottom>
           {seminarData.title}
         </Typography>
+        <Underline />
         <Typography variant="body1" gutterBottom>
-          {seminarData.description}
+          {seminarData.abstract}
         </Typography>
         <RouterLink to="/" onClick={() => handleScroll('enquire')}>
           <Button variant="contained" color="primary">
@@ -58,19 +83,31 @@ const seminar = () => {
           </Button>
         </RouterLink>
         <Box mt={4}>
-          <Typography variant="h6">Recommended Articles</Typography>
-          {recommendedArticles.map((article, i) => (
-            <Typography key={i} variant="body2">
-              {article}
-            </Typography>
-          ))}
+          <Typography variant="h6">Seminars You May Like:</Typography>
+          <Underline />
+          <Grid container spacing={2}>
+            {recommendedSeminars.map((seminar, i) => (
+              <Grid item xs={4} key={i}>
+                <GridItem onClick={() => handleItemClick(seminar)}>
+                  {seminar}
+                </GridItem>
+              </Grid>
+            ))}
+          </Grid>
         </Box>
       </Box>
-      <Box sx={{ flex: '1 1 auto', pl: 2 }}>
-        <Reader file={pdf} /> {/* PDF viewer component with file passed as prop */}
+      <Box sx={{ flex: '1 1 auto', pl: 2, maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}>
+        <Container sx={{ height: '45%', marginBottom: '2rem' }}>
+          <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${seminarData.videoEmbed}`} title={seminarData.title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+        </Container>
+        <Container sx={{ height: '45%' }}>
+          <Reader file={endpoint + seminarData.slides.data.attributes.url} />
+        </Container>
       </Box>
     </Box>
+  ) : (
+    <p>Loading...</p>
   );
 };
 
-export default seminar;
+export default Seminar;

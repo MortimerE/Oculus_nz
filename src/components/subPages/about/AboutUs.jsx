@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import StyledDivider from "../../reusable/StyledDivider";
 import React, { useContext } from "react";
-
+import { Link } from "react-scroll";
 import { useNavigate } from "react-router-dom";
 import AppContext from "../../../contexts/AppContext";
 
@@ -9,6 +9,10 @@ export const AboutUs = () => {
   const navigate = useNavigate();
   const { state, api } = useContext(AppContext);
   const { aboutUsData } = state;
+  const { setScrollTo } = api;
+  const handleScroll = (scrollTarget) => {
+    setScrollTo(scrollTarget);
+  };
 
   const { description, founded, team, locale, teamPhoto } = aboutUsData;
 
@@ -54,6 +58,7 @@ export const AboutUs = () => {
           <li>Team of {team}</li>
           <li>Across {locale}</li>
         </ul> */}
+        <Link to="/about" onClick={() => handleScroll("our-method")}>
         <Button
           variant="contained"
           style={{
@@ -65,7 +70,7 @@ export const AboutUs = () => {
           }}
         >
           Our Method
-        </Button>
+        </Button></Link>
       </div>
       <div
         style={{

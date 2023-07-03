@@ -3,6 +3,7 @@ import Divider from "@mui/material/Divider";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import StyledDivider from "../../reusable/StyledDivider";
+import { Link } from "react-router-dom";
 
 export const Testimonials = () => {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ export const Testimonials = () => {
         <StyledDivider />
         <p style={{marginTop: '24px'}}>Here is what our clients think.</p>
         <p style={{ marginBottom: "24px" }}>Want to work with us too?</p>
+        <Link to="/services">
         <Button
           variant="contained"
           style={{
@@ -44,10 +46,10 @@ export const Testimonials = () => {
             fontSize: ".8em",
             width: "200px",
           }}
-          //   onClick={navigate("/about/our-method")}
         >
           Our Services
         </Button>
+        </Link>
       </div>
       <div
         style={{

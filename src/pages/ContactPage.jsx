@@ -10,7 +10,7 @@ const Contact = () => {
   const [activeComponent, setActiveComponent] = useState("contact");
   const [imageUrl, setImageUrl] = useState("./vite.svg"); // state to hold the image URL
   const { state, api } = useContext(AppContext);
-  const { setScrollTo } = state;
+  const { setScrollTo } = api;
 
   const handleScroll = (scrollTarget) => {
     setScrollTo(scrollTarget);

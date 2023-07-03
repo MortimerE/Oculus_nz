@@ -21,7 +21,6 @@ export const BlogArticleItem = () => {
   useEffect(() => {
     // Find the specific item by its id from the context data
     const item = articleItems.find(item => item.title === itemId);
-    console.log(item);
     if (item) {
       setItemData(item);
     }
