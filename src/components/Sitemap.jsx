@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from 'react';
 import { Box, Link } from "@mui/material";
 import { styled } from "@mui/system";
 import { Button } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
+import { aboutRoutes, servicesRoutes, learnRoutes } from '../routes/routes';
 
 const GridItem = styled(Box)(({ theme }) => ({
   gridColumn: "span 1",
@@ -22,20 +24,26 @@ const ActiveGridItem = styled(GridItem)({
   gridRow: "span 2",
 });
 
+const TextBox = styled(Box)({
+  display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",  // add this to fill the container
+              width: "100%",  // add this to fill the container
+});
+
 export const Sitemap = (props) => {
-  const { initialRoutes, centerText } = props;
-  const [activeIndex, setActiveIndex] = React.useState(-1);
-  const [routesStack, setRoutesStack] = React.useState([initialRoutes]);
+  const { initialRoutes, initialCenter } = props;
+  const [routesStack, setRoutesStack] = useState([initialRoutes]);
+  const [routes, setRoutes] = useState([routesStack]);
+  const [centerText, setCenterText] = useState(initialCenter);
 
   const tileCount = initialRoutes.length + 4;
   const rowCount = tileCount <= 14 ? 2 : 3;
   const colCount = Math.ceil(tileCount / rowCount);
 
-  const handleTileClick = (index) => {
-    setActiveIndex(index);
-    if (index === -1) {
-      return;
-    }
+  const handleTileClick = (route) => {
+    setCenterText(route.name);
 
     // Here, you need to have a mapping of route names to their corresponding route array
     const newRoutes = {
@@ -43,27 +51,39 @@ export const Sitemap = (props) => {
       Services: servicesRoutes,
       Learn: learnRoutes,
       // ...add other mappings here
-    }[routesStack[routesStack.length - 1][index].name];
+    }[route.name];
 
     if (newRoutes) {
       setRoutesStack([...routesStack, newRoutes]);
+    } else {
+      doNavigate(route.name.toLowerCase()); // assuming the route names match the URL paths
     }
   };
+
 
   const handleBackClick = () => {
     if (routesStack.length > 1) {
-      setRoutesStack(routesStack.slice(0, -1));
+      const newRoutesStack = routesStack.slice(0, -1);
+      setRoutesStack(newRoutesStack);
+      setCenterText(newRoutesStack[newRoutesStack.length - 1].name);
     }
-    setActiveIndex(-1);
   };
 
-  const routes = routesStack[routesStack.length - 1];
 
-  React.useEffect(() => {
-    setActiveIndex(-1);
-  }, [routes]);
+  useEffect(() => {
+    if (initialCenter) {
+      setCenterText(initialCenter);
+    }
+    if (initialRoutes) {
+      setRoutes(initialRoutes);
+    }
+  }, [initialCenter, initialRoutes]);
 
-  return (
+  const doNavigate = (link) => {
+    navigate(`/${link}`);
+  }
+
+  return routesStack[routesStack.length - 1] && centerText ? (
     <Box
       sx={{
         height: "100vh",
@@ -89,12 +109,12 @@ export const Sitemap = (props) => {
           Oculus
         </p>
       </GridItem> */}
-      {routes.map((route, index) =>
+      {routesStack[routesStack.length - 1].map((route, index) =>
         index === 2 ? (
           <>
             <ActiveGridItem
               key={"main-tile"}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => doNavigate(route.name)}
               sx={{
                 background: centerText === 'LOGO' ? '#FFFFFF' : "#ec008c",
                 position: "relative", // For inner elements positioning
@@ -126,13 +146,13 @@ export const Sitemap = (props) => {
             </ActiveGridItem>
             <GridItem
               key={index}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => handleTileClick(route)}
               sx={{
                 background: "#FFFFFF",
                 position: "relative", // For inner elements positioning
               }}
             >
-              <p
+              <TextBox><p
                 style={{
                   color: "#000000",
                   position: "absolute",
@@ -144,32 +164,32 @@ export const Sitemap = (props) => {
                 }}
               >
                 {route.name.toUpperCase()}
-              </p>
+              </p></TextBox>
             </GridItem>
           </>
         ) : (
           <GridItem
-            key={index}
-            onClick={() => setActiveIndex(index)}
-            sx={{
-              background: "#FFFFFF",
-              position: "relative", // For inner elements positioning
-            }}
-          >
-            <p
-              style={{
-                color: "#000000",
-                position: "absolute",
-                top: "50%",
-                textAlign: "center",
-                transform: "translateY(-50%)",
-                fontWeight: 700,
-                fontSize: "1rem",
+              key={index}
+              onClick={() => handleTileClick(route)}
+              sx={{
+                background: "#FFFFFF",
+                position: "relative", // For inner elements positioning
               }}
             >
-              {route.name.toUpperCase()}
-            </p>
-          </GridItem>
+              <TextBox><p
+                style={{
+                  color: "#000000",
+                  position: "absolute",
+                  top: "50%",
+                  textAlign: "center",
+                  transform: "translateY(-50%)",
+                  fontWeight: 700,
+                  fontSize: "1rem",
+                }}
+              >
+                {route.name.toUpperCase()}
+              </p></TextBox>
+            </GridItem>
         )
       )}
       <Button
@@ -187,6 +207,31 @@ export const Sitemap = (props) => {
         Go Back
       </Button>
     </Box>
+  ) : (
+      <ActiveGridItem
+              key={"main-tile"}
+              onClick={() => doNavigate(route.name)}
+              sx={{
+                background: centerText === 'LOGO' ? '#FFFFFF' : "#ec008c",
+                position: "relative", // For inner elements positioning
+                padding: 8,
+                // boxSizing: 'border-box'
+              }}
+            >
+                <p
+                  style={{
+                    color: "#FFFFFF",
+                    position: "absolute",
+                    top: "50%",
+                    textAlign: "center",
+                    transform: "translateY(-50%)",
+                    fontWeight: 700,
+                    fontSize: "2rem",
+                  }}
+                >
+                  {centerText.toUpperCase()}
+                </p>
+            </ActiveGridItem>
   );
 };
 

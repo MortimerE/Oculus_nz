@@ -78,7 +78,7 @@ export const pageRoutes = [
 export const homeRoutes = [
   {
     path: "sitemap",
-    element: <Sitemap initialRoutes={pageRoutes} centerText={'LOGO'} />,
+    element: <Sitemap initialRoutes={pageRoutes} initialCenter={'LOGO'} />,
     name: "Sitemap",
   },
   { path: "contact", element: <Contact />, name: "Contact" },
@@ -88,7 +88,7 @@ export const homeRoutes = [
 export const homeRoutesShowLatest = [
   {
     path: "sitemap",
-    element: <Sitemap initialRoutes={pageRoutes} centerText={'Oculus'} />,
+    element: <Sitemap initialRoutes={pageRoutes} initialCenter={'Oculus'} />,
     name: "Sitemap",
   },
   { path: "latest-news", element: <LatestNews />, name: "Latest News" },
@@ -115,7 +115,7 @@ export const aboutRoutes = [
 ];
 
 export const aboutRoutesRender = [
-  { path: "/about/sitemap", element: <Sitemap initialRoutes={aboutRoutes} centerText={'About Oculus'} />, name: 'About Sitemap' },
+  { path: "/about/sitemap", element: <Sitemap initialRoutes={aboutRoutes} initialCenter={'About Oculus'} />, name: 'About Sitemap' },
   ...aboutRoutes,
 ];
 export const servicesRoutes = [
@@ -143,7 +143,7 @@ export const servicesRoutes = [
 ];
 
 export const servicesRoutesRender = [
-  { path: "sitemap-about", element: <Sitemap initialRoutes={servicesRoutes} centerText={'Oculus Services'} />, name: 'About Sitemap' },
+  { path: "sitemap-about", element: <Sitemap initialRoutes={servicesRoutes} initialCenter={'Oculus Services'} />, name: 'About Sitemap' },
   ...servicesRoutes,
 ];
 
@@ -159,6 +159,6 @@ export const learnRoutes = [
 ];
 
 export const learnRoutesRender = [
-  { path: "sitemap-learn", element: <Sitemap initialRoutes={learnRoutes} centerText={'Building Science is not a guessing game - learn with us'} />, name: 'Learn Sitemap' },
+  { path: "sitemap-learn", element: <Sitemap initialRoutes={learnRoutes} initialCenter={'Building Science is not a guessing game - learn with us'} />, name: 'Learn Sitemap' },
   ...learnRoutes,
 ];

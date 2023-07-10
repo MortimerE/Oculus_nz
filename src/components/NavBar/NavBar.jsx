@@ -20,6 +20,7 @@ import TextField from "@mui/material/TextField";
 import Popover from "@mui/material/Popover";
 import Divider from "@mui/material/Divider";
 import InputLabel from "@mui/material/InputLabel";
+import { SearchBar } from "../embeds/Search";
 
 //import { MenuIcon } from '@mui/icons-material';
 
@@ -49,18 +50,6 @@ const StyledMenu = styled(Menu)`
   }
 `;
 
-const handleSearch = (query) => {
-  let results = [];
-  ['portfolio', 'articles', 'seminars', 'tools'].forEach(category => {
-      state[category].forEach(item => {
-          if (item.title.toLowerCase().includes(query.toLowerCase())) {
-              results.push({category, ...item});
-          }
-      });
-  });
-  setSearchResults(results);
-  console.log(results);
-};
 
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -69,9 +58,6 @@ const NavBar = () => {
   const handleMobileMenuClick = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-
-  const [searchResults, setSearchResults] = useState([]);
-
 
   const { state, api } = useContext(AppContext);
   const { scrollTo } = state;
@@ -145,20 +131,10 @@ const NavBar = () => {
     z-index: 7;
   `;
 
-  const [searchAnchorEl, setSearchAnchorEl] = useState(null);
   const [userAnchorEl, setUserAnchorEl] = useState(null);
-
-  const handleSearchClick = (event) => {
-    setSearchAnchorEl(event.currentTarget);
-    console.log("searching");
-  };
 
   const handleUserClick = (event) => {
     setUserAnchorEl(event.currentTarget);
-  };
-
-  const handleSearchClose = () => {
-    setSearchAnchorEl(null);
   };
 
   const handleUserClose = () => {
@@ -248,23 +224,6 @@ const NavBar = () => {
               </Link>
             </Dropdown>
 
-            {/*<Dropdown label="Portfolio" link="/portfolio">
-            <MenuItem onClick={handleClose} component={Link} to="/portfolio/banff-avenue">Banff Avenue</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/portfolio/aroha-street">Aroha Street</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/portfolio/galway-street">Galway Street</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/portfolio/great-north-road-waterview">Great North Road Waterview</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/portfolio/bader-ventura">Bader Ventura</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/portfolio/neo-apartments">Neo Apartments</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/portfolio/20-crescent-road">20 Crescent Road</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/portfolio/kaplan-house">Kaplan House</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/portfolio/4-viaduct-harbour">4 Viaduct Harbour</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/portfolio/fortune-road">Fortune Road</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/portfolio/woodford-grace">Woodford Grace</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/portfolio/st-georges">St Georges</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/portfolio/greys-avenue">Greys Avenue</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/portfolio/hill-crescent">St Georges</MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/great-north-road-avondale">Great North Road Avondale</MenuItem>
-  </Dropdown>*/}
             <Dropdown label="Portfolio" link="/portfolio">
             {portfolioItems
               .filter(item => item.isFeatured)
@@ -331,76 +290,46 @@ const NavBar = () => {
             </div>
           </IconButton>
           <Box>
-            <IconButton edge="end" color="inherit" onClick={handleSearchClick}>
-              <SearchIcon />
-            </IconButton>
-
-            <IconButton edge="end" color="inherit" onClick={handleUserClick}>
-              <PersonIcon />
-            </IconButton>
-          </Box>
+              <SearchBar />
+              <IconButton edge="end" color="inherit" onClick={handleUserClick}>
+                <PersonIcon />
+              </IconButton>
+            </Box>
           </DropdownContainer>
-        </StyledToolbar>
-        <Popover
-          open={Boolean(searchAnchorEl)}
-          anchorEl={searchAnchorEl}
-          onClose={handleSearchClose}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-        >
-          <TextField
-            autoFocus
-            placeholder="Search for an article..."
-            onChange={(e) => handleSearch(e.target.value)}
-            InputProps={{
-                startAdornment: (
-                    <InputLabel shrink={false} sx={{ color: "grey" }}>
-                        Search for an article...
-                    </InputLabel>
-                ),
+          <Popover
+            open={Boolean(userAnchorEl)}
+            anchorEl={userAnchorEl}
+            onClose={handleUserClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
             }}
-        />
-        </Popover>
-
-        <Popover
-          open={Boolean(userAnchorEl)}
-          anchorEl={userAnchorEl}
-          onClose={handleUserClose}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-        >
-          <Box sx={{ p: 1 }}>
-            <MenuItem onClick={handleUserClose} sx={{ color: "black" }}>
-              <Link
-                to="/login"
-                style={{ color: "inherit", textDecoration: "none" }}
-              >
-                Log In
-              </Link>
-            </MenuItem>
-            <Divider />
-            <MenuItem onClick={handleUserClose} sx={{ color: "black" }}>
-              <Link
-                to="/signup"
-                style={{ color: "inherit", textDecoration: "none" }}
-              >
-                Sign Up
-              </Link>
-            </MenuItem>
-          </Box>
-        </Popover>
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+          >
+            <Box sx={{ p: 1 }}>
+              <MenuItem onClick={handleUserClose} sx={{ color: "black" }}>
+                <Link
+                  to="/login"
+                  style={{ color: "inherit", textDecoration: "none" }}
+                >
+                  Log In
+                </Link>
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={handleUserClose} sx={{ color: "black" }}>
+                <Link
+                  to="/signup"
+                  style={{ color: "inherit", textDecoration: "none" }}
+                >
+                  Sign Up
+                </Link>
+              </MenuItem>
+            </Box>
+          </Popover>
+        </StyledToolbar>
       </StyledAppBar>
       <div className={`mobile-menu-panel ${isMobileMenuOpen ? "open" : ""}`}>
         {/* ... */}
