@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { PortfolioItem } from "../components/subPages/portfolio/PortfolioItem";
 import { PortfolioOverview } from "../components/subPages/portfolio/PortfolioOverview";
 import { Sitemap } from "../components/Sitemap";
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 import AppContext from "../contexts/AppContext";
 //import axios from 'axios';
 
@@ -50,29 +50,40 @@ export const PortfolioPage = () => {
   }, []);*/
 
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100vh",
-        // height: "auto",
-        position: "relative",
-        overflowY: "scroll",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-end",
-        padding: "24vh 64px 100px 64px",
-        boxSizing: "border-box",
-        // gap: '64px',
-        // scrollSnapType: "y mandatory",
-      }}
-    >
+    // <div
+    //   style={{
+    //     width: "100%",
+    //     height: "100vh",
+    //     // height: "auto",
+    //     position: "relative",
+    //     overflowY: "scroll",
+    //     display: "flex",
+    //     flexDirection: "column",
+    //     alignItems: "center",
+    //     justifyContent: "flex-end",
+    //     // padding: "24vh 64px 100px 64px",
+    //     boxSizing: "border-box",
+    //     border: '5px solid blue',
+    //     // gap: '64px',
+    //     // scrollSnapType: "y mandatory",
+    //   }}
+    // >
       <Routes>
-  <Route path="sitemap" element={<Sitemap routes={portfolioItems.map(item => ({ path: item.id, name: item.title }))} />} />
-  <Route path="/" element={<PortfolioOverview />} />
-  <Route path=":itemId" element={<PortfolioItem />} />
-</Routes>
-    </div>
+        <Route
+          path="sitemap"
+          element={
+            <Sitemap
+              routes={portfolioItems.map((item) => ({
+                path: item.id,
+                name: item.title,
+              }))}
+            />
+          }
+        />
+        <Route path="/" element={<PortfolioOverview />} />
+        <Route path=":itemId" element={<PortfolioItem />} />
+      </Routes>
+    // </div>
   );
 };
 

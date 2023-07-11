@@ -4,6 +4,7 @@ import { styled } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import AppContext from "../../../contexts/AppContext";
 import Requests from "../contact/Requests";
+import PinkButton from "../../reusable/PinkButton";
 
 const Underline = styled("hr")({
   borderColor: "#000000",
@@ -72,7 +73,17 @@ export const ToolsResources = () => {
         padding: "32px",
       }}
     >
-      <Box sx={{ flex: "1", paddingRight: "16px" }}>
+      <Box
+        sx={{
+          flex: "1",
+          paddingRight: "16px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-end",
+          gap: "16px",
+          paddingBottom: '64px'
+        }}
+      >
         <Typography variant="h3" gutterBottom>
           Tools & Resources
         </Typography>
@@ -87,20 +98,10 @@ export const ToolsResources = () => {
           with? Drop them below
         </Typography>
         {/* <Button variant="contained" onClick={() => setOverlayVisible(true)}>I Would Like to Learn About...</Button> */}
-        <Button
-          variant="contained"
-          style={{
-            background: "#ec008c",
-            color: "white",
-            height: "48px",
-            fontSize: ".8em",
-            width: "auto",
-          }}
+        <PinkButton
           onClick={() => setOverlayVisible(true)}
-          //   onClick={navigate("/about/our-method")}
-        >
-          I WOULD LIKE TO LEARN ABOUT...
-        </Button>
+          text={"I WOULD LIKE TO LEARN ABOUT..."}
+        />
         {overlayVisible && (
           <Overlay>
             <Requests onClose={() => setOverlayVisible(false)} />

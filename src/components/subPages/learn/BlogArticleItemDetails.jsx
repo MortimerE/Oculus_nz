@@ -1,14 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Box, Button, Typography, Grid } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { Link as RouterLink } from 'react-router-dom';
-import AppContext from '../../../contexts/AppContext';
-import ArticleReader from '../../embeds/ArticleReader'; // replace this with the correct path
-import { styled } from '@mui/system';
+import React, { useContext, useEffect, useState } from "react";
+import { Box, Button, Typography, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import AppContext from "../../../contexts/AppContext";
+import ArticleReader from "../../embeds/ArticleReader"; // replace this with the correct path
+import { styled } from "@mui/system";
+import StyledDivider from "../../reusable/StyledDivider";
+import PinkButton from "../../reusable/PinkButton";
 
-const Underline = styled('hr')({
-  borderColor: '#000000',
-  borderWidth: '1px',
+const Underline = styled("hr")({
+  borderColor: "#000000",
+  borderWidth: "1px",
 });
 
 const GridItem = styled(Box)(({ theme }) => ({
@@ -33,18 +35,25 @@ const BlogArticleItemDetails = ({ item }) => {
   const [recommendedArticles, setRecommendedArticles] = useState([]);
 
   useEffect(() => {
-    if(item){
-      if(item.recIsRandom){
+    if (item) {
+      if (item.recIsRandom) {
         // Filter out all articles in the same category
-        let sameCategoryArticles = articles.filter(article => article.category === item.category && article.title !== item.title);
-        if(sameCategoryArticles.length === 0) {
+        let sameCategoryArticles = articles.filter(
+          (article) =>
+            article.category === item.category && article.title !== item.title
+        );
+        if (sameCategoryArticles.length === 0) {
           // If no articles in the same category, use all articles
-          sameCategoryArticles = articles.filter(article => article.title !== item.title);
+          sameCategoryArticles = articles.filter(
+            (article) => article.title !== item.title
+          );
         }
         // Randomize and pick up to three
         sameCategoryArticles.sort(() => Math.random() - 0.5);
-        setRecommendedArticles(sameCategoryArticles.slice(0, 3).map(article => article.title));
-      } else if(item.recommendations) {
+        setRecommendedArticles(
+          sameCategoryArticles.slice(0, 3).map((article) => article.title)
+        );
+      } else if (item.recommendations) {
         setRecommendedArticles(item.recommendations.split(", "));
       }
     }
@@ -53,7 +62,7 @@ const BlogArticleItemDetails = ({ item }) => {
   const handleScroll = (scrollTarget) => {
     setScrollTo(scrollTarget);
   };
-  
+
   const handleItemClick = (article) => {
     /*const formattedName = article.toLowerCase().replaceAll(" ", "");
     navigate(`/learn/blog/${formattedName}`);*/
@@ -61,22 +70,36 @@ const BlogArticleItemDetails = ({ item }) => {
   };
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '32px', height: '100vh' }}>
-      <Box sx={{ width: '40%', paddingRight: '32px' }}>
-        <Typography variant="h3" gutterBottom>{item.title}</Typography>
-        <Underline />
-        <Typography variant="body1" gutterBottom>{item.abstract}</Typography>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "flex-end",
+        width: "100%",
+        justifyContent: "space-between",
+        padding: "32px",
+      }}
+    >
+      <Box sx={{ width: "40%", paddingRight: "32px" }}>
+        <Typography variant="h3" gutterBottom>
+          {item.title}
+        </Typography>
+        <StyledDivider />
+        <Typography variant="body1" gutterBottom>
+          {item.abstract}
+        </Typography>
 
-        <Typography variant="body1" fontWeight="bold">Got a similar topic & you'd like to engage us?</Typography>
-        <RouterLink to="/" onClick={() => handleScroll('enquire')}>
-          <Button variant="contained" color="primary">
-            Enquire Here
-          </Button>
+        <Typography variant="body1" fontWeight="bold">
+          Got a similar topic & you'd like to engage us?
+        </Typography>
+        <RouterLink to="/" onClick={() => handleScroll("enquire")}>
+          <PinkButton onClick={() => {}} text={"Enquire Here"} />
         </RouterLink>
 
-        <Typography variant="h6" gutterBottom>You might also like</Typography>
-        <Underline />
-        <Grid container spacing={2}>
+        <Typography variant="h6" gutterBottom>
+          You might also like
+        </Typography>
+        <StyledDivider />
+        <Grid container spacing={2} sx={{ marginTop: "16px" }}>
           {recommendedArticles.map((article, i) => (
             <Grid item xs={4} key={i}>
               <GridItem onClick={() => handleItemClick(article)}>
@@ -87,17 +110,12 @@ const BlogArticleItemDetails = ({ item }) => {
         </Grid>
       </Box>
 
-      <Box sx={{ width: '60%', display: 'flex', justifyContent: 'space-between' }}>
-        <Box sx={{ flex: '1 1 auto', pl: 2 }}>
-          <ArticleReader data={item.body} /> {/* rich text viewer component with markdown passed as prop */}
-        </Box>
+      <Box sx={{ flex: "1 1 auto", pl: 2, maxHeight: '60vh'}}>
+        <ArticleReader data={item.body} />{" "}
+        {/* rich text viewer component with markdown passed as prop */}
       </Box>
     </Box>
   );
 };
 
 export default BlogArticleItemDetails;
-
-
-
-
