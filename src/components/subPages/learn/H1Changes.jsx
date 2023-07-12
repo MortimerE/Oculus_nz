@@ -4,6 +4,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import AppContext from '../../../contexts/AppContext';
+import PinkButton from '../../reusable/PinkButton';
 
 const Underline = styled('hr')({
   borderColor: '#000000',
@@ -52,14 +53,14 @@ export const H1Changes = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row-reverse', alignItems: 'center', height: '100vh', padding: '32px' }}>
-      <Box sx={{ flex: '1', paddingLeft: '16px' }}>
+      <Box sx={{ flex: '1', paddingLeft: '16px', gap: '16px' }}>
         <Typography variant="h3" gutterBottom>NZBC H1 CHANGES 2022/23</Typography>
         <Underline />
         <Typography variant="body1" gutterBottom>In 2021 the proposed change for NZBC H1 were released, and new efficiency measures became effective from 29th November 2021. With the announcement and change came many questions – check out our H1 FAQ page or if you have a question that needs answering, drop us a line below!
         
         We can help you with finding an H1 pathway & energy modelling - get in touch now!</Typography>
         <Link to="/" onClick={() => handleScroll('enquire')}>
-          <Button variant="contained">ENQUIRE HERE</Button>
+          <PinkButton onClick={() => {}} text={'ENQUIRE HERE'} />
         </Link>
       </Box>
 

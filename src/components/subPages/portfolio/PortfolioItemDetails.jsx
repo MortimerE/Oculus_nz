@@ -5,6 +5,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import AppContext from '../../../contexts/AppContext';
 import Reader from '../../embeds/reader';
 import { styled } from '@mui/system';
+import StyledDivider from '../../reusable/StyledDivider';
+import PinkButton from '../../reusable/PinkButton';
 
 const Underline = styled('hr')({
   borderColor: '#000000',
@@ -61,24 +63,22 @@ const PortfolioItemDetails = ({ item }) => {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-      <Box sx={{ flex: '1 1 auto', pr: 2 }}>
+    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+      <Box sx={{ flex: '1 1 auto', pr: 2, minWidth: '40%' }}>
         <Typography variant="h4" component="h2" gutterBottom>
-          {item.title}
+          {item.title.toUpperCase()}
         </Typography>
-        <Underline />
+        <StyledDivider />
         <Typography variant="body1" gutterBottom>
           {item.abstract}
         </Typography>
         <RouterLink to="/" onClick={() => handleScroll('enquire')}>
-          <Button variant="contained" color="primary">
-            Enquire Here
-          </Button>
+          <PinkButton onClick={() => {}} text={'Enquire Here'}/>
         </RouterLink>
         <Box mt={4}>
-          <Typography variant="h6">You Might Also Like:</Typography>
-          <Underline />
-          <Grid container spacing={2}>
+          <Typography variant="h6" sx={{marginBottom: '16px'}}>You Might Also Like:</Typography>
+          <StyledDivider />
+          <Grid container spacing={2} sx={{marginTop: '16px'}}>
             {recommendedPortfolios.map((portfolio, i) => (
               <Grid item xs={4} key={i}>
                 <GridItem onClick={() => handleItemClick(portfolio)}>
@@ -89,7 +89,7 @@ const PortfolioItemDetails = ({ item }) => {
           </Grid>
         </Box>
       </Box>
-      <Box sx={{ flex: '1 1 auto', pl: 2, maxHeight: '90vh' }}>
+      <Box sx={{ flex: '1 1 auto', pl: 2, maxHeight: '60vh' }}>
         <Reader file={pdf} /> {/* PDF viewer component with file passed as prop */}
       </Box>
     </Box>

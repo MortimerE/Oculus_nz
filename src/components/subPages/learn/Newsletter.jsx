@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import NewsLetterSignUpPage from '../contact/NewsletterSignUp';
+import PinkButton from '../../reusable/PinkButton';
 
 const Overlay = styled(Box)(({ theme }) => ({
   position: 'fixed',
@@ -18,7 +19,7 @@ const Overlay = styled(Box)(({ theme }) => ({
 
 export const Newsletter = () => {
   const InstagramFeedPlaceholder = () => (
-    <Box sx={{ width: '100%', height: '500px', bgcolor: 'gray' }}>
+    <Box sx={{ width: '90%', height: '300px', bgcolor: 'gray' }}>
       <Typography variant="h5" component="div" sx={{ p: 2, color: 'white' }}>
         Instagram Feed Placeholder
       </Typography>
@@ -30,22 +31,22 @@ export const Newsletter = () => {
   const newsletterUrl = '#'; // Replace with the URL to your newsletter sign up page
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: '20px' }}>
       <InstagramFeedPlaceholder />
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '16px' }}>
         <Typography variant="h4" component="div" sx={{ textDecoration: 'underline' }}>
           STAY IN TOUCH
         </Typography>
         <Typography variant="h6" component="div">
           THE ANTLER - AN OCULUS NEWSLETTER
         </Typography>
-        <Typography variant="body1" component="div">
+        <Typography sx={{textAlign: 'right'}} variant="body1" component="div">
           Mess with the moose, and you’ll get the Antler. We like to provide regular news and updates about the stuff we’re up to and the things we think you need to know.
         </Typography>
         <Typography variant="body1" component="div">
           Interested in updates from us? Sign up below.
         </Typography>
-        <Button variant="contained" onClick={() => setOverlayVisible(true)}>SIGN ME UP</Button>
+        <PinkButton onClick={() => setOverlayVisible(true)} text='SIGN ME UP' />
         {overlayVisible && (
           <Overlay>
             <NewsLetterSignUpPage onClose={() => setOverlayVisible(false)} />

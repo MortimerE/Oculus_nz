@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import PinkButton from '../../reusable/PinkButton';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -17,15 +17,15 @@ const DiscoveryCallOverlay = ({ onClose, isRequestCollected }) => {
     <Box
       sx={{
         position: 'fixed',
-        top: 0,
-        left: 0,
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
         background: '#fff',
         maxWidth: '80vw',
         width: '80%',
         borderRadius: '15px',
         margin: 'auto',
         boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
-        // position: 'relative',
         zIndex: 9999,
         display: 'flex',
         alignItems: 'center',
@@ -34,13 +34,13 @@ const DiscoveryCallOverlay = ({ onClose, isRequestCollected }) => {
     >
       <Box
         sx={{
-          backgroundColor: 'white',
+          backgroundColor: 'black',
           padding: (theme) => theme.spacing(4),
           borderRadius: '8px',
         }}
       >
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <IconButton onClick={onClose} sx={{ position: 'absolute', top: 2, right: 2 }}>
+        <IconButton onClick={onClose} sx={{ position: 'absolute', top: 2, right: 2, color: 'white' }}>
           <CloseIcon />
         </IconButton>
       </Box>
@@ -52,9 +52,7 @@ const DiscoveryCallOverlay = ({ onClose, isRequestCollected }) => {
         </Typography>
         {/* Google Calendar date and time selection components will go here */}
         <Box sx={{ textAlign: 'right' }}>
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Book Now
-          </Button>
+          <PinkButton onClick={handleSubmit} text={'Book Now'}/>
         </Box>
       </Box>
     </Box>

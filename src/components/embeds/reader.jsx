@@ -43,7 +43,7 @@ const Reader = ({ file }) => {
   }*/
 
   return (
-    <Box ref={viewerRef} sx={{ backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+    <Box ref={viewerRef} sx={{ backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
       <Document
         file={file}
         onLoadSuccess={onDocumentLoadSuccess}

@@ -53,6 +53,11 @@ export const Sitemap = (props) => {
       // ...add other mappings here
     }[route.name];
 
+    const leafRoutes = {
+      'Contact': { path: '/', elementId: 'contact' },
+      // ...other leaf routes here
+    };    
+
     if (newRoutes) {
       setRoutesStack([...routesStack, newRoutes]);
     } else {
