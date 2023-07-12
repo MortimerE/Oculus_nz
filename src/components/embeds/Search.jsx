@@ -4,27 +4,17 @@ import {
   InputLabel,
   IconButton,
   Popover,
+  List, 
+  ListItem, 
+  ListItemText, 
+  Typography, 
+  Divider 
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import SendIcon from "@mui/icons-material/Send"; // Add this at the top with your other imports
 import AppContext from "../../contexts/AppContext";
-
-// The actual search functionality
-// The actual search functionality
-const handleSearch = (query, setSearchResults, { portfolio, articles, seminars, tools }) => {
-  let results = [];
-  [portfolio, articles, seminars, tools].forEach((items, index) => {
-    const category = ['portfolio', 'articles', 'seminars', 'tools'][index];
-    if(items && Array.isArray(items)) {
-      items.forEach((item) => {
-        if (item.title.toLowerCase().includes(query.toLowerCase())) {
-          results.push({ category, ...item });
-        }
-      });
-    }
-  });
-  setSearchResults(results);
-};
-
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from "react-router-dom"; // Replace useHistory with useNavigate
 
 /*const handleSearch = (query, e, state) => {
   e.preventDefault();
@@ -47,13 +37,11 @@ const handleSearch = (query, setSearchResults, { portfolio, articles, seminars, 
 export const SearchBar = () => {
   const [searchAnchorEl, setSearchAnchorEl] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
+  const [searchValue, setSearchValue] = useState(''); // New state for the TextField value
   const { state } = useContext(AppContext);
+  const navigate = useNavigate(); // Using useNavigate from react-router-dom v6
 
   const { portfolio, articles, seminars, tools } = state || {};
-
-  if (!portfolio || !articles || !seminars || !tools) {
-    return null; // or some fallback UI
-  }
 
   const handleSearchClick = (event) => {
     setSearchAnchorEl(event.currentTarget);
@@ -62,6 +50,36 @@ export const SearchBar = () => {
   const handleSearchClose = () => {
     setSearchAnchorEl(null);
   };
+
+  const handleSearch = (query) => { // Removed setSearchResults from function parameters
+    let results = [];
+  
+    const categoryToType = {
+      portfolio: 'Portfolio Item',
+      articles: 'Blog Article',
+      seminars: 'Seminar',
+      tools: 'Tool/Resource'
+    }
+  
+    if(portfolio || articles || seminars || tools) {
+      [portfolio, articles, seminars, tools].forEach((items, index) => {
+        const category = ['portfolio', 'articles', 'seminars', 'tools'][index];
+        if(items && Array.isArray(items)) {
+          items.forEach((item) => {
+            if (
+              item.title.toLowerCase().includes(query.toLowerCase()) || 
+              (item.abstract && item.abstract.toLowerCase().includes(query.toLowerCase()))
+            ) {
+              results.push({ type: categoryToType[category], category, ...item });
+            }
+          });
+        }
+      });
+    }
+    setSearchResults(results);
+    navigate('/search', { state: { results } });
+  };
+  
 
   return (
     <>
@@ -85,12 +103,18 @@ export const SearchBar = () => {
         <TextField
           autoFocus
           placeholder="Search for an article..."
-          onChange={(e) => handleSearch(e.target.value, setSearchResults, { portfolio, articles, seminars, tools })}
+          value={searchValue} // Set the value prop to the searchValue state
+          inputProps={{ style: { color: 'black' } }}
+          InputLabelProps={{ style: { color: 'grey' } }}
+          onChange={(e) => setSearchValue(e.target.value)} // Only set the searchValue state on change
+          onKeyPress={(e) => { if(e.key === 'Enter') handleSearch(searchValue) }} // Pass searchValue to handleSearch
           InputProps={{
-            startAdornment: (
-              <InputLabel shrink={false} sx={{ color: "grey" }}>
-                Search for an article...
-              </InputLabel>
+            endAdornment: (
+              <IconButton
+                onClick={() => handleSearch(searchValue)} // Pass searchValue to handleSearch
+              >
+                <SendIcon />
+              </IconButton>
             ),
           }}
         />
@@ -99,11 +123,41 @@ export const SearchBar = () => {
   );
 };
 
-// Search results component, to be implemented
-export const SearchResults = () => {
-  // You'll probably want to use searchResults from context here
-  // and map over them to display each result
-  // The implementation will depend on how you want to display results
 
-  return <div>Search results...</div>;
+// Search results component
+export const SearchResults = () => {
+  const location = useLocation();
+  const results = location.state?.results || [];
+  const filters = location.state?.filters || {};
+  const navigate = useNavigate();
+  const filteredResults = results.filter(result => 
+    (filters.category === 'All' || result.category === filters.category) && 
+    (filters.author === 'Any' || result.author === filters.author) && 
+    (filters.year === 'Any' || result.year === filters.year) && 
+    (filters.keywords === '' || result.keywords.includes(filters.keywords))
+  );
+  const typeToPath = {
+    'Portfolio Item': '/portfolio',
+    'Blog Article': '/learn/blog',
+    'Seminar': '/learn/seminars',
+    'Tool/Resource': '/learn/tools-resources'
+  };
+  return (
+    <List>
+      {filteredResults.map((result, index) => (
+        <div key={index}>
+          <ListItem button onClick={() => navigate(`${typeToPath[result.type]}/${result.title}`)}>
+            <ListItemText
+              primary={<Typography variant="h6">{result.title}</Typography>}
+            />
+          </ListItem>
+          <p>{result.abstract}</p>
+          <p>Category: {result.category}</p>
+          <p>Type: {result.type}</p> {/* display the type here */}
+          <Divider />
+        </div>
+      ))}
+    </List>
+  );
 };
+

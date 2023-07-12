@@ -264,18 +264,9 @@ const NavBar = () => {
               </Link>
             </Dropdown>
 
-            <Dropdown label="Contact">
-              <Link to="/" onClick={() => handleScroll("contact")}>
-                <MenuItem>Contact Us</MenuItem>
-              </Link>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/contact/linkedin"
-              >
-                LinkedIn
-              </MenuItem>
-            </Dropdown>
+            <Link to="/" onClick={() => handleScroll("contact")}>
+              <p>Contact</p>
+            </Link>
           
           <IconButton
             edge="end"
@@ -290,7 +281,7 @@ const NavBar = () => {
             </div>
           </IconButton>
           <Box>
-              <SearchBar />
+              <SearchBar onClick={() => console.log("click!")}/>
               <IconButton edge="end" color="inherit" onClick={handleUserClick}>
                 <PersonIcon />
               </IconButton>

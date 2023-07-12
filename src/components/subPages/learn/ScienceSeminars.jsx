@@ -66,6 +66,17 @@ export const ScienceSeminars = () => {
     navigate(`/learn/seminars/${formattedName}`);
   };
 
+  const watchAllSeminars = () => {
+    let results = [];
+    if (seminars) {
+      seminars.forEach((item) => {
+        results.push({ type: 'Seminar', ...item });
+      });
+    }
+    navigate('/search', { state: { results, keywords: '' } });
+  };
+
+
   const [overlayVisible, setOverlayVisible] = useState(false);
 
   // Filter seminars where 'isFeatured' is true
@@ -106,7 +117,7 @@ export const ScienceSeminars = () => {
             ))}
           </Grid>
         )}
-        <Button variant="contained" onClick={() => navigate("/seminars")}>REWATCH SEMINARS HERE</Button>
+        <Button variant="contained" onClick={watchAllSeminars}>REWATCH SEMINARS HERE</Button>
       </Box>
     </Box>
   );

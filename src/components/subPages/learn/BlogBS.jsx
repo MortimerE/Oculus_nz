@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import SearchIcon from '@mui/icons-material/Search';
@@ -13,6 +13,7 @@ const UnderlinedTitle = styled(Typography)(({ theme }) => ({
 }));
 
 const categoryOptions = [
+  "All",
   "Mould",
   "Insulation",
   "Building enclosure",
@@ -22,6 +23,7 @@ const categoryOptions = [
 ];
 
 const authorOptions = [
+  "Any",
   "Shawn McIsaac",
   "James Powers",
   "Peter Raimondo",
@@ -31,6 +33,7 @@ const authorOptions = [
 ];
 
 const yearOptions = [
+  "Any",
   "2019",
   "2020",
   "2021",
@@ -55,7 +58,47 @@ export const BlogBS = () => {
   const navigate = useNavigate();
   const {state, api} = useContext(AppContext);
   const { scrollTo } = state;
-const { setScrollTo } = api;
+  const { setScrollTo } = api;
+  const { seminars, articles } = state;
+  const [seminarItems, setSeminarItems] = useState([]);
+  const [articleItems, setArticleItems] = useState([]);
+
+  useEffect(() => {
+    if (seminars) {
+      setSeminarItems(seminars || []);
+    }
+    if (articles) {
+      setArticleItems(articles || []);
+    }
+  }, [seminars, articles]);
+
+  const customSearch = () => {
+    let results = [];
+    if (seminars) {
+      seminars.forEach((item) => {
+        results.push({ type: 'Seminar', ...item });
+        results.push({ type: 'Blog Article', ...item });
+      });
+    }
+    navigate('/search', { state: { results } });
+  };
+
+  const [category, setCategory] = useState('');
+  const [author, setAuthor] = useState('');
+  const [year, setYear] = useState('');
+  const [keywords, setKeywords] = useState('');
+
+  const [filters, setFilters] = useState({
+    category: 'All',
+    author: 'Any',
+    year: 'Any',
+    keywords: '',
+  });
+
+  const handleFilterApply = () => {
+    navigate('/search', { state: { filters } });
+    customSearch();
+  };
 
   const handleScroll = (scrollTarget) => {
     setScrollTo(scrollTarget);
@@ -91,42 +134,72 @@ const { setScrollTo } = api;
         </Typography>
         <Grid container spacing={2} marginBottom="16px">
           <Grid item xs={6}>
-            <TextField select label="Category" variant="outlined" fullWidth SelectProps={{ native: true }}>
-              {categoryOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item xs={6}>
-            <TextField select label="Author" variant="outlined" fullWidth SelectProps={{ native: true }}>
-              {authorOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item xs={6}>
-            <TextField select label="Time (Year)" variant="outlined" fullWidth SelectProps={{ native: true }}>
-              {yearOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+          <TextField 
+            select 
+            label="Category" 
+            variant="outlined" 
+            fullWidth 
+            SelectProps={{ native: true }}
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            {categoryOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
               </option>
             ))}
           </TextField>
-          </Grid>
-          <Grid item xs={6}>
-          <Button variant="contained">Apply Filter</Button>
         </Grid>
+        <Grid item xs={6}>
+          <TextField 
+            select 
+            label="Author" 
+            variant="outlined" 
+            fullWidth 
+            SelectProps={{ native: true }}
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+          >
+            {authorOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </TextField>
+        </Grid>
+        <Grid item xs={6}>
+          <TextField 
+            select 
+            label="Time (Year)" 
+            variant="outlined" 
+            fullWidth 
+            SelectProps={{ native: true }}
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+          >
+            {yearOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+            </option>
+          ))}
+        </TextField>
+        </Grid>
+        <Grid item xs={6}>
+          <Button variant="contained" onClick={handleFilterApply}>Apply Filter</Button>
         </Grid>
         <Box component="form" sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <TextField label="Search keywords" variant="outlined" fullWidth />
-          <IconButton type="submit">
+          <TextField 
+            label="Search keywords" 
+            variant="outlined" 
+            fullWidth 
+            value={keywords}
+            onChange={(e) => setKeywords(e.target.value)}
+          />
+          <IconButton type="submit" onClick={handleFilterApply}>
             <SearchIcon />
           </IconButton>
         </Box>
+      </Grid>
       </Box>
     </Box>
   );

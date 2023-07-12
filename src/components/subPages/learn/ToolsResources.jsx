@@ -63,6 +63,20 @@ export const ToolsResources = () => {
     (resourceItems) => resourceItems.isFeatured
   );
 
+  const viewAllResources = () => {
+    // Prepare the results
+    let results = [];
+    if (resources) {
+      resources.forEach((item) => {
+        results.push({ type: 'Tool/Resource', ...item });
+      });
+    }
+  
+    // Navigate to the SearchResults page with the results
+    navigate('/search', { state: { results, keywords: '' } });
+  };
+  
+
   return resourceItems.length > 0 ? (
     <Box
       sx={{
@@ -108,17 +122,42 @@ export const ToolsResources = () => {
         )}
       </Box>
 
-      <Box sx={{ flex: "1", paddingLeft: "16px", overflowY: "auto" }}>
-        <Grid container spacing={2}>
-          {featuredResources.map((resource, index) => (
-            <Grid item xs={4} key={index}>
-              <GridItem onClick={() => handleItemClick(resource)}>
-                {resource.title}
-              </GridItem>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+      <Box 
+  sx={{ 
+    flex: "1", 
+    paddingLeft: "16px", 
+    overflowY: "auto", 
+    position: 'relative' // Adding this style
+  }}
+>
+  <Grid container spacing={2}>
+    {featuredResources.map((resource, index) => (
+      <Grid item xs={4} key={index}>
+        <GridItem onClick={() => handleItemClick(resource)}>
+          {resource.title}
+        </GridItem>
+      </Grid>
+    ))}
+  </Grid>
+  
+  <Button
+    variant="contained"
+    style={{
+      background: "#ec008c",
+      color: "white",
+      height: "48px",
+      fontSize: ".8em",
+      width: "auto",
+      position: 'absolute', // absolute positioning
+      bottom: '16px', // position it 16px from the bottom
+      right: '16px', // position it 16px from the right
+    }}
+    onClick={viewAllResources}
+  >
+    ALL TOOLS/RESOURCES
+  </Button>
+</Box>
+
     </Box>
   ) : (
     <p>Loading...</p> // Or replace with your own loading component

@@ -19,6 +19,7 @@ import PortfolioItem from '../components/subPages/portfolio/PortfolioItem';
 import Resource from '../components/subPages/learn/Resource';
 import BlogArticleItem from "../components/subPages/learn/BlogArticleItem";
 import Seminar from "../components/subPages/learn/Seminar";
+import { SearchResults } from '../components/embeds/Search';
 // import { homeRoutes, aboutRoutes } from "../routes/routes";
 
 export const BaseRoutes = () => {
@@ -37,6 +38,7 @@ export const BaseRoutes = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<AccountCreation />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/search" element={<SearchResults />} />
     </Routes>
   );
 };
