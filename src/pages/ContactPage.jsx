@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import StyledDivider from "../components/reusable/StyledDivider";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/system";
 import { Link } from "react-scroll";
@@ -42,6 +43,7 @@ const Contact = () => {
                 flexDirection: "column",
                 alignItems: "flex-start",
                 justifyContent: "flex-end",
+                gap: "24px",
               }}
             >
               <Typography
@@ -50,11 +52,11 @@ const Contact = () => {
                 sx={{
                   fontWeight: "bold",
                   fontSize: "28px",
-                  marginBottom: (theme) => theme.spacing(2),
                 }}
               >
                 WE'D LOVE TO HEAR FROM YOU
               </Typography>
+              <StyledDivider />
               <Typography variant="p" gutterBottom>
                 Do you want to work with us?
               </Typography>
@@ -66,7 +68,6 @@ const Contact = () => {
                     height: "48px",
                     fontSize: ".8em",
                     width: "200px",
-                    marginBottom: "8px",
                   }}
                   variant="contained"
                 >

@@ -4,6 +4,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import AppContext from '../../../contexts/AppContext';
+import StyledDivider from "../../reusable/StyledDivider";
 
 export const PassiveHouse2 = () => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const { setScrollTo } = api;
         }}
       >
         <h1>PASSIVE HOUSE</h1>
-        <Divider style={{ width: "100%", height: "8px" }} />
+        <StyledDivider />
         <h2>Certification</h2>
         <p>
           A huge benefit of the Passive House (or Passivhaus) process is the
@@ -70,7 +71,7 @@ const { setScrollTo } = api;
 
       <div
         style={{
-          width: "45%",
+          width: "60%",
           height: "80%",
           // flexGrow: 1,
           display: "flex",
@@ -80,15 +81,8 @@ const { setScrollTo } = api;
           gap: "8px",
         }}
       >
-        <div
-          style={{
-            width: "100%",
-            marginTop: "16px",
-            flexGrow: 1,
-            border: "1px solid blue",
-          }}
-        >
-          Image goes here
+        <div style={{ width: "100%", marginTop: '10vh', flexGrow: 1, alignItems: "center", justifyContent: "center"}}>
+          <img src={"./passiveconstruction.png"} style={{objectFill: "fill", height: "auto", width: "100%"}} />
         </div>
       </div>
     </div>

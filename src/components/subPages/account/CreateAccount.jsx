@@ -10,7 +10,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
+import PinkButton from '../../reusable/PinkButton';
 const AccountCreation = () => {
   const handleSubmit = () => {
     // Implement account creation logic here
@@ -35,13 +35,13 @@ const AccountCreation = () => {
         <Grid item xs={12} sm={6}>
           <Grid container direction="column" spacing={2}>
             <Grid item>
-              <TextField fullWidth label="Name" />
+              <TextField fullWidth label="Name" sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}/>
             </Grid>
             <Grid item>
-              <TextField fullWidth label="E-MAIL" type="email" />
+              <TextField fullWidth label="E-MAIL" type="email" sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}/>
             </Grid>
             <Grid item>
-              <FormControl fullWidth>
+              <FormControl fullWidth sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}>
                 <InputLabel id="occupation-label">Occupation</InputLabel>
                 <Select labelId="occupation-label">
                   <MenuItem value="occupation1">Occupation 1</MenuItem>
@@ -57,7 +57,7 @@ const AccountCreation = () => {
               />
             </Grid>
             <Grid item>
-              <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+              <Typography variant="caption" sx={{ color: '#999' }}>
                 By ticking 'yes', you will sign up to our every so often
                 Newsletter.
               </Typography>
@@ -67,16 +67,14 @@ const AccountCreation = () => {
         <Grid item xs={12} sm={6}>
           <Grid container direction="column" spacing={2}>
             <Grid item>
-              <TextField fullWidth label="Create Password" type="password" />
+              <TextField fullWidth label="Create Password" type="password" sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}/>
             </Grid>
             <Grid item>
-              <TextField fullWidth label="Repeat Password" type="password" />
+              <TextField fullWidth label="Repeat Password" type="password" sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}/>
             </Grid>
             <Grid item container spacing={2}>
               <Grid item>
-                <Button variant="contained" color="primary" onClick={handleSubmit}>
-                  Submit
-                </Button>
+                <PinkButton onClick={handleSubmit} text="Submit" />
               </Grid>
               <Grid item>
                 <Typography>

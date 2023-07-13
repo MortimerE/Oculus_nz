@@ -6,22 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import Requests from '../contact/Requests';
 import { Link } from 'react-scroll';
 import AppContext from '../../../contexts/AppContext';
-import React, { useState, useContext } from "react";
-import {
-  Box,
-  Button,
-  Grid,
-  IconButton,
-  MenuItem,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { styled } from "@mui/system";
-import SearchIcon from "@mui/icons-material/Search";
-import { useNavigate } from "react-router-dom";
-import Requests from "../contact/Requests";
-import { Link } from "react-scroll";
-import AppContext from "../../../contexts/AppContext";
 import PinkButton from "../../reusable/PinkButton";
 
 const UnderlinedTitle = styled(Typography)(({ theme }) => ({
@@ -30,6 +14,7 @@ const UnderlinedTitle = styled(Typography)(({ theme }) => ({
 }));
 
 const categoryOptions = [
+  "",
   "All",
   "Mould",
   "Insulation",
@@ -40,6 +25,7 @@ const categoryOptions = [
 ];
 
 const authorOptions = [
+  "",
   "Any",
   "Shawn McIsaac",
   "James Powers",
@@ -50,6 +36,7 @@ const authorOptions = [
 ];
 
 const yearOptions = [
+  "",
   "Any",
   "2019",
   "2020",
@@ -174,176 +161,123 @@ export const BlogBS = () => {
       </Box>
 
       <Box sx={{ flex: "1", paddingLeft: "16px" }}>
-        <Typography variant="h5" sx={{ textAlign: "right" }} gutterBottom>
-          SEARCH & FILTER
-        </Typography>
-        <Grid container spacing={2} marginBottom="16px">
-          <Grid item xs={6}>
-          <TextField 
-            select 
-            label="Category" 
-            variant="outlined" 
-            fullWidth 
-            SelectProps={{ native: true }}
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            {categoryOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid item xs={6}>
-          <TextField 
-            select 
-            label="Author" 
-            variant="outlined" 
-            fullWidth 
-            SelectProps={{ native: true }}
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-          >
-            {authorOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid item xs={6}>
-          <TextField 
-            select 
-            label="Time (Year)" 
-            variant="outlined" 
-            fullWidth 
-            SelectProps={{ native: true }}
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-          >
-            {yearOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-            </option>
-          ))}
-        </TextField>
-        </Grid>
-        <Grid item xs={6}>
-          <Button variant="contained" onClick={handleFilterApply}>Apply Filter</Button>
-        </Grid>
-        <Box component="form" sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <TextField 
-            label="Search keywords" 
-            variant="outlined" 
-            fullWidth 
-            value={keywords}
-            onChange={(e) => setKeywords(e.target.value)}
-          />
-          <IconButton type="submit" onClick={handleFilterApply}>
-            <TextField
-              select
-              label="Category"
-              variant="outlined"
-              fullWidth
-              size="small"
-              sx={{
-                border: "#FFFFFF",
-                borderRadius: "4px",
-                backgroundColor: "#FFFFFF !important",
-                "& input": {
-                  color: "black",
-                },
-              }}
-              margin="dense"
-              SelectProps={{ native: true }}
-            >
-              {categoryOptions.map((option) => (
-                <option style={{ color: "black" }} key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </TextField>
-          </IconButton>
-          <Grid item xs={6}>
-            <TextField
-              select
-              label="Author"
-              variant="outlined"
-              fullWidth
-              size="small"
-              sx={{
-                border: "#FFFFFF",
-                borderRadius: "4px",
-                backgroundColor: "#FFFFFF !important",
-                "& input": {
-                  color: "black",
-                },
-              }}
-              margin="dense"
-              SelectProps={{ native: true }}
-            >
-              {authorOptions.map((option) => (
-                <option style={{ color: "black" }} key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              select
-              label="Time (Year)"
-              variant="outlined"
-              fullWidth
-              size="small"
-              sx={{
-                border: "#FFFFFF",
-                borderRadius: "4px",
-                backgroundColor: "#FFFFFF !important",
-                "& input": {
-                  color: "black",
-                },
-              }}
-              margin="dense"
-              SelectProps={{ native: true }}
-            >
-              {yearOptions.map((option) => (
-                <option style={{ color: "black" }} key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item xs={6}>
-            <PinkButton onClick={() => {}} text="Apply Filter" />
-          </Grid>
-        </Box>
-        </Grid>
-        <Box
-          component="form"
-          sx={{ display: "flex", justifyContent: "space-between" }}
-        >
-          <TextField
-            label="Search keywords"
-            variant="outlined"
-            size="small"
-            sx={{
-              border: "#FFFFFF",
-              borderRadius: "4px",
-              backgroundColor: "#FFFFFF !important",
-              "& input": {
-                color: "black",
-              },
-            }}
-            margin="dense"
-            fullWidth
-          />
-          <IconButton type="submit">
-            <SearchIcon />
-          </IconButton>
-        </Box>
-        </Box>
+  <Typography variant="h5" sx={{ textAlign: "right" }} gutterBottom>
+    SEARCH & FILTER
+  </Typography>
+  <Grid container spacing={2} marginBottom="16px">
+    <Grid item xs={12} sm={6}>
+      <TextField 
+        select 
+        label="Category" 
+        variant="outlined" 
+        fullWidth 
+        SelectProps={{ native: true }}
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#999' },
+            '&:hover fieldset': { borderColor: 'white' },
+            '&.Mui-focused fieldset': { borderColor: 'white' },
+          },
+          '& .MuiInputBase-input': { color: 'white' },
+          '& .MuiFormLabel-root': { color: '#999' },
+          '& .Mui-focused': { color: 'white' },
+        }}
+      >
+        {categoryOptions.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </TextField>
+    </Grid>
+    <Grid item xs={12} sm={6}>
+      <TextField 
+        select 
+        label="Author" 
+        variant="outlined" 
+        fullWidth 
+        SelectProps={{ native: true }}
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#999' },
+            '&:hover fieldset': { borderColor: 'white' },
+            '&.Mui-focused fieldset': { borderColor: 'white' },
+          },
+          '& .MuiInputBase-input': { color: 'white' },
+          '& .MuiFormLabel-root': { color: '#999' },
+          '& .Mui-focused': { color: 'white' },
+        }}
+      >
+        {authorOptions.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </TextField>
+    </Grid>
+    <Grid item xs={12} sm={6}>
+      <TextField 
+        select 
+        label="Time (Year)" 
+        variant="outlined" 
+        fullWidth 
+        SelectProps={{ native: true }}
+        value={year}
+        onChange={(e) => setYear(e.target.value)}
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#999' },
+            '&:hover fieldset': { borderColor: 'white' },
+            '&.Mui-focused fieldset': { borderColor: 'white' },
+          },
+          '& .MuiInputBase-input': { color: 'white' },
+          '& .MuiFormLabel-root': { color: '#999' },
+          '& .Mui-focused': { color: 'white' },
+        }}
+      >
+        {yearOptions.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </TextField>
+    </Grid>
+    <Grid item xs={12} sm={6}>
+      <PinkButton onClick={handleFilterApply} text={"Apply Filter"} />
+    </Grid>
+  </Grid>
+  <Box
+    component="form"
+    sx={{ display: "flex", justifyContent: "space-between", marginTop: "16px" }}
+  >
+    <TextField
+      label="Search keywords"
+      variant="outlined"
+      fullWidth
+      value={keywords}
+      onChange={(e) => setKeywords(e.target.value)}
+      sx={{
+        '& .MuiOutlinedInput-root': {
+          '& fieldset': { borderColor: '#999' },
+          '&:hover fieldset': { borderColor: 'white' },
+          '&.Mui-focused fieldset': { borderColor: 'white' },
+        },
+        '& .MuiInputBase-input': { color: 'white' },
+        '& .MuiFormLabel-root': { color: '#999' },
+        '& .Mui-focused': { color: 'white' },
+        marginRight: "8px"
+      }}
+    />
+    <IconButton type="submit" onClick={handleFilterApply}>
+      <SearchIcon />
+    </IconButton>
+  </Box>
+</Box>
+
       </Box>
   );
 };

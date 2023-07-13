@@ -101,7 +101,7 @@ const NavBar = () => {
     maxwidth: "";
   `;
 
-  const Dropdown = ({ label, link, children }) => {
+  const Dropdown = ({ label, link, onClick, children }) => {
     return (
       <DropdownContainer
         onMouseEnter={() => {
@@ -112,7 +112,11 @@ const NavBar = () => {
         }}
       >
         <Typography style={{ color: "white" }}>
-          <Link to={link} style={{ textDecoration: "none", color: "inherit" }}>
+          <Link 
+            to={link} 
+            onClick={onClick} 
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
             {label}
           </Link>
         </Typography>
@@ -120,6 +124,7 @@ const NavBar = () => {
       </DropdownContainer>
     );
   };
+  
 
   const Logo = styled("img")`
     max-height: 10vh;
@@ -263,10 +268,7 @@ const NavBar = () => {
                 <MenuItem>Newsletter</MenuItem>
               </Link>
             </Dropdown>
-
-            <Link to="/" onClick={() => handleScroll("contact")}>
-              <p>Contact</p>
-            </Link>
+            <Dropdown label="Contact" link="/" onClick={() => handleScroll("contact")} />
           
           <IconButton
             edge="end"

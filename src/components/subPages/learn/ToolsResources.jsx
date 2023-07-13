@@ -5,11 +5,7 @@ import { useNavigate } from "react-router-dom";
 import AppContext from "../../../contexts/AppContext";
 import Requests from "../contact/Requests";
 import PinkButton from "../../reusable/PinkButton";
-
-const Underline = styled("hr")({
-  borderColor: "#000000",
-  borderWidth: "1px",
-});
+import StyledDivider from "../../reusable/StyledDivider";
 
 const GridItem = styled(Box)(({ theme }) => ({
   background: "#FFFFFF",
@@ -93,15 +89,15 @@ export const ToolsResources = () => {
           paddingRight: "16px",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "flex-end",
+          justifyContent: "center",
           gap: "16px",
           paddingBottom: '64px'
         }}
       >
         <Typography variant="h3" gutterBottom>
-          Tools & Resources
+          TOOLS & RESOURCES
         </Typography>
-        <Underline />
+        <StyledDivider />
         <Typography variant="body1" gutterBottom>
           These resources have been created by Oculus to provide advice and
           guidance. All resource articles follow international best practice,
@@ -124,41 +120,33 @@ export const ToolsResources = () => {
       </Box>
 
       <Box 
-  sx={{ 
-    flex: "1", 
-    paddingLeft: "16px", 
-    overflowY: "auto", 
-    position: 'relative' // Adding this style
-  }}
->
-  <Grid container spacing={2}>
-    {featuredResources.map((resource, index) => (
-      <Grid item xs={4} key={index}>
-        <GridItem onClick={() => handleItemClick(resource)}>
-          {resource.title}
-        </GridItem>
-      </Grid>
-    ))}
-  </Grid>
-  
-  <Button
-    variant="contained"
-    style={{
-      background: "#ec008c",
-      color: "white",
-      height: "48px",
-      fontSize: ".8em",
-      width: "auto",
-      position: 'absolute', // absolute positioning
-      bottom: '16px', // position it 16px from the bottom
-      right: '16px', // position it 16px from the right
-    }}
-    onClick={viewAllResources}
-  >
-    ALL TOOLS/RESOURCES
-  </Button>
-</Box>
-
+        sx={{ 
+          flex: "1", 
+          paddingLeft: "16px", 
+          overflowY: "auto", 
+          position: 'relative', 
+          display: 'flex', // Add this line
+          flexDirection: 'column', // Add this line
+          justifyContent: 'flex-start', // Add this line
+          alignItems: 'flex-end', // Add this line
+          alignSelf: "center"
+        }}
+      >
+        <Box sx={{ alignSelf: 'flex-start' }}> {/* Wrap the Grid container in a flex container */}
+          <Grid container spacing={2}>
+            {featuredResources.map((resource, index) => (
+              <Grid item xs={4} key={index}>
+                <GridItem onClick={() => handleItemClick(resource)}>
+                  {resource.title}
+                </GridItem>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+        <Box sx={{ marginTop: "16px" }}>
+        <PinkButton onClick={viewAllResources} text={"VIEW ALL TOOLS/RESOURCES"} />
+        </Box>
+      </Box>
     </Box>
   ) : (
     <p>Loading...</p> // Or replace with your own loading component

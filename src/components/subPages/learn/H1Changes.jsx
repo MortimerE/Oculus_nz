@@ -5,11 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import AppContext from '../../../contexts/AppContext';
 import PinkButton from '../../reusable/PinkButton';
-
-const Underline = styled('hr')({
-  borderColor: '#000000',
-  borderWidth: '1px',
-});
+import StyledDivider from '../../reusable/StyledDivider';
 
 const GridItem = styled(Box)(({ theme }) => ({
   background: "#FFFFFF",
@@ -50,12 +46,15 @@ export const H1Changes = () => {
     setScrollTo(scrollTarget);
   };
 
+  const viewNaviCalc = () => {
+    navigate('/NaviCalc');
+  };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row-reverse', alignItems: 'center', height: '100vh', padding: '32px' }}>
-      <Box sx={{ flex: '1', paddingLeft: '16px', gap: '16px' }}>
+      <Box sx={{ flex: '1', paddingLeft: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '16px', paddingBottom: '64px' }}>
         <Typography variant="h3" gutterBottom>NZBC H1 CHANGES 2022/23</Typography>
-        <Underline />
+        <StyledDivider />
         <Typography variant="body1" gutterBottom>In 2021 the proposed change for NZBC H1 were released, and new efficiency measures became effective from 29th November 2021. With the announcement and change came many questions – check out our H1 FAQ page or if you have a question that needs answering, drop us a line below!
         
         We can help you with finding an H1 pathway & energy modelling - get in touch now!</Typography>
@@ -64,7 +63,7 @@ export const H1Changes = () => {
         </Link>
       </Box>
 
-      <Box sx={{ flex: '1', paddingRight: '16px', overflowY: 'auto' }}>
+      <Box sx={{ flex: '1', paddingRight: '16px', overflowY: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', alignSelf: 'center' }}>
         <Grid container spacing={2}>
           {h1UpdateResources.map((resource, index) => (
             <Grid item xs={4} key={index}>
@@ -72,10 +71,14 @@ export const H1Changes = () => {
             </Grid>
           ))}
         </Grid>
+        <Box sx={{ marginTop: "16px" }}>
+        <PinkButton onClick={viewNaviCalc} text={'Navi Calc'} />
+        </Box>
       </Box>
     </Box>
   );
 };
 
 export default H1Changes;
+
 

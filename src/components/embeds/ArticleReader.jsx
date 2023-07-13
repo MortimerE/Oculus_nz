@@ -1,14 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Box, Button, Typography } from '@mui/material';
-//import gfm from 'remark-gfm'; // optional, for Github flavored markdown
-
-// const { isAuthenticated } = useAuth(); // Uncomment if auth is needed
+import { Box, Button } from '@mui/material';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
 
 const ArticleReader = ({ data }) => {
-  //const { isAuthenticated } = useAuth(); // Uncomment if auth is needed
   const viewerRef = useRef();
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
+  const publishedOn = "July 1, 2023"; 
+  
   const shareArticle = () => {
     navigator.clipboard.writeText(window.location.href);
     alert("Link copied to clipboard!");
@@ -18,34 +18,67 @@ const ArticleReader = ({ data }) => {
     if (viewerRef.current) {
       if (document.fullscreenElement) {
         document.exitFullscreen();
+        setIsFullscreen(false);
       } else {
         viewerRef.current.requestFullscreen();
+        setIsFullscreen(true);
       }
     }
   }
 
-  /*if (!isAuthenticated) {
-    return (
-      <Box sx={{ backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
-        <Typography variant="h5">Please log in to view this content.</Typography>
-      </Box>
-    );
-  }*/
-
   return (
-    <Box ref={viewerRef} sx={{ backgroundColor: 'white', color: 'black', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '90vh', overflowY: 'auto' }}>
-      {/* <ReactMarkdown plugins={[gfm]} children={data} /> Use this if you have gfm */}
-      <ReactMarkdown children={data} />
-      <Box sx={{ marginTop: 2 }}>
-        <Button variant="contained" onClick={toggleFullscreen}>
-          Toggle Full Screen
-        </Button>
-        <Button variant="contained" onClick={shareArticle}>
-          Share Link
-        </Button>
+    <Box 
+      ref={viewerRef} 
+      sx={{ 
+        color: 'white', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'flex-start', 
+        justifyContent: 'center', 
+        overflowY: 'auto',
+        position: 'relative',
+      }}
+    >
+      <Box sx={{color: 'black'}}>
+      <Button 
+        variant="text" 
+        color="inherit" 
+        onClick={toggleFullscreen} 
+        sx={{ position: 'absolute', top: '3%', right: '0%' }}
+      >
+        <FullscreenIcon />
+      </Button>
+      </Box>
+
+      <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', color: 'black' }}>
+        <Box sx={{ height: isFullscreen ? 'auto' : '50vh', overflowY: 'auto', paddingTop: '5vh' }}>
+          <ReactMarkdown children={data} />
+        </Box>
+
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignSelf: 'flex-start',
+            width: '100%',
+            backgroundColor: 'black',
+            color: 'white',
+            border: '2px solid white',
+            gap: '5vw',
+          }}
+        >
+          <Button variant="text" color="inherit" onClick={shareArticle}>
+            Share Link
+          </Button>
+          <Button variant="text" color="inherit" sx={{ whiteSpace: 'nowrap'}}>
+            {publishedOn}
+          </Button>
+        </Box>
       </Box>
     </Box>
   );
 };
 
 export default ArticleReader;
+
+

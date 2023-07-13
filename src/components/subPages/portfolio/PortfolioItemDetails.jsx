@@ -63,7 +63,7 @@ const PortfolioItemDetails = ({ item }) => {
   };
 
   return (
-    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', }}>
       <Box sx={{ flex: '1 1 auto', pr: 2, minWidth: '40%' }}>
         <Typography variant="h4" component="h2" gutterBottom>
           {item.title.toUpperCase()}
@@ -89,9 +89,10 @@ const PortfolioItemDetails = ({ item }) => {
           </Grid>
         </Box>
       </Box>
-      <Box sx={{ flex: '1 1 auto', pl: 2, maxHeight: '60vh' }}>
+      <Box sx={{ flex: '1 1 auto', pl: 2, maxHeight: '80vh', alignSelf: "flex-start" }}>
         <Reader file={pdf} /> {/* PDF viewer component with file passed as prop */}
       </Box>
+
     </Box>
   );
 };

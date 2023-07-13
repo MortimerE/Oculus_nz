@@ -70,7 +70,7 @@ export const Events = () => {
           gap: "32px",
         }}
       >
-        EVENTS picture goes here
+        <img src={"./events.png"} style={{objectFill: 'fill', height: '100%'}}/>
       </div>
       <div
         style={{

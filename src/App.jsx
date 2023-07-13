@@ -16,6 +16,14 @@ const theme = createTheme({
     text: {
       primary: "#ffffff",
     },
+    typography: {
+      h3: {
+        fontSize: '6rem',  // adjust as needed
+      },
+      h5: {
+        fontSize: '3rem',  // adjust as needed
+      },
+    },
   },
 });
 

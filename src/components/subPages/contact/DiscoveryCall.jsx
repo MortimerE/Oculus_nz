@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import PinkButton from '../../reusable/PinkButton';
@@ -12,6 +12,13 @@ const DiscoveryCallOverlay = ({ onClose, isRequestCollected }) => {
     isRequestCollected(true);
   };
   // Google Calendar API integration will go here
+
+  useEffect(() => {
+    const head = document.querySelector('head');
+    const script = document.createElement('script');
+    script.setAttribute('src', 'https://assets.calendly.com/assets/external/widget.js');
+    head.appendChild(script);
+  }, [])
 
   return (
     <Box
@@ -50,7 +57,7 @@ const DiscoveryCallOverlay = ({ onClose, isRequestCollected }) => {
         <Typography variant="body1" sx={{ mb: 4 }}>
           Thanks for reaching out! This is to discuss the project a bit further and hash out the scope of work you'd like us to take on. Please have some information ready so that we can quickly understand what's needed and how we can assist.
         </Typography>
-        {/* Google Calendar date and time selection components will go here */}
+        <div className="calendly-inline-widget" data-url="https://calendly.com/your_username/10min" style={{ minWidth: '320px', height: '50vh' }} />
         <Box sx={{ textAlign: 'right' }}>
           <PinkButton onClick={handleSubmit} text={'Book Now'}/>
         </Box>

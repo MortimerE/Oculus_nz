@@ -18,6 +18,8 @@ import Sitemap from "../components/Sitemap";
 import Enquire from '../components/subPages/contact/Enquire';
 import LatestNews from '../components/subPages/LatestNews';
 import Contact from '../pages/ContactPage';
+import Services from '../pages/ServicesPage';
+import { LearnPage } from '../pages/LearnPage';
 
 import { AboutUs } from "../components/subPages/about/AboutUs";
 import { OurMethod } from "../components/subPages/about/OurMethod";
@@ -48,9 +50,11 @@ import { Newsletter } from '../components/subPages/learn/Newsletter';
 
 export const pageRoutes = [
   { path: "about", element: <AboutUs />, name: "About" },
-  { path: "services", element: <h1>Services</h1>, name: "Services" },
-  { path: "learn", element: <h1>Learn</h1>, name: "Learn" },
-  {
+  { path: "services", element: <Services />, name: "Services" },
+  { path: "learn", element: <LearnPage />, name: "Learn" },
+  { path: "contact", element: <Contact />, name: "Contact" },
+  { path: "enquire", element: <Enquire />, name: "Enquire Here" },
+  {/*{
     path: "product-pathways",
     element: <h1>Product Pathways</h1>,
     name: "Product Pathways",
@@ -72,7 +76,7 @@ export const pageRoutes = [
     path: "bader-ventura",
     element: <h1>Bader Ventura Case Study</h1>,
     name: "Bader Ventura Case Study",
-  },
+  },*/}
 ];
 
 export const homeRoutes = [

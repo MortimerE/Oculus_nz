@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import { useLocation } from 'react-router-dom';
+import PinkButton from '../../reusable/PinkButton';
 
 const Register = ({ onClose, selectedSeminars: defaultSeminars }) => {
   const [name, setName] = useState("");
@@ -51,12 +52,27 @@ const Register = ({ onClose, selectedSeminars: defaultSeminars }) => {
   
 
   return (
-    <Dialog open onClose={onClose}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid gray', padding: '10px' }}>
-    <Typography variant="h6" component="div">
+    <Dialog open onClose={onClose}
+    PaperProps={{
+      sx: {
+        p: 4,
+        backgroundColor: 'black',
+        maxWidth: '80vw',
+        width: '80%',
+        borderRadius: '15px',
+        borderColor: '#999',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        margin: 'auto',
+        boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+        position: 'relative',
+      },
+    }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid gray', padding: '10px', boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)', backgroundColor: 'black', }}>
+      <Typography variant="h4" sx={{ mb: 2, color: 'white' }}>
       Register Here
     </Typography>
-    <IconButton onClick={onClose}>
+    <IconButton onClick={onClose} sx={{ position: 'absolute', top: 2, right: 2, color: '#999' }}>
       <CloseIcon />
     </IconButton>
   </Box>
@@ -86,6 +102,7 @@ const Register = ({ onClose, selectedSeminars: defaultSeminars }) => {
           label="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -96,6 +113,7 @@ const Register = ({ onClose, selectedSeminars: defaultSeminars }) => {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -105,6 +123,7 @@ const Register = ({ onClose, selectedSeminars: defaultSeminars }) => {
           label="Company Name"
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
+          sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -114,6 +133,7 @@ const Register = ({ onClose, selectedSeminars: defaultSeminars }) => {
           label="Role"
           value={role}
           onChange={(e) => setRole(e.target.value)}
+          sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}
         />
       </Grid>
       <Grid item xs={12}>
@@ -128,6 +148,7 @@ const Register = ({ onClose, selectedSeminars: defaultSeminars }) => {
             multiple: true,
             renderValue: (selected) => selected.join(", "),
           }}
+          sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}
         >
           <MenuItem value="Seminar A">Seminar A</MenuItem>
           <MenuItem value="Seminar B">Seminar B</MenuItem>
@@ -142,6 +163,7 @@ const Register = ({ onClose, selectedSeminars: defaultSeminars }) => {
           label="Do you have any questions you'd like to have answered live?"
           value={questions}
           onChange={(e) => setQuestions(e.target.value)}
+          sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}
         />
       </Grid>
       <Grid item xs={12}>
@@ -154,6 +176,7 @@ const Register = ({ onClose, selectedSeminars: defaultSeminars }) => {
           label="How did you hear about this event?"
           value={howDidYouHear}
           onChange={handleHowDidYouHearChange}
+          sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}
         >
           <MenuItem value="Social media">Social media</MenuItem>
           <MenuItem value="Website">Website</MenuItem>
@@ -164,19 +187,28 @@ const Register = ({ onClose, selectedSeminars: defaultSeminars }) => {
       </Grid>
 
       <Grid item xs={12}>
-        <FormControlLabel
-          control={<Checkbox name="receiveNews" color="primary" />}
-          label="Would you like to receive news from Oculus?"
+      <FormControlLabel
+    control={
+      <Checkbox 
+        name="receiveNews"
+        color="default" 
+        sx={{
+          color: '#999', 
+          '&.Mui-checked': { color: 'white' },
+        }} 
         />
-        <Typography variant="body1" color="textSecondary">
+        }
+        label="Would you like to receive news from Oculus?"
+        sx={{ color: '#999', '&:hover': { color: 'white' } }}
+      />
+
+        <Typography variant="body1" color="#999">
           By ticking 'Yes', you will sign up for our every so often Newsletter.
         </Typography>
       </Grid>
 
       <Grid item xs={12}>
-        <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
-          Submit
-        </Button>
+        <PinkButton onClick={handleSubmit} text="Submit" />
       </Grid>
     </Grid>
     </DialogContent>

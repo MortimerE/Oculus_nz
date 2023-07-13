@@ -5,11 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Register from "../contact/Register";
 import AppContext from "../../../contexts/AppContext";
 import PinkButton from "../../reusable/PinkButton";
-
-const Underline = styled("hr")({
-  borderColor: "#000000",
-  borderWidth: "1px",
-});
+import StyledDivider from "../../reusable/StyledDivider";
 
 const GridItem = styled(Box)(({ theme }) => ({
   background: "#FFFFFF",
@@ -109,23 +105,25 @@ export const ScienceSeminars = () => {
         <Typography variant="h3" gutterBottom>
           BUILDING SCIENCE + BULLSH*T SEMINARS
         </Typography>
-        <Typography variant="h5" gutterBottom>
+        <StyledDivider />
+        <Typography variant="h5" gutterBottom alignSelf="center">
           UPCOMING SEMINARS IN 2023
         </Typography>
-        <Underline />
         <Box>
           {UpcomingSeminars.map((seminar, index) => (
             <Box
-              key={index}
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: "8px",
-              }}
-            >
-              <Typography variant="body1">{seminar.date}</Typography>
-              <Typography variant="body1">{seminar.title}</Typography>
-            </Box>
+            key={index}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: "8px",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body2" sx={{ flexBasis: "30%", textAlign: 'left', marginRight: "16px" }}>{seminar.date}</Typography>
+            <Typography variant="body2" sx={{ flexBasis: "70%", textAlign: 'left' }}>{seminar.title}</Typography>
+          </Box>
+          
           ))}
         </Box>
         <PinkButton
@@ -139,7 +137,7 @@ export const ScienceSeminars = () => {
         )}
       </Box>
 
-      <Box sx={{ flex: "1", paddingRight: "16px", overflowY: "auto" }}>
+      <Box sx={{ flex: "1", paddingRight: "16px", overflowY: "auto", alignSelf: "center", gap: "10px" }}>
         <Typography variant="h5" gutterBottom>
           RECENT SEMINARS
         </Typography>
@@ -156,7 +154,9 @@ export const ScienceSeminars = () => {
             ))}
           </Grid>
         )}
+        <Box sx={{ marginTop: "16px" }}>
         <PinkButton onClick={watchAllSeminars} text={"REWATCH SEMINARS HERE"} />
+        </Box>
       </Box>
     </Box>
   );

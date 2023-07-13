@@ -4,6 +4,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import AppContext from '../../../contexts/AppContext';
+import StyledDivider from "../../reusable/StyledDivider";
 
 export const ComponentDesign = () => {
   const navigate = useNavigate();
@@ -21,10 +22,11 @@ const { setScrollTo } = api;
         display: "flex",
         width: "100%",
         height: "100vh",
-        alignItems: "flex-end",
+        alignItems: "center",
         justifyContent: "space-between",
         marginLeft: "64px",
         marginRight: "64px",
+        paddingTop: "20vh",
       }}
     >
       <div
@@ -36,6 +38,7 @@ const { setScrollTo } = api;
           flexDirection: "column",
           alignItems: "flex-start",
           justifyContent: "flex-start",
+          alignSelf: "flex-start",
           paddingTop: "96px",
           gap: "32px",
         }}
@@ -72,13 +75,12 @@ const { setScrollTo } = api;
           flexDirection: "column",
           alignItems: "flex-start",
           justifyContent: "flex-start",
+          alignSelf: "flex-start",
           gap: "32px",
         }}
       >
         <h1 style={{ alignSelf: "flex-end" }}>COMPONENT DESIGN PS1</h1>
-        <Divider
-          style={{ width: "100%", height: "8px", alignSelf: "flex-end" }}
-        />
+        <StyledDivider />
         <ul style={{ marginLeft: "64px" }}>
           <li style={{ marginBottom: "8px", fontSize: '20px' }}>Bespoke Claddings</li>
           <li style={{ marginBottom: "8px", fontSize: '20px' }}>Lourves</li>

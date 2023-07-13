@@ -4,6 +4,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import AppContext from '../../../contexts/AppContext';
+import StyledDivider from "../../reusable/StyledDivider";
 
 export const PassiveHouse = () => {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ const { setScrollTo } = api;
         }}
       >
         <h1>PASSIVE HOUSE</h1>
-        <Divider style={{ width: "100%", height: "8px" }} />
+        <StyledDivider />
         <h2>Design</h2>
         <p>
           A Passive House (or Passivhaus) is a building that provides year-round
@@ -72,24 +73,24 @@ const { setScrollTo } = api;
 
       <div
         style={{
-          width: "45%",
+          width: "55%",
           height: "80%",
           // flexGrow: 1,
           display: "flex",
           flexDirection: "column",
-          alignItems: "flex-start",
+          alignItems: "center",
           justifyContent: "flex-start",
           gap: "8px",
         }}
       >
-        <p>
+        {/*<p>
           <b>Stages of the design phase</b>
         </p>
         <p>1. Design Feasibility Study</p>
         <p>2. Detailed Design Phase</p>
-        <p>3. Developed Design Phase</p>
-        <div style={{ width: "100%", marginTop: '16px', flexGrow: 1, border: "1px solid blue" }}>
-          Diagram goes here
+      <p>3. Developed Design Phase</p>*/}
+        <div style={{ width: "100%", marginTop: '10vh', flexGrow: 1, alignItems: "center", justifyContent: "center"}}>
+          <img src={"./passivedesign.png"} style={{objectFill: "fill", height: "auto", width: "100%"}} />
         </div>
       </div>
     </div>

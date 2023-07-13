@@ -1,12 +1,38 @@
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import { Box, Typography } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import StyledDivider from "../../reusable/StyledDivider";
 import { Link } from "react-router-dom";
 
+const quotes = [
+  {
+    text: "Oculus is incredible",
+    author: "Customer"
+  },
+  {
+    text: "Best buildings on or off land",
+    author: "President of New Zealand"
+  },
+  {
+    text: "Bernard has fantastic facial hair",
+    author: "Adi"
+  },
+];
+
 export const Testimonials = () => {
   const navigate = useNavigate();
+
+  const [activeQuoteIndex, setActiveQuoteIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setActiveQuoteIndex((activeQuoteIndex + 1) % quotes.length);
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [activeQuoteIndex]);
 
   return (
     <div
@@ -60,7 +86,28 @@ export const Testimonials = () => {
           alignItems: "center",
           justifyContent: "center",
         }}
-      ></div>
+      >
+        <Box
+      sx={{
+        position: "relative",
+        display: "flex",
+        height: "60vh",
+        width: "40vw",
+        flexDirection: "row",
+        alignItems: "flex-end",
+        justifyContent: "flex-start",
+        scrollSnapAlign: "start",
+        padding: "0 64px 160px 64px",
+        boxSizing: "border-box",
+      }}>
+        <Typography variant="h4" fontStyle="italic" component="p" gutterBottom>
+        "{quotes[activeQuoteIndex].text}"
+      </Typography>
+      <Typography variant="h6" component="p">
+        - {quotes[activeQuoteIndex].author}
+      </Typography>
+      </Box>
+      </div>
     </div>
   );
 };

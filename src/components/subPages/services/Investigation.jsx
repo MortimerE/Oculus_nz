@@ -4,6 +4,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import AppContext from '../../../contexts/AppContext';
+import StyledDivider from "../../reusable/StyledDivider";
 
 
 export const Investigation = () => {
@@ -26,6 +27,7 @@ const { setScrollTo } = api;
         justifyContent: "space-between",
         marginLeft: "64px",
         marginRight: "64px",
+        paddingTop: "15vh",
       }}
     >
       <div
@@ -37,11 +39,12 @@ const { setScrollTo } = api;
           flexDirection: "column",
           alignItems: "flex-start",
           justifyContent: "flex-start",
+          alignSelf: "flex-start",
           gap: "32px",
         }}
       >
         <h1>INVESTIGATION & RETROFIT</h1>
-        <Divider style={{ width: "100%", height: "8px" }} />
+        <StyledDivider />
         <h2>INVESTIGATION & CONDITION ASSESSMENT</h2>
         <p>
           Is this water a leak or condensation? Is something damaged, or was it
@@ -84,7 +87,9 @@ const { setScrollTo } = api;
           flexDirection: "column",
           alignItems: "flex-start",
           justifyContent: "flex-start",
+          alignSelf: "flex-end",
           gap: "8px",
+          paddingTop: "8vh",
         }}
       >
         <h2>RETROFIT & REMEDIATION</h2>

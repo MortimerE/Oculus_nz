@@ -4,6 +4,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import AppContext from '../../../contexts/AppContext';
+import StyledDivider from "../../reusable/StyledDivider";
 
 export const Modelling = () => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const { setScrollTo } = api;
         }}
       >
         <h1>MODELLING</h1>
-        <Divider style={{ width: "100%", height: "8px" }} />
+        <StyledDivider />
         <h2>PHPP</h2>
         <p>
           The Passive House Planning Package (PHPP) is a complex spreadsheet

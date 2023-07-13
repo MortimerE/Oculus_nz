@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-
+import PinkButton from '../../reusable/PinkButton';
 const Overlay = styled(Box)(({ theme }) => ({
   position: 'fixed',
   top: 0,
@@ -42,6 +42,9 @@ const LoginPage = () => {
     setShowResetPassword(false);
   };
 
+  const handleLogin = () => {
+    setShowResetPassword(false);
+  };
 
   const handleForgotPassword = () => {
     setShowResetPassword(true);
@@ -72,6 +75,7 @@ const LoginPage = () => {
               fullWidth
               label="Email"
               type="email"
+              sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}
             />
           </Grid>
           <Grid item>
@@ -80,22 +84,15 @@ const LoginPage = () => {
               fullWidth
               label="Password"
               type="password"
+              sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}
             />
           </Grid>
           <Grid item container spacing={2}>
             <Grid item>
-              <Button variant="contained" color="primary" type="submit">
-                Login
-              </Button>
+            <PinkButton onClick={handleLogin} text="Login" />
             </Grid>
             <Grid item>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={handleForgotPassword}
-              >
-                Forgot Password
-              </Button>
+              <PinkButton onClick={handleForgotPassword} text="Forgot Password" />
             </Grid>
           </Grid>
         </Grid>
@@ -104,14 +101,15 @@ const LoginPage = () => {
         <Overlay>
           <Box
             sx={{
-              backgroundColor: 'white',
+              backgroundColor: 'black',
               padding: (theme) => theme.spacing(4),
               borderRadius: '8px',
+              border: '2px solid #999',
               position: 'relative', // Needed to position the close button absolutely
             }}
           >
             <IconButton
-              sx={{ position: 'absolute', top: 8, right: 8 }}
+              sx={{ position: 'absolute', top: 8, right: 8, color: "#999" }}
               onClick={handleClose}
             >
               <CloseIcon />
@@ -128,16 +126,11 @@ const LoginPage = () => {
                         fullWidth
                         label="Email"
                         type="email"
+                        sx={{'& .MuiOutlinedInput-root': {'& fieldset': {borderColor: '#999',},'&:hover fieldset': {borderColor: 'white',},'&.Mui-focused fieldset': {borderColor: 'white',},},'& .MuiInputBase-input': {color: 'white',}, '& .MuiFormLabel-root': {color: '#999',}, '& .Mui-focused': {color: 'white',},}}
                       />
                     </Grid>
               <Grid item>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleResetPassword}
-                >
-                  Reset Password Now
-                </Button>
+                <PinkButton onClick={handleResetPassword} text="Reset Password Now" />
               </Grid>
             </Grid>
             </form>

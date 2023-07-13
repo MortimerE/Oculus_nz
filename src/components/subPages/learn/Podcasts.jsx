@@ -6,16 +6,27 @@ import { Link } from "react-scroll";
 import { Radio } from "@mui/icons-material"; // Replace with podcast icons or images
 import AppContext from "../../../contexts/AppContext";
 import PinkButton from "../../reusable/PinkButton";
-
-const Underline = styled("hr")({
-  borderColor: "#000000",
-  borderWidth: "1px",
-});
+import StyledDivider from "../../reusable/StyledDivider";
 
 const PodcastImage = styled("img")({
   width: "100%",
   height: "auto",
 });
+
+const images1 = [
+  {src: "/spotify.png", link: "https://open.spotify.com/embed-podcast/show/2XAVUE9618A37iR6HQPuZc", name: "Spotify"},
+  {src: "/apple.png", link: "https://podcasts.apple.com/us/podcast/the-20-degree-podcast/id1670757626", name: "Apple Podcasts"},
+  {src: "/googlepod.png", link: "https://podcasts.google.com/feed/aHR0cHM6Ly9hbmNob3IuZm0vcy81ZjYwZjYwOC9wb2RjYXN0L3Jzcw==", name: "Google Podcasts"},
+  {src: "/pocketcasts.png", link: "https://pocketcasts.fm/20degree", name: "Pocket Casts"},
+];
+
+const images2 = [
+  {src: "/spotify.png", link: "https://open.spotify.com/embed-podcast/show/2XAVUE9618A37iR6HQPuZc", name: "Spotify"},
+  {src: "/apple.png", link: "https://podcasts.apple.com/us/podcast/the-20-degree-podcast/id1670757626", name: "Apple Podcasts"},
+  {src: "/googlepod.png", link: "https://podcasts.google.com/feed/aHR0cHM6Ly9hbmNob3IuZm0vcy81ZjYwZjYwOC9wb2RjYXN0L3Jzcw==", name: "Google Podcasts"},
+  {src: "/pocketcasts.png", link: "https://pocketcasts.fm/20degree", name: "Pocket Casts"},
+];
+
 
 export const Podcast = () => {
   const navigate = useNavigate();
@@ -37,10 +48,10 @@ export const Podcast = () => {
         <Typography variant="h5" gutterBottom>
           THE 20 DEGREE PODCAST
         </Typography>
-        <Underline />
+        <StyledDivider />
         <Grid container spacing={2}>
           <Grid item xs={6}>
-            <PodcastImage src="podcast-placeholder.jpg" alt="Podcast" />
+            <PodcastImage src="/20deg.png" alt="Podcast" />
           </Grid>
           <Grid item xs={6}>
             <Typography variant="body1">
@@ -70,31 +81,11 @@ export const Podcast = () => {
             justifyContent: "space-around",
           }}
         >
-          <IconButton
-            onClick={() =>
-              window.open(
-                "https://open.spotify.com/show/2XAVUE9618A37iR6HQPuZc",
-                "_blank"
-              )
-            }
-          >
-            <Radio />
-          </IconButton>
-          <IconButton
-            onClick={() =>
-              window.open(
-                "https://podcasts.apple.com/us/podcast/the-20-degree-podcast/id1670757626",
-                "_blank"
-              )
-            }
-          >
-            <Radio />
-          </IconButton>
           {/* Repeat for other platforms */}
         </Box>
       </Box>
 
-      <Box sx={{ flex: "1", paddingLeft: "16px" }}>
+      <Box sx={{ flex: "1", paddingLeft: "16px", alignSelf: "flex-start", paddingTop: "3vh" }}>
         <Typography variant="body1">
           The 20 Degree podcast, hosted by Peter Raimondo + Jon Davies, is a
           building science podcast discussing the basics of the building
@@ -109,6 +100,18 @@ export const Podcast = () => {
           Learn and laugh in the office or on your drive to work while you hear
           about how to design and install a high performance building envelope.
         </Typography>
+          <Grid container spacing={2}>
+          {images1.map((image, index) => (
+            <Grid item xs={3} key={index}>
+              <img
+                src={image.src}
+                alt={`Podcast Thumbnail ${image.name}`}
+                style={{ width: "100%" }}
+                onClick={() => window.open(image.link)}
+              />
+            </Grid>
+          ))}
+        </Grid>
       </Box>
     </Box>
   );
@@ -141,7 +144,7 @@ export const Podcast2 = () => {
         <Typography variant="h5" gutterBottom>
           GAB LEARNS
         </Typography>
-        <Underline />
+        <StyledDivider />
         <Typography variant="body1">
           Gab asks the questions every Kiwi wants answers to.... and Peter helps
           out. As a Senior Building Enclosure Engineer at Oculus Architectural
@@ -161,12 +164,12 @@ export const Podcast2 = () => {
         </Link>
       </Box>
 
-      <Box sx={{ flex: "1", paddingLeft: "16px" }}>
-        <Grid container spacing={2}>
+      <Box sx={{ flex: "1", paddingLeft: "16px", alignSelf: "center" }}>
+        <Grid container spacing={2} alignItems="flex-start" style={{ alignSelf: "flex-start" }}>
           <Grid item xs={6}>
-            <PodcastImage src="podcast-placeholder.jpg" alt="Podcast" />
+            <PodcastImage src="/gablearns.png" alt="Podcast" />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} style={{ alignSelf: "center" }}>
             <Typography variant="body1">Season 1: XXXX</Typography>
             <Typography variant="body1">Season 2: XXXX</Typography>
             <Typography variant="body1">Season 3: XXXXX</Typography>
@@ -188,7 +191,7 @@ export const Podcast2 = () => {
             justifyContent: "space-around",
           }}
         >
-          <IconButton
+          {/*<IconButton
             onClick={() =>
               window.open(
                 "https://open.spotify.com/show/0US6qG9VxsLYIqCv3lmGba?si=d55c73d0591c47dc",
@@ -197,8 +200,19 @@ export const Podcast2 = () => {
             }
           >
             <Radio />
-          </IconButton>
-          {/* Repeat for other platforms */}
+          </IconButton>*/}
+          <Grid container spacing={2}>
+          {images1.map((image, index) => (
+            <Grid item xs={3} key={index}>
+              <img
+                src={image.src}
+                alt={`Podcast Thumbnail ${image.name}`}
+                style={{ width: "100%" }}
+                onClick={() => window.open(image.link)}
+              />
+            </Grid>
+          ))}
+        </Grid>
         </Box>
       </Box>
     </Box>

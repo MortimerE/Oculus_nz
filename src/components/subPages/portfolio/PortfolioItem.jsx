@@ -28,16 +28,15 @@ export const PortfolioItem = () => {
   return itemData ? (
     <div
     style={{
-      width: "100%",
+      width: "100vw",
       height: "100vh",
       // height: "auto",
       position: "relative",
-      overflowY: "scroll",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "flex-end",
-      padding: "24vh 64px 100px 64px",
+      padding: "24vh 64px 5vh 64px",
       boxSizing: "border-box",
       scrollSnapAlign: 'start',
       // gap: '64px',

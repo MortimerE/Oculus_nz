@@ -6,11 +6,8 @@ import AppContext from '../../../contexts/AppContext'; // replace YOUR_CONTEXT
 import Reader from '../../embeds/reader';
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
-
-const Underline = styled('hr')({
-  borderColor: '#000000',
-  borderWidth: '1px',
-});
+import PinkButton from '../../reusable/PinkButton';
+import StyledDivider from '../../reusable/StyledDivider';
 
 const GridItem = styled(Box)(({ theme }) => ({
   background: "#f5f5f5",
@@ -25,6 +22,7 @@ const GridItem = styled(Box)(({ theme }) => ({
   cursor: "pointer",
   color: "#000000",
 }));
+
 
 const Resource = () => {
   const { itemId } = useParams();
@@ -70,24 +68,39 @@ const Resource = () => {
   };
 
   return resourceData ? (
-    <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-      <Box sx={{ flex: '1 1 auto', pr: 2 }}>
+    <div
+    style={{
+      width: "100vw",
+      height: "100vh",
+      // height: "auto",
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "flex-end",
+      padding: "0vh 64px 5vh 64px",
+      boxSizing: "border-box",
+      scrollSnapAlign: 'start',
+      // gap: '64px',
+      // scrollSnapType: "y mandatory",
+    }}
+  >
+    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', }}>
+      <Box sx={{ flex: '1 1 auto', pr: 2, maxWidth: '50%' }}>
         <Typography variant="h4" component="h2" gutterBottom>
-          {resourceData.title}
+          {resourceData.title.toUpperCase()}
         </Typography>
-        <Underline />
+        <StyledDivider />
         <Typography variant="body1" gutterBottom>
           {resourceData.abstract}
         </Typography>
         <RouterLink to="/" onClick={() => handleScroll('enquire')}>
-          <Button variant="contained" color="primary">
-            Enquire Here
-          </Button>
+          <PinkButton text="ENQUIRE HERE" />
         </RouterLink>
         <Box mt={4}>
-          <Typography variant="h6">Resources You May Like:</Typography>
-          <Underline />
-          <Grid container spacing={2}>
+          <Typography variant="h6" sx={{marginBottom: '16px'}}>Resources You May Like:</Typography>
+          <StyledDivider />
+          <Grid container spacing={2} sx={{marginTop: '16px'}}>
             {recommendedResources.map((resource, i) => (
               <Grid item xs={4} key={i}>
                 <GridItem onClick={() => handleItemClick(resource)}>
@@ -98,14 +111,14 @@ const Resource = () => {
           </Grid>
         </Box>
       </Box>
-      <Box sx={{ flex: '1 1 auto', pl: 2, maxHeight: '90vh' }}>
+      <Box sx={{ flex: '1 1 auto', pl: 2, maxHeight: '80vh', alignSelf: "flex-start" }}>
         <Reader file={endpoint + resourceData.pdf.data.attributes.url} /> {/* PDF viewer component with file passed as prop */}
       </Box>
     </Box>
+    </div>
   ) : (
     <p>Loading...</p>
   );
 };
 
 export default Resource;
-

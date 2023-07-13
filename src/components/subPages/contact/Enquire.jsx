@@ -10,6 +10,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import { styled } from "@mui/system";
 import { Box, Typography, Button } from "@mui/material";
 import DiscoveryCallOverlay from "./DiscoveryCall";
+import StyledDivider from "../../reusable/StyledDivider";
 
 const buildingTypes = ["Type A", "Type B", "Type C"];
 const projectStages = ["Stage A", "Stage B", "Stage C"];
@@ -79,14 +80,12 @@ const Enquire = () => {
           sx={{
             fontWeight: "bold",
             fontSize: "28px",
-            marginBottom: (theme) => theme.spacing(1),
+            marginBottom: (theme) => theme.spacing(2),
           }}
         >
           ENQUIRE HERE
         </Typography>
-        <Divider
-          style={{ width: "100%", height: "8px", marginBottom: "8px" }}
-        />
+        <StyledDivider />
         <Typography variant="p" gutterBottom>
           Thank you for your interest in working with us! Please fill in as much
           as you can so that we can make the most of our phone call together.

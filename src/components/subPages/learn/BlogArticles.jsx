@@ -50,11 +50,11 @@ export const BlogArticles = () => {
             <img
               src={endpoint + item.thumbnail.data.attributes.url}
               alt={item.title}
-              style={{ maxWidth: "200px", height: "auto" }}
+              style={{ maxWidth: "200px", maxHeight: "200px" }}
             />
             <p>{item.title}</p>
-            <p>{item.buildingType}</p>
-            <p>{item.location}</p>
+            <p>{item.author}</p>
+            <p>{item.date}</p>
           </Grid>
         ))}
       </Grid>

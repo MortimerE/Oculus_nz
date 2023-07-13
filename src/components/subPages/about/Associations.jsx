@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Box, Typography, Grid } from "@mui/material";
 import { styled } from "@mui/system";
 import AppContext from "../../../contexts/AppContext";
-
+import StyledDivider from "../../reusable/StyledDivider";
 const Underline = styled("hr")({
   borderColor: "#000000",
   borderWidth: "1px",
@@ -12,7 +12,7 @@ export const Associations = () => {
   const { state, api } = useContext(AppContext);
   const { aboutUsData } = state;
 
-  const { associations = ["./vite.svg"] } = aboutUsData;
+  const { associations = ["./associations.png"] } = aboutUsData;
   const images = associations;
 
   return (
@@ -39,8 +39,13 @@ export const Associations = () => {
         }}
       >
         <Typography variant="h3">Associations</Typography>
-        <Underline />
-        <Grid container spacing={2}>
+        <StyledDivider />
+        <img
+                src={images[0]}
+                alt={`Associations`}
+                style={{ objectFill: "fill", height: "100%" }}
+              />
+        {/*<Grid container spacing={2}>
           {images.map((image, index) => (
             <Grid item xs={3} key={index}>
               <img
@@ -50,7 +55,7 @@ export const Associations = () => {
               />
             </Grid>
           ))}
-        </Grid>
+        </Grid>*/}
       </Box>
     </Box>
   );

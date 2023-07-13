@@ -82,7 +82,7 @@ export const AboutUs = () => {
           justifyContent: "center",
         }}
       >
-        <img src={'./team-photo.png'} style={{objectFill: 'fill', height: '100%'}} alt="Oculus Team" />
+        <img src={'./team-photo.png'} style={{objectFill: 'fill', width: '90%'}} alt="Oculus Team" />
       </div>
     </div>
   );

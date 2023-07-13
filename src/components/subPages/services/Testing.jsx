@@ -4,6 +4,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import AppContext from '../../../contexts/AppContext';
+import StyledDivider from "../../reusable/StyledDivider";
 
 
 export const Testing = () => {
@@ -88,9 +89,7 @@ const { setScrollTo } = api;
         }}
       >
         <h1 style={{ alignSelf: "flex-end" }}>TESTING</h1>
-        <Divider
-          style={{ width: "100%", height: "8px", alignSelf: "flex-end" }}
-        />
+        <StyledDivider />
         <h2>WINDOW TESTING: AMAA 501 & 502</h2>
         <p>
           Reliance on water and/or pressure testing on the installation of

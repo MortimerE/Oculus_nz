@@ -4,6 +4,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import AppContext from '../../../contexts/AppContext';
+import StyledDivider from "../../reusable/StyledDivider";
 
 export const EnclosureDesign = () => {
   const navigate = useNavigate();
@@ -20,10 +21,11 @@ const { setScrollTo } = api;
         display: "flex",
         width: "100%",
         height: "100vh",
-        alignItems: "flex-end",
+        alignItems: "center", 
         justifyContent: "space-between",
         marginLeft: "64px",
         marginRight: "64px",
+        paddingTop: "20vh",
       }}
     >
       <div
@@ -35,11 +37,12 @@ const { setScrollTo } = api;
           flexDirection: "column",
           alignItems: "flex-start",
           justifyContent: "flex-start",
+          alignSelf: "flex-start",
           gap: "32px",
         }}
       >
         <h1>BUILDING ENCLOSURE DESIGN</h1>
-        <Divider style={{ width: "100%", height: "8px" }} />
+        <StyledDivider/>
         <p>
           Our expertise goes beyond the vertical facade to include below-grade
           waterproofing, windows, walls, cladding, roofs, decks and all the
@@ -77,6 +80,7 @@ const { setScrollTo } = api;
           flexDirection: "column",
           alignItems: "flex-start",
           justifyContent: "flex-start",
+          alignSelf: "flex-start",
           gap: "32px",
         }}
       >

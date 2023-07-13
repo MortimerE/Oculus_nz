@@ -4,6 +4,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import AppContext from '../../../contexts/AppContext';
+import StyledDivider from "../../reusable/StyledDivider";
 
 export const Monitoring = () => {
   const navigate = useNavigate();
@@ -19,10 +20,11 @@ export const Monitoring = () => {
         display: "flex",
         width: "100%",
         height: "100vh",
-        alignItems: "flex-end",
+        alignItems: "center", 
         justifyContent: "space-between",
         marginLeft: "64px",
         marginRight: "64px",
+        paddingTop: "20vh",
       }}
     >
       <div
@@ -81,9 +83,7 @@ export const Monitoring = () => {
         }}
       >
         <h1 style={{ alignSelf: "flex-end" }}>CONSTRUCTION MONITORING & PS4</h1>
-        <Divider
-          style={{ width: "100%", height: "8px", alignSelf: "flex-end" }}
-        />
+        <StyledDivider />
         <ul style={{ marginLeft: "64px" }}>
           <li style={{ marginBottom: "8px" }}>
             Construction Monitoring Levels are based on size and complexity of
